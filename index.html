@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CliniGest - Gestão de Clínica Médica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            marca: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              300: '#86EFAC',
+              400: '#4ADE80',
+              500: '#22C55E',
+              600: '#16A34A',
+              700: '#15803D',
+              800: '#166534',
+              900: '#14532D',
+            },
+            accent: {
+              50: '#FEFCE8',
+              100: '#FEF9C3',
+              500: '#FACC15',
+              600: '#CA8A04',
+            }
+          },
+          fontFamily: {
+            display: ['Poppins', 'sans-serif'],
+            body: ['Open Sans', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 2px 8px rgba(20, 83, 45, 0.08)',
+            'card-hover': '0 4px 16px rgba(20, 83, 45, 0.12)',
+            'modal': '0 20px 50px rgba(0, 0, 0, 0.25)',
+          },
+          borderRadius: {
+            'app': '24px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Open Sans', sans-serif; background: #F0FDF4; min-height: 100vh; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    [data-tela]:not(.hidden) { animation: fadeIn 0.3s ease-out; }
+    .hidden { display: none !important; }
+
+    /* Scrollbar discreta */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #86EFAC; border-radius: 4px; }
+
+    /* Foco visível */
+    *:focus-visible { outline: 2px solid #22C55E; outline-offset: 2px; }
+
+    /* Classes utilitárias reutilizáveis */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px; border-radius: 12px; font-weight: 600; font-family: 'Poppins', sans-serif;
+      transition: all 0.2s ease; cursor: pointer; border: none;
+    }
+    .btn-primary { background: #14532D; color: white; }
+    .btn-primary:hover { background: #166534; transform: translateY(-1px); }
+    .btn-secondary { background: #22C55E; color: #14532D; }
+    .btn-secondary:hover { background: #16A34A; }
+    .btn-outline { background: transparent; border: 2px solid #14532D; color: #14532D; }
+    .btn-outline:hover { background: #F0FDF4; }
+    .btn-sm { padding: 8px 14px; font-size: 13px; }
+    .btn:active { transform: scale(0.97); }
+
+    .card {
+      background: white; border-radius: 16px; padding: 16px;
+      box-shadow: 0 2px 8px rgba(20, 83, 45, 0.08);
+    }
+    .card:hover { box-shadow: 0 4px 16px rgba(20, 83, 45, 0.12); }
+
+    .badge {
+      display: inline-flex; align-items: center; padding: 4px 10px;
+      border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .badge-success { background: #DCFCE7; color: #166534; }
+    .badge-warning { background: #FEF9C3; color: #92400E; }
+    .badge-error { background: #FEE2E2; color: #991B1B; }
+    .badge-info { background: #DBEAFE; color: #1E40AF; }
+
+    .input {
+      width: 100%; padding: 14px 16px; border: 2px solid #E5E7EB; border-radius: 12px;
+      font-size: 15px; transition: all 0.2s; background: white;
+    }
+    .input:focus { border-color: #22C55E; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15); }
+    .input::placeholder { color: #9CA3AF; }
+
+    /* Navegação ativa */
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px 12px; border-radius: 12px; transition: all 0.2s; cursor: pointer;
+      color: #6B7280; font-size: 11px; font-weight: 500;
+    }
+    .nav-item:hover { background: #F0FDF4; color: #14532D; }
+    .nav-item.ativo { background: #14532D; color: white; }
+    .nav-item.ativo svg { color: #22C55E; }
+
+    /* Moldura celular */
+    .moldura-celular {
+      max-width: 430px; margin: 0 auto; min-height: 100vh;
+      background: #F0FDF4; position: relative;
+      box-shadow: 0 0 0 8px #1F2937, 0 0 0 10px #374151, 0 25px 50px rgba(0,0,0,0.3);
+      border-radius: 0;
+    }
+    @media (min-width: 440px) {
+      .moldura-celular { border-radius: 40px; overflow: hidden; min-height: 890px; margin-top: 20px; margin-bottom: 20px; }
+    }
+
+    /* Barra de status fake */
+    .status-bar {
+      height: 44px; background: #14532D; display: flex; justify-content: space-between;
+      align-items: center; padding: 0 24px; color: white; font-size: 13px; font-weight: 600;
+    }
+    .status-bar svg { width: 18px; height: 18px; }
+  </style>
+</head>
+<body>
+  <div class="moldura-celular">
+    <!-- Barra de Status -->
+    <div class="status-bar">
+      <span id="horario-atual">14:32</span>
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M2 20h20v-2H2v2zm2-8h2v7H4v-7zm5-4h2v11H9V8zm5-4h2v15h-2V4zm5 8h2v7h-2v-7z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2 13h-4v-1h4v1zm0-2h-4v-1h4v1zm1.5-4.5c-.29.29-.77.29-1.06 0L9.5 6.5c-.29-.29-.29-.77 0-1.06.29-.29.77-.29 1.06 0l2.94 2.94c.29.29.29.77 0 1.06z"/></svg>
+      </div>
+    </div>
+
+    <!-- Header com logo -->
+    <header class="bg-marca-900 px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-marca-500 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-white text-lg font-bold leading-tight">CliniGest</h1>
+          <p class="text-marca-300 text-xs">Gestão Médica</p>
+        </div>
+      </div>
+      <button onclick="toast('Notificações: 3 novas', 'info')" class="relative p-2 rounded-xl bg-marca-800">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+        <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+      </button>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="pb-24 px-4 pt-4">
+      <!-- TELAS -->
+    </main>
+
+    <!-- Navegação Inferior -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-2 py-2 z-50">
+      <div class="max-w-md mx-auto flex justify-around items-center">
+        <div class="nav-item" data-nav="painel-geral" onclick="mostrarTela('painel-geral')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>Painel</span>
+        </div>
+        <div class="nav-item" data-nav="agenda-do-dia" onclick="mostrarTela('agenda-do-dia')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Agenda</span>
+        </div>
+        <div class="nav-item" data-nav="prontuario-do-paciente" onclick="mostrarTela('prontuario-do-paciente')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Prontuário</span>
+        </div>
+        <div class="nav-item" data-nav="centro-de-custos" onclick="mostrarTela('centro-de-custos')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <span>Custos</span>
+        </div>
+        <div class="nav-item" data-nav="caixa-e-pagamentos" onclick="mostrarTela('caixa-e-pagamentos')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          <span>Caixa</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Segunda linha de navegação -->
+    <nav class="fixed bottom-[70px] left-0 right-0 bg-white border-t border-gray-100 px-2 py-2 z-40">
+      <div class="max-w-md mx-auto flex justify-around items-center">
+        <div class="nav-item" data-nav="atendimentos-whatsapp" onclick="mostrarTela('atendimentos-whatsapp')">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span>WhatsApp</span>
+        </div>
+        <div class="nav-item" data-nav="relatorios-gerenciais" onclick="mostrarTela('relatorios-gerenciais')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Relatórios</span>
+        </div>
+        <div class="nav-item" data-nav="cadastros-e-importacao" onclick="mostrarTela('cadastros-e-importacao')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+          <span>Cadastros</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Container de Toasts -->
+  <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Modal Genérico -->
+  <div id="modal" class="fixed inset-0 bg-black/60 z-[90] hidden items-center justify-center p-4" onclick="fecharModal(event)">
+    <div class="bg-white rounded-2xl w-full max-w-sm max-h-[80vh] overflow-hidden shadow-modal" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between p-4 border-b border-gray-100">
+        <h3 id="modal-titulo" class="font-display font-semibold text-lg text-gray-800">Título</h3>
+        <button onclick="fecharModal()" class="p-2 rounded-lg hover:bg-gray-100">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modal-conteudo" class="p-4 overflow-y-auto max-h-[60vh]"></div>
+    </div>
+  </div>
+
+  <script>
+    // Utilitários globais
+    function brl(valor) {
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+    }
+
+    function dataBR(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return d.toLocaleDateString('pt-BR');
+    }
+
+    function toast(mensagem, tipo = 'info') {
+      const cores = {
+        ok: 'bg-marca-600 text-white',
+        erro: 'bg-red-500 text-white',
+        info: 'bg-marca-800 text-white'
+      };
+      const container = document.getElementById('toast-container');
+      const div = document.createElement('div');
+      div.className = `px-4 py-3 rounded-xl shadow-lg text-sm font-medium ${cores[tipo]} fade-in pointer-events-auto`;
+      div.textContent = mensagem;
+      container.appendChild(div);
+      setTimeout(() => div.remove(), 3000);
+    }
+
+    function abrirModal(html, titulo = 'Detalhes') {
+      document.getElementById('modal-titulo').textContent = titulo;
+      document.getElementById('modal-conteudo').innerHTML = html;
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modal').classList.add('flex');
+    }
+
+    function fecharModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('modal').classList.add('hidden');
+      document.getElementById('modal').classList.remove('flex');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModal();
+    });
+
+    // Atualizar relógio
+    function atualizarRelogio() {
+      const agora = new Date();
+      const horas = String(agora.getHours()).padStart(2, '0');
+      const minutos = String(agora.getMinutes()).padStart(2, '0');
+      document.getElementById('horario-atual').textContent = `${horas}:${minutos}`;
+    }
+    atualizarRelogio();
+    setInterval(atualizarRelogio, 60000);
+
+    // Roteador
+    function mostrarTela(id) {
+      document.querySelectorAll('[data-tela]').forEach(function (s) {
+        s.classList.toggle('hidden', s.dataset.tela !== id);
+      });
+      document.querySelectorAll('[data-nav]').forEach(function (b) {
+        b.classList.toggle('ativo', b.dataset.nav === id);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      mostrarTela('painel-geral');
+    });
+  </script>
+</body>
+</html>
