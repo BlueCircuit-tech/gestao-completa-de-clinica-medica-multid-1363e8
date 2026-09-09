@@ -1065,6 +1065,457 @@
       </script>
     </section>
 
+    <section data-tela="prontuario-do-paciente" class="hidden">
+      <div class="px-4 py-4 space-y-4 max-w-lg mx-auto">
+
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-marca-200 flex items-center justify-center flex-shrink-0 shadow-md">
+            <span class="font-display text-2xl font-bold text-marca-700">MC</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h1 class="font-display text-xl font-bold text-gray-900 truncate">Maria Carolina Ferreira Lima</h1>
+            <p class="text-sm text-gray-500">Paciente desde 12/03/2022 &middot; Prontuário <span class="font-mono font-semibold text-marca-700">#14.827</span></p>
+          </div>
+          <button onclick="mostrarTela('cadastros-e-importacao')" class="p-2 rounded-xl hover:bg-gray-100 transition-colors active:scale-95" title="Editar cadastro">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm text-center">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Idade</p>
+            <p class="font-display font-bold text-gray-900 text-lg leading-tight">47 anos</p>
+          </div>
+          <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm text-center">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Convênio</p>
+            <p class="font-display font-bold text-marca-700 text-sm leading-tight mt-0.5">Unimed</p>
+          </div>
+          <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm text-center">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Sexo</p>
+            <p class="font-display font-bold text-gray-900 text-lg leading-tight">Fem.</p>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3 flex gap-3 items-start">
+          <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <div>
+            <p class="font-semibold text-red-700 text-sm">Alergias &middot; Alertas Clínicos</p>
+            <p class="text-red-600 text-sm mt-1">Penicilina &bull; Dipirona &bull; Ibuprofeno &bull; Histórico de Trombose Venosa Profunda (2020)</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex gap-1 overflow-x-auto pb-1 -mx-1 px-1" style="scrollbar-width:none;">
+            <button onclick="pdp_toggleTab('dados')" data-tab-btn="dados" class="pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-marca-700 text-white">Dados Cadastrais</button>
+            <button onclick="pdp_toggleTab('historico')" data-tab-btn="historico" class="pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">Atendimentos</button>
+            <button onclick="pdp_toggleTab('exames')" data-tab-btn="exames" class="pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">Exames e Laudos</button>
+            <button onclick="pdp_toggleTab('fotos')" data-tab-btn="fotos" class="pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">Fotos e Docs</button>
+            <button onclick="pdp_toggleTab('financeiro')" data-tab-btn="financeiro" class="pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200">Financeiro</button>
+          </div>
+        </div>
+
+        <div id="tab-dados" class="pdp-tab-content">
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-100">
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">CPF</span><span class="text-sm font-semibold text-gray-900">123.456.789-00</span></div>
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">Celular</span><span class="text-sm font-semibold text-gray-900">(11) 99876-5432</span></div>
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">E-mail</span><span class="text-sm font-semibold text-gray-900">maria.ferreira@email.com</span></div>
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">Endereço</span><span class="text-sm font-semibold text-gray-900 text-right max-w-[55%]">Rua das Palmeiras, 210 &middot; Jardim América &middot; SP</span></div>
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">Plano de Saúde</span><span class="text-sm font-semibold text-gray-900">Unimed Nacional &middot; Cartão 887654321</span></div>
+            <div class="p-4 flex justify-between"><span class="text-sm text-gray-500">Contato Emergência</span><span class="text-sm font-semibold text-gray-900">(11) 98765-4321 &middot; Carlos Lima (esposo)</span></div>
+            <div class="p-4 flex justify-between items-start"><span class="text-sm text-gray-500">Condições Prévias</span><span class="text-sm font-semibold text-gray-900 text-right">Hipertensão arterial controlada &middot; Trombose (2020)</span></div>
+          </div>
+        </div>
+
+        <div id="tab-historico" class="pdp-tab-content hidden">
+          <div id="pdp-lista-atendimentos" class="space-y-3"></div>
+          <div id="pdp-vazio-historico" class="hidden text-center py-8 text-gray-400"><p>Nenhum atendimento encontrado.</p></div>
+        </div>
+
+        <div id="tab-exames" class="pdp-tab-content hidden">
+          <div class="relative mb-3"><input type="text" id="pdp-filtro-exames" placeholder="Buscar exame..." oninput="pdp_filtrarExames()" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent"></div>
+          <div id="pdp-lista-exames" class="space-y-2"></div>
+          <div id="pdp-vazio-exames" class="hidden text-center py-8 text-gray-400"><p>Nenhum exame encontrado.</p></div>
+        </div>
+
+        <div id="tab-fotos" class="pdp-tab-content hidden">
+          <div class="grid grid-cols-3 gap-2" id="pdp-galeria"></div>
+          <button onclick="pdp_anexarDocumento()" class="mt-3 w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-sm text-gray-500 hover:border-marca-400 hover:text-marca-600 transition-colors flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Adicionar documento
+          </button>
+        </div>
+
+        <div id="tab-financeiro" class="pdp-tab-content hidden">
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+              <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Total Faturado</p>
+              <p class="font-display font-bold text-xl text-gray-900">R$ 12.850</p>
+              <p class="text-xs text-green-600 mt-1 font-medium">12 atendimentos</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+              <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Pendente</p>
+              <p class="font-display font-bold text-xl text-amber-600">R$ 1.240</p>
+              <p class="text-xs text-amber-500 mt-1 font-medium">1 guia aberta</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="p-4 border-b border-gray-100"><p class="font-display font-semibold text-gray-900">Movimentações Recentes</p></div>
+            <div id="pdp-lista-financeiro" class="divide-y divide-gray-100"></div>
+          </div>
+        </div>
+
+        <button onclick="pdp_abrirAtendimento()" class="w-full py-4 bg-marca-700 hover:bg-marca-800 text-white font-display font-bold rounded-2xl shadow-lg active:scale-[0.97] transition-all flex items-center justify-center gap-2 text-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Iniciar Atendimento
+        </button>
+      </div>
+
+      <div id="pdp-modal-atendimento" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-slideUp">
+          <div class="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white rounded-t-3xl z-10">
+            <h2 class="font-display font-bold text-xl text-gray-900">Novo Atendimento</h2>
+            <button onclick="fecharModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors"><svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <form onsubmit="pdp_salvarAtendimento(event)" class="p-5 space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Tipo de Atendimento</label>
+              <select required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+                <option value="">Selecione...</option>
+                <option>Consulta Clínica</option><option>Exame Laboratorial</option><option>Exame de Imagem</option><option>Retorno</option><option>Avaliação</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Profissional</label>
+              <select required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+                <option value="">Selecione...</option>
+                <option>Dra. Ana Beatriz Souza — Cardiologista</option><option>Dr. Roberto Almeida — Clínico Geral</option><option>Dra. Fernanda Costa — Endocrinologista</option><option>Dra. Patrícia Mendes — Ginecologista</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Anamnese</label>
+              <textarea rows="3" placeholder="Relato do paciente, queixa principal..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">CID</label>
+              <input type="text" placeholder="Ex: I10, E11, J06" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Diagnóstico</label>
+              <textarea rows="2" placeholder="Diagnóstico clínico..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Prescrição</label>
+              <textarea rows="3" placeholder="Medicamentos, dosagens, orientações..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Anexar Fotos</label>
+              <button type="button" onclick="pdp_anexarFotoAtendimento()" class="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-sm text-gray-500 hover:border-marca-400 hover:text-marca-600 transition-colors flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                Selecionar fotos
+              </button>
+            </div>
+            <button type="submit" class="w-full py-4 bg-marca-700 hover:bg-marca-800 text-white font-display font-bold rounded-2xl shadow-lg active:scale-[0.97] transition-all text-lg mt-2">Salvar Atendimento</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="pdp-modal-exame" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-lg max-h-[85vh] overflow-y-auto animate-slideUp">
+          <div class="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white">
+            <h2 class="font-display font-bold text-lg text-gray-900" id="pdp-modal-exame-titulo">Detalhe do Exame</h2>
+            <button onclick="fecharModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors"><svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <div id="pdp-modal-exame-conteudo" class="p-5 space-y-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    (function(){
+      const atendimentos = [
+        {tipo:'Consulta Clínica', data:'2025-01-15', prof:'Dra. Ana Beatriz Souza', especialidade:'Cardiologia', status:'realizado', diag:'Avaliação cardiológica de rotina. ECG normal.', obs:'Paciente relata melhora com medicação.'},
+        {tipo:'Exame Laboratorial', data:'2025-01-22', prof:'LabMed Central', especialidade:'Laboratório', status:'realizado', diag:'Hemograma completo, glicose, colesterol total e frações.', obs:'Resultados dentro da normalidade.'},
+        {tipo:'Consulta Clínica', data:'2025-02-10', prof:'Dr. Roberto Almeida', especialidade:'Clínico Geral', status:'realizado', diag:'Avaliação trimestral de diabetes tipo 2.', obs:'HbA1c em 6.8%. Manter tratamento atual.'},
+        {tipo:'Exame de Imagem', data:'2025-02-14', prof:'Centro Diagnóstico', especialidade:'Radiologia', status:'realizado', diag:'Ultrassom doppler membros inferiores.', obs:'Sem sinais de novos episódios trombóticos.'},
+        {tipo:'Exame Complementar', data:'2025-03-05', prof:'Dra. Fernanda Costa', especialidade:'Endocrinologia', status:'realizado', diag:'Avaliação de tireoide. TSH, T4 livre.', obs:'TSH levemente elevado. Repetir em 3 meses.'},
+        {tipo:'Retorno', data:'2025-03-18', prof:'Dra. Ana Beatriz Souza', especialidade:'Cardiologia', status:'realizado', diag:'Retorno cardiológico. Avaliação de medicação anti-hipertensiva.', obs:'Pressão arterial controlada. Manter Enalapril 20mg.'},
+        {tipo:'Consulta Clínica', data:'2025-04-08', prof:'Dra. Patrícia Mendes', especialidade:'Ginecologia', status:'realizado', diag:'Preventivo ginecológico. Papanicolau.', obs:'Resultado sem alterações. Retorno em 12 meses.'},
+        {tipo:'Exame Laboratorial', data:'2025-04-15', prof:'LabMed Central', especialidade:'Laboratório', status:'pendente', diag:'Perfil lipídico e hemograma.', obs:'Aguardando coleta.'}
+      ];
+
+      const exames = [
+        {nome:'Hemograma Completo', data:'2025-01-22', tipo:'Laboratorial', status:'concluido', arquivo:'hemograma_20250122.pdf'},
+        {nome:'Glicose em Jejum', data:'2025-01-22', tipo:'Laboratorial', status:'concluido', arquivo:'glicose_20250122.pdf'},
+        {nome:'Colesterol Total e Frações', data:'2025-01-22', tipo:'Laboratorial', status:'concluido', arquivo:'colesterol_20250122.pdf'},
+        {nome:'Ultrassom Doppler', data:'2025-02-14', tipo:'Imagem', status:'concluido', arquivo:'doppler_20250214.pdf'},
+        {nome:'TSH e T4 Livre', data:'2025-03-05', tipo:'Laboratorial', status:'concluido', arquivo:'tsh_20250305.pdf'},
+        {nome:'ECG Repouso', data:'2025-01-15', tipo:'Imagem', status:'concluido', arquivo:'ecg_20250115.pdf'},
+        {nome:'Perfil Lipídico', data:'2025-04-15', tipo:'Laboratorial', status:'pendente', arquivo:null},
+        {nome:'Hemograma — Trimestral', data:'2025-04-15', tipo:'Laboratorial', status:'pendente', arquivo:null}
+      ];
+
+      const fotos = [
+        {titulo:'ECG — 15/01/2025', data:'2025-01-15', cor:'bg-marca-200', icone:'coracao'},
+        {titulo:'Doppler — 14/02/2025', data:'2025-02-14', cor:'bg-blue-100', icone:'raio'},
+        {titulo:'Exame Físico — 10/02/2025', data:'2025-02-10', cor:'bg-amber-100', icone:'pasta'},
+        {titulo:'Laudo Histórico', data:'2020-08-20', cor:'bg-purple-100', icone:'arquivo'},
+        {titulo:'Receita Digital', data:'2025-03-18', cor:'bg-marca-100', icone:'prescricao'},
+        {titulo:'Papanicolau', data:'2025-04-08', cor:'bg-pink-100', icone:'lupa'}
+      ];
+
+      const financeiro = [
+        {desc:'Consulta Cardiologia', data:'2025-01-15', valor:320.00, status:'pago'},
+        {desc:'Exame Hemograma', data:'2025-01-22', valor:85.00, status:'pago'},
+        {desc:'Ultrassom Doppler', data:'2025-02-14', valor:450.00, status:'pago'},
+        {desc:'Consulta Endocrino', data:'2025-03-05', valor:280.00, status:'pago'},
+        {desc:'Retorno Cardiologia', data:'2025-03-18', valor:180.00, status:'pago'},
+        {desc:'Consulta Ginecologia', data:'2025-04-08', valor:310.00, status:'pago'},
+        {desc:'Perfil Lipídico', data:'2025-04-15', valor:95.00, status:'pendente'}
+      ];
+
+      function prontuario_toggleTab(tabId){
+        pdp_toggleTab(tabId);
+      }
+
+      function pdp_toggleTab(tabId){
+        const tabs = ['dados','historico','exames','fotos','financeiro'];
+        tabs.forEach(function(t){
+          const btn = document.querySelector('[data-tab-btn="'+t+'"]');
+          const content = document.getElementById('tab-'+t);
+          if(!btn || !content) return;
+          if(t === tabId){
+            btn.className = 'pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-marca-700 text-white';
+            content.classList.remove('hidden');
+          } else {
+            btn.className = 'pdp-tab-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200';
+            content.classList.add('hidden');
+          }
+        });
+      }
+
+      function pdp_renderAtendimentos(filtro){
+        const container = document.getElementById('pdp-lista-atendimentos');
+        const vazio = document.getElementById('pdp-vazio-historico');
+        if(!container) return;
+        let lista = atendimentos;
+        if(filtro && filtro.trim()){
+          const q = filtro.toLowerCase();
+          lista = lista.filter(function(a){
+            return a.tipo.toLowerCase().indexOf(q) !== -1 || a.prof.toLowerCase().indexOf(q) !== -1 || a.diag.toLowerCase().indexOf(q) !== -1;
+          });
+        }
+        if(lista.length === 0){
+          container.innerHTML = '';
+          if(vazio) vazio.classList.remove('hidden');
+          return;
+        }
+        if(vazio) vazio.classList.add('hidden');
+        container.innerHTML = lista.map(function(a){
+          const statusClass = a.status === 'realizado' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700';
+          const statusText = a.status === 'realizado' ? 'Realizado' : 'Pendente';
+          const initials = a.prof.split(' ').slice(1).map(function(w){return w[0];}).join('').substring(0,2);
+          const hue = (a.data.charCodeAt(5)*37 + a.data.charCodeAt(8)*17) % 360;
+          const bgColor = 'hsl('+hue+',60%,85%)';
+          const textColor = 'hsl('+hue+',60%,30%)';
+          return '<div onclick="pdp_verAtendimento('+atendimentos.indexOf(a)+')" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 cursor-pointer hover:shadow-md transition-all active:scale-[0.98]">'+
+            '<div class="flex gap-3 items-start">'+
+              '<div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-display font-bold text-xs" style="background:'+bgColor+';color:'+textColor+'">'+initials+'</div>'+
+              '<div class="flex-1 min-w-0">'+
+                '<div class="flex items-center justify-between gap-2">'+
+                  '<p class="font-semibold text-sm text-gray-900 truncate">'+a.tipo+'</p>'+
+                  '<span class="text-xs px-2 py-0.5 rounded-full font-medium '+statusClass+' flex-shrink-0">'+statusText+'</span>'+
+                '</div>'+
+                '<p class="text-xs text-gray-500 mt-0.5">'+a.prof+' &middot; '+a.especialidade+'</p>'+
+                '<p class="text-xs text-gray-400 mt-1">'+dataBR(a.data)+'</p>'+
+                '<p class="text-sm text-gray-700 mt-2 line-clamp-2">'+a.diag+'</p>'+
+              '</div>'+
+            '</div>'+
+          '</div>';
+        }).join('');
+      }
+
+      function pdp_verAtendimento(idx){
+        const a = atendimentos[idx];
+        if(!a) return;
+        abrirModal(
+          '<div class="space-y-4">'+
+            '<div class="flex items-center gap-3 mb-2">'+
+              '<div class="w-12 h-12 rounded-full bg-marca-100 flex items-center justify-center"><svg class="w-6 h-6 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>'+
+              '<div><p class="font-display font-bold text-lg text-gray-900">'+a.tipo+'</p><p class="text-sm text-gray-500">'+dataBR(a.data)+'</p></div>'+
+            '</div>'+
+            '<div class="bg-gray-50 rounded-xl p-4 space-y-2">'+
+              '<div class="flex justify-between"><span class="text-sm text-gray-500">Profissional</span><span class="text-sm font-semibold text-gray-900">'+a.prof+'</span></div>'+
+              '<div class="flex justify-between"><span class="text-sm text-gray-500">Especialidade</span><span class="text-sm font-semibold text-gray-900">'+a.especialidade+'</span></div>'+
+              '<div class="flex justify-between"><span class="text-sm text-gray-500">Status</span><span class="badge '+(a.status==='realizado'?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700')+'">'+(a.status==='realizado'?'Realizado':'Pendente')+'</span></div>'+
+            '</div>'+
+            '<div><p class="text-sm font-semibold text-gray-700 mb-1">Diagnóstico</p><p class="text-sm text-gray-600 bg-gray-50 rounded-xl p-3">'+a.diag+'</p></div>'+
+            '<div><p class="text-sm font-semibold text-gray-700 mb-1">Observações</p><p class="text-sm text-gray-600 bg-gray-50 rounded-xl p-3">'+a.obs+'</p></div>'+
+          '</div>',
+          'Detalhe do Atendimento'
+        );
+      }
+
+      function pdp_renderExames(filtro){
+        const container = document.getElementById('pdp-lista-exames');
+        const vazio = document.getElementById('pdp-vazio-exames');
+        if(!container) return;
+        let lista = exames;
+        if(filtro && filtro.trim()){
+          const q = filtro.toLowerCase();
+          lista = lista.filter(function(e){return e.nome.toLowerCase().indexOf(q)!==-1||e.tipo.toLowerCase().indexOf(q)!==-1;});
+        }
+        if(lista.length === 0){
+          container.innerHTML='';
+          if(vazio) vazio.classList.remove('hidden');
+          return;
+        }
+        if(vazio) vazio.classList.add('hidden');
+        container.innerHTML = lista.map(function(e){
+          const statusClass = e.status==='concluido'?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700';
+          const statusText = e.status==='concluido'?'Concluído':'Pendente';
+          const icon = e.tipo==='Laboratorial'?'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>':'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>';
+          return '<div onclick="pdp_verExame('+exames.indexOf(e)+')" class="bg-white rounded-xl border border-gray-100 shadow-sm p-3 cursor-pointer hover:shadow-md transition-all active:scale-[0.98] flex items-center gap-3">'+
+            '<div class="w-10 h-10 rounded-full bg-marca-100 flex items-center justify-center flex-shrink-0 text-marca-700">'+icon+'</div>'+
+            '<div class="flex-1 min-w-0">'+
+              '<p class="font-semibold text-sm text-gray-900 truncate">'+e.nome+'</p>'+
+              '<p class="text-xs text-gray-500">'+dataBR(e.data)+' &middot; '+e.tipo+'</p>'+
+            '</div>'+
+            '<span class="text-xs px-2 py-0.5 rounded-full font-medium '+statusClass+' flex-shrink-0">'+statusText+'</span>'+
+            (e.arquivo ? '<svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>':'')+
+          '</div>';
+        }).join('');
+      }
+
+      function pdp_verExame(idx){
+        const e = exames[idx];
+        if(!e) return;
+        const statusClass = e.status==='concluido'?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700';
+        const statusText = e.status==='concluido'?'Concluído':'Pendente';
+        const icon = e.tipo==='Laboratorial'?'<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>':'<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>';
+        let extra = '';
+        if(e.status==='concluido' && e.arquivo){
+          extra = '<button onclick="toast(\'Download iniciado: '+e.arquivo+'\',\'ok\');fecharModal();" class="w-full py-3 bg-marca-700 hover:bg-marca-800 text-white font-semibold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2">'+
+            '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>'+
+            'Baixar Laudo PDF</button>';
+        }
+        abrirModal(
+          '<div class="text-center mb-4"><div class="w-16 h-16 mx-auto bg-marca-100 rounded-full flex items-center justify-center text-marca-700">'+icon+'</div></div>'+
+          '<p class="font-display font-bold text-lg text-gray-900 text-center mb-1">'+e.nome+'</p>'+
+          '<p class="text-sm text-gray-500 text-center mb-4">'+dataBR(e.data)+' &middot; '+e.tipo+'</p>'+
+          '<div class="flex justify-center mb-4"><span class="badge text-sm px-3 py-1 rounded-full font-medium '+statusClass+'">'+statusText+'</span></div>'+
+          extra,
+          'Detalhe do Exame'
+        );
+      }
+
+      function pdp_filtrarExames(){
+        const q = document.getElementById('pdp-filtro-exames').value;
+        pdp_renderExames(q);
+      }
+
+      function pdp_renderGaleria(){
+        const container = document.getElementById('pdp-galeria');
+        if(!container) return;
+        container.innerHTML = fotos.map(function(f){
+          var iconeSvg = '';
+          switch(f.icone){
+            case 'coracao': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>'; break;
+            case 'raio': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>'; break;
+            case 'pasta': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>'; break;
+            case 'arquivo': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>'; break;
+            case 'prescricao': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>'; break;
+            case 'lupa': iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>'; break;
+            default: iconeSvg='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>';
+          }
+          return '<div onclick="pdp_verFoto(\''+f.titulo+'\',\''+f.data+'\')" class="aspect-square rounded-2xl '+f.cor+' flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-all active:scale-95 p-3 text-center">'+
+            '<svg class="w-8 h-8 text-gray-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">'+iconeSvg+'</svg>'+
+            '<p class="text-xs font-semibold text-gray-700 leading-tight">'+f.titulo+'</p>'+
+            '<p class="text-[10px] text-gray-500 mt-0.5">'+dataBR(f.data)+'</p>'+
+          '</div>';
+        }).join('');
+      }
+
+      function pdp_verFoto(titulo, data){
+        abrirModal(
+          '<div class="w-full aspect-video rounded-2xl bg-gray-100 flex items-center justify-center mb-4">'+
+            '<svg class="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>'+
+          '</div>'+
+          '<p class="font-display font-bold text-gray-900">'+titulo+'</p>'+
+          '<p class="text-sm text-gray-500">'+dataBR(data)+'</p>'+
+          '<button onclick="toast(\'Download iniciado\',\'ok\');fecharModal();" class="mt-4 w-full py-3 bg-marca-700 hover:bg-marca-800 text-white font-semibold rounded-xl transition-all active:scale-95">Baixar Arquivo</button>',
+          'Documento'
+        );
+      }
+
+      function pdp_renderFinanceiro(){
+        const container = document.getElementById('pdp-lista-financeiro');
+        if(!container) return;
+        container.innerHTML = financeiro.map(function(f){
+          const statusClass = f.status==='pago'?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700';
+          const statusText = f.status==='pago'?'Pago':'Pendente';
+          return '<div class="p-4 flex items-center justify-between">'+
+            '<div><p class="text-sm font-semibold text-gray-900">'+f.desc+'</p><p class="text-xs text-gray-500">'+dataBR(f.data)+'</p></div>'+
+            '<div class="text-right flex items-center gap-2">'+
+              '<span class="text-sm font-bold text-gray-900">'+brl(f.valor)+'</span>'+
+              '<span class="text-xs px-2 py-0.5 rounded-full font-medium '+statusClass+'">'+statusText+'</span>'+
+            '</div>'+
+          '</div>';
+        }).join('');
+      }
+
+      function pdp_abrirAtendimento(){
+        var m = document.getElementById('pdp-modal-atendimento');
+        if(m) m.classList.remove('hidden');
+      }
+
+      function pdp_salvarAtendimento(event){
+        event.preventDefault();
+        fecharModal();
+        toast('Atendimento registrado com sucesso!','ok');
+        const pendente = atendimentos.find(function(a){return a.status==='pendente';});
+        if(pendente){
+          pendente.status = 'realizado';
+          pendente.diag = 'Avaliação clínica registrada durante atendimento.';
+          pdp_renderAtendimentos();
+        }
+      }
+
+      function pdp_anexarDocumento(){
+        toast('Selecione um arquivo para anexar.','info');
+      }
+
+      function pdp_anexarFotoAtendimento(){
+        toast('Selecione fotos do atendimento.','info');
+      }
+
+      function pdp_init(){
+        pdp_renderAtendimentos();
+        pdp_renderExames();
+        pdp_renderGaleria();
+        pdp_renderFinanceiro();
+        var fm = document.getElementById('pdp-filtro-exames');
+        if(fm){
+          fm.addEventListener('input',function(){pdp_filtrarExames();});
+        }
+      }
+
+      if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',pdp_init);
+      } else {
+        pdp_init();
+      }
+
+      window.pdp_toggleTab = pdp_toggleTab;
+      window.pdp_verAtendimento = pdp_verAtendimento;
+      window.pdp_filtrarExames = pdp_filtrarExames;
+      window.pdp_verExame = pdp_verExame;
+      window.pdp_verFoto = pdp_verFoto;
+      window.pdp_abrirAtendimento = pdp_abrirAtendimento;
+      window.pdp_salvarAtendimento = pdp_salvarAtendimento;
+      window.pdp_anexarDocumento = pdp_anexarDocumento;
+      window.pdp_anexarFotoAtendimento = pdp_anexarFotoAtendimento;
+    })();
+    </script>
+
     <!-- TELAS -->
     </main>
 
