@@ -1516,6 +1516,407 @@
     })();
     </script>
 
+    <section data-tela="centro-de-custos" class="hidden">
+    <div id="cc-container"></div>
+
+    <div id="cc-lista-view">
+        <div class="px-4 pt-4 pb-2">
+            <div class="flex items-center justify-between mb-1">
+                <h2 class="font-display text-xl font-bold text-gray-800">Centros de Custo</h2>
+                <button onclick="centro_de_custos_abrirConfig()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-marca-100 text-marca-700 hover:bg-marca-200 active:scale-95 transition-all" title="Configurar Centros de Custo">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003 1.008c-.253.255-.427.577-.476.918-.012.083-.009.166-.009.25 0 .557.262 1.09.718 1.43l1.455 1.091c.395.296.523.853.332 1.288l-.805 1.464c-.192.35-.584.56-.98.46l-1.154-.34c-.06-.018-.118-.035-.177-.05l-1.593-.37c-.593-.138-1.08.09-1.342.546l-.803 1.742c-.186.403-.028.877.373 1.084l1.075.576c.338.181.489.611.36 1.02l-1.147 3.637c-.19.604-.855.924-1.477.695l-2.042-.776a1.125 1.125 0 0 1-.664-1.244l.456-1.68c.074-.275.025-.577-.143-.82l-1.147-1.681a1.125 1.125 0 0 0-1.797.074l-1.003 1.683a1.125 1.125 0 0 1-1.297.493l-1.68-.456a1.125 1.125 0 0 0-.664 1.244l.456 1.68c.193.714.926 1.13 1.597 1.024l2.042-.776c.622-.229 1.287.091 1.477.695l1.147 3.637c.13.409.022.84-.36 1.02l-1.075.576c-.4.207-.559.68-.373 1.084l.803 1.742c.262.456.749.684 1.342.546l1.593-.37c.06-.015.117-.032.177-.05l1.154-.34c.396-.1.788.11.98.46l.805 1.464c.191.435.063.992-.332 1.288l-1.217.456c-.355.133-.75.072-1.075-.124-.073-.044-.146-.087-.22-.127-.332-.184-.582-.496-.645-.87l-.213-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mb-3">Selecione um centro para ver detalhes financeiros</p>
+
+                <div class="relative mb-3">
+                    <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 0 0 10.5 18.75a7.5 7.5 0 0 0-7.5-7.5A7.5 7.5 0 0 0 10.5 4.303m5.197 5.197L21 21z"/></svg>
+                    <input id="cc-busca" type="text" placeholder="Buscar centro de custo..." oninput="centro_de_custos_filtrar(this.value)" class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-marca-400 focus:border-transparent transition-all" />
+                </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex gap-2 overflow-x-auto pb-1" id="cc-filtros-rapidos">
+                    <button onclick="centro_de_custos_filtrarStatus('todos')" class="cc-filtro-ativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-marca-600 text-white whitespace-nowrap transition-all">Todos</button>
+                    <button onclick="centro_de_custos_filtrarStatus('lucrativo')" class="cc-filtro-inativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600 whitespace-nowrap transition-all">Lucrativos</button>
+                    <button onclick="centro_de_custos_filtrarStatus('atencao')" class="cc-filtro-inativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600 whitespace-nowrap transition-all">Atenção</button>
+                    <button onclick="centro_de_custos_filtrarStatus('prejuizo')" class="cc-filtro-inativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600 whitespace-nowrap transition-all">Prejuízo</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cc-cards-grid" class="px-4 pb-24 space-y-3"></div>
+        <div id="cc-vazio" class="hidden px-4 pb-24 text-center py-12">
+            <svg class="w-16 h-16 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"/></svg>
+            <p class="text-gray-500 text-sm">Nenhum centro encontrado</p>
+        </div>
+    </div>
+
+    <div id="cc-dashboard-view" class="hidden">
+        <div class="px-4 pt-4 pb-2">
+            <button onclick="centro_de_custos_voltarLista()" class="flex items-center gap-1.5 text-sm text-marca-700 font-medium mb-3 hover:text-marca-800 active:scale-95 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+                Voltar
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div id="cc-dash-cor" class="w-3 h-10 rounded-full"></div>
+                <div>
+                    <h2 id="cc-dash-nome" class="font-display text-lg font-bold text-gray-800"></h2>
+                    <p id="cc-dash-responsavel" class="text-xs text-gray-500"></p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-4 bg-gray-100 rounded-xl p-1">
+                <button onclick="centro_de_custos_mudarPeriodo('diario')" id="cc-periodo-diario" class="cc-periodo-btn flex-1 py-1.5 rounded-lg text-xs font-semibold bg-white text-gray-800 shadow-sm transition-all">Diário</button>
+                <button onclick="centro_de_custos_mudarPeriodo('mensal')" id="cc-periodo-mensal" class="cc-periodo-btn flex-1 py-1.5 rounded-lg text-xs font-semibold text-gray-500 transition-all">Mensal</button>
+                <button onclick="centro_de_custos_mudarPeriodo('anual')" id="cc-periodo-anual" class="cc-periodo-btn flex-1 py-1.5 rounded-lg text-xs font-semibold text-gray-500 transition-all">Anual</button>
+            </div>
+        </div>
+
+        <div id="cc-dash-indicadores" class="px-4 pb-2 space-y-3"></div>
+
+        <div class="px-4 py-2">
+            <h3 class="font-display text-sm font-bold text-gray-700 mb-2">Composição de Custos</h3>
+            <div class="card p-4" id="cc-dash-grafico-pizza"></div>
+        </div>
+
+        <div class="px-4 py-2">
+            <h3 class="font-display text-sm font-bold text-gray-700 mb-2">Evolução de Receita</h3>
+            <div class="card p-4" id="cc-dash-grafico-linha"></div>
+        </div>
+
+        <div class="px-4 py-2">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-display text-sm font-bold text-gray-700">Profissionais & Repasses</h3>
+                <button onclick="mostrarTela('cadastros-e-importacao')" class="text-xs text-marca-600 font-medium hover:text-marca-700">Gerenciar</button>
+            </div>
+            <div id="cc-dash-profissionais" class="space-y-2"></div>
+        </div>
+
+        <div class="px-4 py-2">
+            <h3 class="font-display text-sm font-bold text-gray-700 mb-2">Últimos Atendimentos</h3>
+            <div id="cc-dash-atendimentos" class="space-y-2"></div>
+        </div>
+        <div class="h-6"></div>
+    </div>
+</section>
+
+<script>
+(function(){
+const CENTROS=[
+{id:1,nome:"Laboratório de Análises",cor:"#14532D",corClaro:"bg-emerald-100",corTexto:"text-emerald-700",responsavel:"Dr. Roberto Almeida",receita:84750,custo:42300,lucro:42450,margem:50.1,comissoes:8500,repasseTerceiros:0,repasseFornecedores:28000,custoInsumos:35,custoProfissionais:25,custoAluguel:18,custoImpostos:22,periodo:"2025-06-15"},
+{id:2,nome:"Imagenologia (Raio-X / Tomo)",cor:"#065F46",corClaro:"bg-teal-100",corTexto:"text-teal-700",responsavel:"Dra. Carla Mendes",receita:112300,custo:56000,lucro:56300,margem:50.1,comissoes:12000,repasseTerceiros:0,repasseFornecedores:35000,custoInsumos:28,custoProfissionais:32,custoAluguel:22,custoImpostos:18,periodo:"2025-06-15"},
+{id:3,nome:"Consultórios Clínicos",cor:"#047857",corClaro:"bg-green-100",corTexto:"text-green-700",responsavel:"Dr. Marcos Oliveira",receita:156200,custo:78000,lucro:78200,margem:50.1,comissoes:25000,repasseTerceiros:18000,repasseFornecedores:10000,custoInsumos:10,custoProfissionais:40,custoAluguel:25,custoImpostos:25,periodo:"2025-06-15"},
+{id:4,nome:"Estética & Dermatologia",cor:"#22C55E",corClaro:"bg-lime-100",corTexto:"text-lime-700",responsavel:"Dra. Juliana Costa",receita:67800,custo:33800,lucro:34000,margem:50.1,comissoes:11000,repasseTerceiros:8000,repasseFornecedores:12000,custoInsumos:40,custoProfissionais:25,custoAluguel:12,custoImpostos:23,periodo:"2025-06-15"},
+{id:5,nome:"Unidade Centro (Matriz)",cor:"#16A34A",corClaro:"bg-green-100",corTexto:"text-green-700",responsavel:"Administração Central",receita:210500,custo:126000,lucro:84500,margem:40.1,comissoes:28000,repasseTerceiros:25000,repasseFornecedores:42000,custoInsumos:22,custoProfissionais:30,custoAluguel:20,custoImpostos:28,periodo:"2025-06-15"},
+{id:6,nome:"Unidade Zona Sul",cor:"#059669",corClaro:"bg-emerald-100",corTexto:"text-emerald-700",responsavel:"Dra. Patrícia Lima",receita:94500,custo:58800,lucro:35700,margem:37.8,comissoes:13000,repasseTerceiros:12000,repasseFornecedores:20000,custoInsumos:20,custoProfissionais:28,custoAluguel:25,custoImpostos:27,periodo:"2025-06-15"},
+{id:7,nome:"Unidade Zona Norte",cor:"#0D9488",corClaro:"bg-teal-100",corTexto:"text-teal-700",responsavel:"Dr. André Santos",receita:72300,custo:54000,lucro:18300,margem:25.3,comissoes:10000,repasseTerceiros:8000,repasseFornecedores:22000,custoInsumos:18,custoProfissionais:30,custoAluguel:25,custoImpostos:27,periodo:"2025-06-15"},
+{id:8,nome:"Farmácia & Distribuição",cor:"#15803D",corClaro:"bg-green-100",corTexto:"text-green-700",responsavel:"Farmacêutica Drª Ana Beatriz",receita:53200,custo:39800,lucro:13400,margem:25.2,comissoes:3000,repasseTerceiros:15000,repasseFornecedores:15000,custoInsumos:50,custoProfissionais:15,custoAluguel:15,custoImpostos:20,periodo:"2025-06-15"}
+];
+
+const ATENDIMENTOS_EXEMPLO=[
+{paciente:"Maria Oliveira",procedimento:"Hemograma completo",valor:85,data:"2025-06-15",status:"concluido"},
+{paciente:"José Santos",procedimento:"Tomografia computadorizada",valor:450,data:"2025-06-15",status:"concluido"},
+{paciente:"Fernanda Costa",procedimento:"Consulta dermatológica",valor:220,data:"2025-06-15",status:"concluido"},
+{paciente:"Paulo Ribeiro",procedimento:"Raio-X tórax",valor:150,data:"2025-06-14",status:"concluido"},
+{paciente:"Ana Paula",procedimento:"Perfil lipídico",valor:120,data:"2025-06-14",status:"cancelado"},
+{paciente:"Carlos Eduardo",procedimento:"Ultrassonografia abdominal",valor:280,data:"2025-06-14",status:"concluido"}
+];
+
+const PROFISSIONAIS_EXEMPLO=[
+{nome:"Dr. Roberto Almeida",funcao:"Biomédico Responsável",repasse:4500,comissao:3500},
+{nome:"Dr. Carlos Mendes",funcao:"Analista Clínico",repasse:2500,comissao:1500},
+{nome:"Enf. Paula Silva",funcao:"Técnica de Enfermagem",repasse:1500,comissao:800},
+{nome:"Dr. Ricardo F.",funcao:"Radiologista",repasse:3000,comissao:2000}
+];
+
+let centroAtual=null;
+let filtroAtual='todos';
+let termoBusca='';
+
+function brl(v){
+return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
+
+function getStatus(margem){
+if(margem>=45)return{label:'Lucrativo',cor:'bg-green-100 text-green-700',icone:'↑'};
+if(margem>=30)return{label:'Estável',cor:'bg-yellow-100 text-yellow-700',icone:'→'};
+if(margem>=15)return{label:'Atenção',cor:'bg-orange-100 text-orange-700',icone:'↓'};
+return{label:'Prejuízo',cor:'bg-red-100 text-red-700',icone:'⚠'};
+}
+
+function getVariacao(valor){
+return{valor:valor>0?'+'+((valor/1000).toFixed(1))+'k':'-'+((Math.abs(valor)/1000).toFixed(1))+'k',positivo:valor>0};
+}
+
+function formatarMoeda(valor){
+return'R$ '+valor.toLocaleString('pt-BR');
+}
+
+function criarCardCentro(c){
+const st=getStatus(c.margem);
+const varLucro=getVariacao(c.lucro);
+return`<div onclick="centro_de_custos_abrirDetalhe(${c.id})" class="card p-4 cursor-pointer hover:shadow-lg hover:border-marca-300 active:scale-[0.98] transition-all duration-200 group">
+<div class="flex items-start justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md" style="background-color:${c.cor}">${c.nome.split(' ').filter((_,i,a)=>i<2||(a[0]==='Unidade'&&i<3)).map(p=>p[0]).join('').substring(0,2)}</div>
+<div>
+<h3 class="font-display font-bold text-sm text-gray-800 group-hover:text-marca-700 transition-colors">${c.nome}</h3>
+<p class="text-xs text-gray-500 mt-0.5">${c.responsavel}</p>
+</div>
+</div>
+<span class="badge ${st.cor} text-xs px-2.5 py-1 rounded-lg font-semibold">${st.label}</span>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<p class="text-xs text-gray-400 mb-0.5">Lucro Líquido (Mês)</p>
+<p class="font-display font-bold text-lg text-gray-800">${brl(c.lucro)}</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-400 mb-0.5">Margem</p>
+<p class="font-display font-bold text-lg ${c.margem>=40?'text-green-600':c.margem>=25?'text-yellow-600':'text-red-600'}">${c.margem.toFixed(1)}%</p>
+</div>
+</div>
+<div class="mt-3 w-full bg-gray-100 rounded-full h-2">
+<div class="h-2 rounded-full transition-all duration-500" style="width:${c.margem}%;background-color:${c.cor}"></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xs text-gray-400">Receita: ${brl(c.receita)}</span>
+<span class="text-xs text-gray-400">Custo: ${brl(c.custo)}</span>
+</div>
+</div>`;
+}
+
+function criarGraficoPizza(c){
+const total=c.custo;
+const itens=[
+{label:'Insumos',valor:Math.round(total*c.custoInsumos/100),cor:c.cor},
+{label:'Profissionais',valor:Math.round(total*c.custoProfissionais/100),cor:'#22C55E'},
+{label:'Aluguel/Infra',valor:Math.round(total*c.custoAluguel/100),cor:'#94A3B8'},
+{label:'Impostos',valor:Math.round(total*c.custoImpostos/100),cor:'#E2E8F0'}
+];
+let sweep=0;
+const paths=itens.map(item=>{
+const angulo=(item.valor/total)*360;
+const x1=50+42*Math.cos((sweep-90)*Math.PI/180);
+const y1=50+42*Math.sin((sweep-90)*Math.PI/180);
+const x2=50+42*Math.cos((sweep+angulo-90)*Math.PI/180);
+const y2=50+42*Math.sin((sweep+angulo-90)*Math.PI/180);
+const largeArc=angulo>180?1:0;
+const d=sweep===0&&angulo>=360?`M50,50 m0,-42 a42,42 0 1,1 0,84 a42,42 0 1,1 0,-84`:`M50,50 L${x1},${y1} A42,42 0 ${largeArc},1 ${x2},${y2} Z`;
+sweep+=angulo;
+return{path:d,item};
+});
+return`<div class="flex items-center gap-3">
+<svg viewBox="0 0 100 100" class="w-32 h-32 flex-shrink-0">
+${paths.map((p,i)=>`<path d="${p.path}" fill="${p.item.cor}" stroke="#fff" stroke-width="0.5" class="transition-all duration-300 hover:opacity-80 cursor-pointer"></path>`).join('')}
+</svg>
+<div class="flex-1 space-y-1.5">
+${itens.map(item=>`<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm flex-shrink-0" style="background-color:${item.cor}"></div>
+<span class="text-xs text-gray-600">${item.label}</span>
+</div>
+<span class="text-xs font-semibold text-gray-800">${brl(item.valor)}</span>
+</div>`).join('')}
+</div>
+</div>`;
+}
+
+function criarGraficoLinha(dados,cor){
+const max=Math.max(...dados.map(d=>d.valor));
+const w=310,h=130;
+const pontos=dados.map((d,i)=>({x:20+(i/(dados.length-1))*(w-40),y:h-20-((d.valor/max)*(h-40))}));
+let pathD=pontos.map((p,i)=>i===0?`M${p.x},${p.y}`:`L${p.x},${p.y}`).join(' ');
+const areaD=pathD+` L${pontos[pontos.length-1].x},${h-20} L${pontos[0].x},${h-20} Z`;
+return`<svg viewBox="0 0 ${w} ${h}" class="w-full h-auto">
+<defs>
+<linearGradient id="linhaGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="${cor}" stop-opacity="0.2"/>
+<stop offset="100%" stop-color="${cor}" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<path d="${areaD}" fill="url(#linhaGrad)"/>
+<path d="${pathD}" fill="none" stroke="${cor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+${pontos.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${cor}" stroke="#fff" stroke-width="2"></circle>`).join('')}
+${dados.map((d,i)=>`<text x="${pontos[i].x}" y="${h-5}" text-anchor="middle" class="text-[9px] fill-gray-400 font-body">${d.label}</text>`).join('')}
+</svg>`;
+}
+
+function getDadosPeriodo(periodo,centro){
+if(periodo==='diario'){
+return{valores:[1500,2300,1800,3200,2100,2800,1900,3500,2400,3100,2700,2200,3800,2600,1700],labels:Array.from({length:15},(_,i)=>`${i+1}`)};
+}else if(periodo==='anual'){
+return{valores:[85000,92000,78000,105000,98000,112000,89000,120000,95000,130000,108000,145000],labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']};
+}
+return{valores:[12500,18200,15800,22000,19500,24800,17200,26500,23100,28900,25600,31200],labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']};
+}
+
+function renderizarCards(){
+const grid=document.getElementById('cc-cards-grid');
+const vazio=document.getElementById('cc-vazio');
+let filtrados=CENTROS;
+if(termoBusca){
+const t=termoBusca.toLowerCase();
+filtrados=filtrados.filter(c=>c.nome.toLowerCase().includes(t)||c.responsavel.toLowerCase().includes(t));
+}
+if(filtroAtual!=='todos'){
+filtrados=filtrados.filter(c=>{
+if(filtroAtual==='lucrativo')return c.margem>=45;
+if(filtroAtual==='atencao')return c.margem>=25&&c.margem<45;
+if(filtroAtual==='prejuizo')return c.margem<25;
+return true;
+});
+}
+if(filtrados.length===0){
+grid.innerHTML='';
+vazio.classList.remove('hidden');
+}else{
+vazio.classList.add('hidden');
+grid.innerHTML=filtrados.map(criarCardCentro).join('');
+}
+}
+
+function renderizarDashboard(c){
+document.getElementById('cc-dash-cor').style.backgroundColor=c.cor;
+document.getElementById('cc-dash-nome').textContent=c.nome;
+document.getElementById('cc-dash-responsavel').textContent='Responsável: '+c.responsavel+' • '+dataBR(c.periodo);
+
+const indicadores=[
+{label:'Receita Total',valor:formatarMoeda(c.receita),variacao:'+12.5%',positivo:true,icone:'M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'},
+{label:'Custo Total',valor:formatarMoeda(c.custo),variacao:'+8.3%',positivo:false,icone:'M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z'},
+{label:'Lucro Líquido',valor:formatarMoeda(c.lucro),variacao:getVariacao(c.lucro).valor,positivo:c.lucro>0,icone:'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'},
+{label:'Margem',valor:c.margem.toFixed(1)+'%',variacao:c.margem>=40?'Boa':'Abaixo',positivo:c.margem>=30,icone:'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-2.25A1.125 1.125 0 0 1 3 15.375v-2.25ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v9.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125v-9.75Z'}
+];
+
+document.getElementById('cc-dash-indicadores').innerHTML=indicadores.map(ind=>`<div class="card p-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="${ind.icone}"/></svg>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs text-gray-400">${ind.label}</p>
+<p class="font-display font-bold text-sm text-gray-800 truncate">${ind.valor}</p>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="text-xs font-semibold ${ind.positivo?'text-green-600':'text-red-600'}">${ind.variacao}</span>
+</div>
+</div>`).join('');
+
+document.getElementById('cc-dash-grafico-pizza').innerHTML=criarGraficoPizza(c);
+
+const dadosLinha=getDadosPeriodo('mensal',c);
+document.getElementById('cc-dash-grafico-linha').innerHTML=criarGraficoLinha(dadosLinha,c.cor);
+
+document.getElementById('cc-dash-profissionais').innerHTML=PROFISSIONAIS_EXEMPLO.map(p=>`<div class="card p-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-marca-100 flex items-center justify-center text-xs font-bold text-marca-700 flex-shrink-0">${p.nome.split(' ').slice(1).map(n=>n[0]).join('').substring(0,2)}</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-gray-800 truncate">${p.nome}</p>
+<p class="text-xs text-gray-400">${p.funcao}</p>
+</div>
+<div class="text-right flex-shrink-0">
+<p class="text-xs text-gray-400">Repasse</p>
+<p class="text-sm font-semibold text-marca-700">${brl(p.repasse)}</p>
+</div>
+<div class="text-right flex-shrink-0 w-16">
+<p class="text-xs text-gray-400">Comissão</p>
+<p class="text-sm font-semibold text-gray-700">${brl(p.comissao)}</p>
+</div>
+</div>`).join('');
+
+document.getElementById('cc-dash-atendimentos').innerHTML=ATENDIMENTOS_EXEMPLO.map(a=>`<div class="card p-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full ${a.paciente.split(' ')[0]==='Maria'?'bg-rose-100 text-rose-700':a.paciente.split(' ')[0]==='José'?'bg-blue-100 text-blue-700':a.paciente.split(' ')[0]==='Fernanda'?'bg-purple-100 text-purple-700':a.paciente.split(' ')[0]==='Paulo'?'bg-amber-100 text-amber-700':a.paciente.split(' ')[0]==='Ana'?'bg-pink-100 text-pink-700':'bg-teal-100 text-teal-700'} flex items-center justify-center text-xs font-bold flex-shrink-0">${a.paciente.split(' ').slice(1).map(n=>n[0]).join('').substring(0,2)}</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-gray-800 truncate">${a.paciente}</p>
+<p class="text-xs text-gray-400 truncate">${a.procedimento}</p>
+</div>
+<div class="text-right flex-shrink-0">
+<p class="text-sm font-semibold text-gray-700">${brl(a.valor)}</p>
+<span class="badge ${a.status==='concluido'?'bg-green-100 text-green-700':'bg-red-100 text-red-700'} text-[10px] px-1.5 py-0.5 rounded-md font-semibold">${a.status==='concluido'?'Concluído':'Cancelado'}</span>
+</div>
+</div>`).join('');
+}
+
+window.centro_de_custos_abrirDetalhe=function(id){
+centroAtual=CENTROS.find(c=>c.id===id);
+if(!centroAtual)return;
+document.getElementById('cc-lista-view').classList.add('hidden');
+document.getElementById('cc-dashboard-view').classList.remove('hidden');
+centro_de_custos_mudarPeriodo('mensal');
+renderizarDashboard(centroAtual);
+};
+
+window.centro_de_custos_voltarLista=function(){
+document.getElementById('cc-dashboard-view').classList.add('hidden');
+document.getElementById('cc-lista-view').classList.remove('hidden');
+centroAtual=null;
+};
+
+window.centro_de_custos_filtrar=function(valor){
+termoBusca=valor;
+renderizarCards();
+};
+
+window.centro_de_custos_filtrarStatus=function(status){
+filtroAtual=status;
+document.querySelectorAll('#cc-filtros-rapidos button').forEach(b=>{
+if(b.textContent.trim().toLowerCase().includes(status==='todos'?'todos':status==='lucrativo'?'lucrativos':status==='atencao'?'atenção':'prejuízo')||(status==='todos'&&b.textContent.trim()==='Todos')){
+b.className='cc-filtro-ativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-marca-600 text-white whitespace-nowrap transition-all';
+}else{
+b.className='cc-filtro-inativo px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600 whitespace-nowrap transition-all';
+}
+});
+renderizarCards();
+};
+
+window.centro_de_custos_mudarPeriodo=function(p){
+document.querySelectorAll('.cc-periodo-btn').forEach(b=>b.className='cc-periodo-btn flex-1 py-1.5 rounded-lg text-xs font-semibold text-gray-500 transition-all');
+document.getElementById('cc-periodo-'+p).className='cc-periodo-btn flex-1 py-1.5 rounded-lg text-xs font-semibold bg-white text-gray-800 shadow-sm transition-all';
+if(centroAtual){
+const dados=getDadosPeriodo(p,centroAtual);
+document.getElementById('cc-dash-grafico-linha').innerHTML=criarGraficoLinha(dados,centroAtual.cor);
+}
+};
+
+window.centro_de_custos_abrirConfig=function(){
+abrirModal(`
+<div class="space-y-4">
+<p class="text-sm text-gray-600 mb-3">Configure centros de custo personalizados com sua marca. Altere cores, responsáveis e regras de acesso por centro.</p>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full" style="background-color:#14532D"></div>
+<span class="text-sm font-medium text-gray-700">Laboratório</span>
+</div>
+<span class="badge bg-green-100 text-green-700 text-xs px-2 py-1 rounded-lg">Ativo</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full" style="background-color:#22C55E"></div>
+<span class="text-sm font-medium text-gray-700">Estética</span>
+</div>
+<span class="badge bg-green-100 text-green-700 text-xs px-2 py-1 rounded-lg">Ativo</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full" style="background-color:#0D9488"></div>
+<span class="text-sm font-medium text-gray-700">Unidade Zona Norte</span>
+</div>
+<span class="badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-lg">Revisão</span>
+</div>
+</div>
+<div class="pt-2 border-t border-gray-100">
+<p class="text-xs text-gray-400 mb-2">Cadastre novos centros, importe via planilha Excel ou configure permissões de acesso.</p>
+<div class="flex gap-2">
+<button onclick="fecharModal();mostrarTela('cadastros-e-importacao')" class="flex-1 btn-primary py-2.5 rounded-xl text-sm font-semibold text-center active:scale-95 transition-all">Gerenciar Cadastros</button>
+<button onclick="fecharModal();toast('Configuração salva com sucesso','ok')" class="flex-1 btn-primary py-2.5 rounded-xl text-sm font-semibold text-center active:scale-95 transition-all">Salvar</button>
+</div>
+</div>
+</div>`,'Configurar Centros de Custo');
+};
+
+renderizarCards();
+})();
+</script>
+
     <!-- TELAS -->
     </main>
 
