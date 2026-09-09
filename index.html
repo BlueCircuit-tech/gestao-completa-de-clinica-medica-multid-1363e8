@@ -1917,6 +1917,752 @@ renderizarCards();
 })();
 </script>
 
+    <section data-tela="caixa-e-pagamentos" class="hidden">
+      <div class="px-4 pt-4 pb-2">
+        <!-- Cabeçalho -->
+        <div class="mb-4">
+          <p class="text-xs text-marca-600 font-body mb-1">Financeiro</p>
+          <h2 class="text-xl font-display font-bold text-gray-900">Caixa e Pagamentos</h2>
+          <p class="text-sm text-gray-500 font-body mt-1">Consolidação diária — <span id="caixa-data-hoje"></span></p>
+        </div>
+
+        <!-- Cards de indicadores -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="card p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </div>
+              <span class="text-xs text-gray-500 font-body">A Receber</span>
+            </div>
+            <p class="text-lg font-display font-bold text-gray-900" id="caixa-total-receber">R$ 4.280,00</p>
+            <p class="text-xs text-gray-400 font-body">8 lançamentos</p>
+          </div>
+          <div class="card p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/></svg>
+              </div>
+              <span class="text-xs text-gray-500 font-body">A Pagar</span>
+            </div>
+            <p class="text-lg font-display font-bold text-gray-900" id="caixa-total-pagar">R$ 2.150,00</p>
+            <p class="text-xs text-gray-400 font-body">5 lançamentos</p>
+          </div>
+          <div class="card p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <span class="text-xs text-gray-500 font-body">Recebido Hoje</span>
+            </div>
+            <p class="text-lg font-display font-bold text-green-700" id="caixa-recebido">R$ 1.840,00</p>
+            <p class="text-xs text-gray-400 font-body">3 pagamentos</p>
+          </div>
+          <div class="card p-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+              <span class="text-xs text-gray-500 font-body">Saldo do Caixa</span>
+            </div>
+            <p class="text-lg font-display font-bold text-gray-900" id="caixa-saldo">R$ 8.630,00</p>
+            <p class="text-xs text-gray-400 font-body">Unidade Centro</p>
+          </div>
+        </div>
+
+        <!-- Gráfico SVG simples -->
+        <div class="card p-3 mb-4">
+          <p class="text-xs text-gray-500 font-body mb-2">Entradas vs Saídas — Últimos 7 dias</p>
+          <svg viewBox="0 0 320 100" class="w-full h-24">
+            <line x1="0" y1="85" x2="320" y2="85" stroke="#e5e7eb" stroke-width="1"/>
+            <line x1="0" y1="65" x2="320" y2="65" stroke="#f0f0f0" stroke-width="0.5"/>
+            <line x1="0" y1="45" x2="320" y2="45" stroke="#f0f0f0" stroke-width="0.5"/>
+            <line x1="0" y1="25" x2="320" y2="25" stroke="#f0f0f0" stroke-width="0.5"/>
+            <line x1="0" y1="5" x2="320" y2="5" stroke="#f0f0f0" stroke-width="0.5"/>
+            <rect x="8" y="20" width="16" height="65" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="32" y="35" width="16" height="50" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="56" y="10" width="16" height="75" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="80" y="40" width="16" height="45" rx="3" fill="#14532D" opacity="0.7"/>
+            <rect x="104" y="50" width="16" height="35" rx="3" fill="#14532D" opacity="0.7"/>
+            <rect x="128" y="15" width="16" height="70" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="152" y="30" width="16" height="55" rx="3" fill="#14532D" opacity="0.7"/>
+            <rect x="176" y="25" width="16" height="60" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="200" y="45" width="16" height="40" rx="3" fill="#14532D" opacity="0.7"/>
+            <rect x="224" y="10" width="16" height="75" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="248" y="35" width="16" height="50" rx="3" fill="#14532D" opacity="0.7"/>
+            <rect x="272" y="20" width="16" height="65" rx="3" fill="#22C55E" opacity="0.8"/>
+            <rect x="296" y="30" width="16" height="55" rx="3" fill="#14532D" opacity="0.7"/>
+            <text x="16" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">S</text>
+            <text x="40" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">D</text>
+            <text x="64" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">T</text>
+            <text x="88" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">Q</text>
+            <text x="112" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">Q</text>
+            <text x="136" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">S</text>
+            <text x="160" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">S</text>
+            <text x="300" y="98" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Inter,sans-serif">Hoje</text>
+          </svg>
+          <div class="flex items-center gap-4 mt-1">
+            <div class="flex items-center gap-1"><span class="w-3 h-2 rounded-sm bg-green-500 opacity-80 inline-block"></span><span class="text-xs text-gray-500 font-body">Entradas</span></div>
+            <div class="flex items-center gap-1"><span class="w-3 h-2 rounded-sm bg-marca-800 opacity-70 inline-block"></span><span class="text-xs text-gray-500 font-body">Saídas</span></div>
+          </div>
+        </div>
+
+        <!-- Filtros rápidos -->
+        <div class="flex gap-2 mb-3 overflow-x-auto pb-1" style="scrollbar-width:none">
+          <button onclick="caixa_e_pagamentos_filtrar('todos')" class="caixa-filtro-btn active whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-marca-800 text-white font-body transition-all" data-filtro="todos">Todos</button>
+          <button onclick="caixa_e_pagamentos_filtrar('pendente')" class="caixa-filtro-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 font-body transition-all" data-filtro="pendente">Pendentes</button>
+          <button onclick="caixa_e_pagamentos_filtrar('pago')" class="caixa-filtro-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 font-body transition-all" data-filtro="pago">Pagos</button>
+          <button onclick="caixa_e_pagamentos_filtrar('parcelado')" class="caixa-filtro-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 font-body transition-all" data-filtro="parcelado">Parcelados</button>
+        </div>
+
+        <!-- Busca -->
+        <div class="relative mb-3">
+          <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input id="caixa-busca" type="text" placeholder="Buscar por paciente, serviço ou nº documento…" oninput="caixa_e_pagamentos_buscar()" class="w-full pl-9 pr-4 py-2.5 text-sm font-body bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all">
+        </div>
+
+        <!-- Abas -->
+        <div class="flex bg-gray-100 rounded-xl p-1 mb-4">
+          <button onclick="caixa_e_pagamentos_aba('receber')" id="caixa-aba-receber" class="caixa-aba flex-1 text-xs font-body font-semibold py-2 rounded-lg transition-all bg-marca-800 text-white">A Receber</button>
+          <button onclick="caixa_e_pagamentos_aba('pagar')" id="caixa-aba-pagar" class="caixa-aba flex-1 text-xs font-body font-semibold py-2 rounded-lg transition-all text-gray-500">A Pagar</button>
+          <button onclick="caixa_e_pagamentos_aba('repasses')" id="caixa-aba-repasses" class="caixa-aba flex-1 text-xs font-body font-semibold py-2 rounded-lg transition-all text-gray-500">Repasses</button>
+          <button onclick="caixa_e_pagamentos_aba('sangria')" id="caixa-aba-sangria" class="caixa-aba flex-1 text-xs font-body font-semibold py-2 rounded-lg transition-all text-gray-500">Sangria/Supr.</button>
+        </div>
+
+        <!-- Conteúdo: A Receber -->
+        <div id="caixa-conteudo-receber" class="caixa-conteudo space-y-3 mb-6">
+          <div id="caixa-lista-receber"></div>
+          <div id="caixa-vazio-receber" class="hidden text-center py-10">
+            <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <p class="text-sm text-gray-400 font-body">Nenhum lançamento encontrado</p>
+          </div>
+        </div>
+
+        <!-- Conteúdo: A Pagar -->
+        <div id="caixa-conteudo-pagar" class="caixa-conteudo hidden space-y-3 mb-6">
+          <div id="caixa-lista-pagar"></div>
+          <div id="caixa-vazio-pagar" class="hidden text-center py-10">
+            <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <p class="text-sm text-gray-400 font-body">Nenhum lançamento encontrado</p>
+          </div>
+        </div>
+
+        <!-- Conteúdo: Repasses -->
+        <div id="caixa-conteudo-repasses" class="caixa-conteudo hidden space-y-3 mb-6">
+          <div id="caixa-lista-repasses"></div>
+          <div id="caixa-vazio-repasses" class="hidden text-center py-10">
+            <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+            <p class="text-sm text-gray-400 font-body">Nenhum repasse pendente</p>
+          </div>
+        </div>
+
+        <!-- Conteúdo: Sangria / Suprimento -->
+        <div id="caixa-conteudo-sangria" class="caixa-conteudo hidden mb-6">
+          <div class="card p-4 mb-4">
+            <p class="text-sm font-display font-semibold text-gray-900 mb-3">Registrar Movimentação</p>
+            <div class="flex gap-2 mb-3">
+              <button onclick="caixa_e_pagamentos_tipo_mov('sangria')" id="caixa-btn-sangria" class="caixa-tipo-mov flex-1 py-2 text-xs font-body font-semibold rounded-lg bg-red-50 text-red-700 border-2 border-red-200 transition-all">Sangria (saída)</button>
+              <button onclick="caixa_e_pagamentos_tipo_mov('suprimento')" id="caixa-btn-suprimento" class="caixa-tipo-mov flex-1 py-2 text-xs font-body font-semibold rounded-lg bg-gray-50 text-gray-500 border-2 border-gray-200 transition-all">Suprimento (entrada)</button>
+            </div>
+            <div class="mb-3">
+              <label class="text-xs text-gray-500 font-body mb-1 block">Valor (R$)</label>
+              <input id="caixa-valor-mov" type="text" inputmode="decimal" placeholder="0,00" oninput="caixa_e_pagamentos_mascara_moeda(this)" class="w-full px-3 py-2.5 text-sm font-body border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500">
+            </div>
+            <div class="mb-3">
+              <label class="text-xs text-gray-500 font-body mb-1 block">Descrição</label>
+              <input id="caixa-desc-mov" type="text" placeholder="Ex: Retirada para despesas de escritório" class="w-full px-3 py-2.5 text-sm font-body border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500">
+            </div>
+            <div class="mb-3">
+              <label class="text-xs text-gray-500 font-body mb-1 block">Centro de Custo</label>
+              <select id="caixa-cc-mov" class="w-full px-3 py-2.5 text-sm font-body border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 bg-white">
+                <option>Unidade Centro</option>
+                <option>Unidade Sul</option>
+                <option>Unidade Norte</option>
+              </select>
+            </div>
+            <button onclick="caixa_e_pagamentos_registrar_mov()" class="btn w-full active:scale-95 transition-transform">Registrar Movimentação</button>
+          </div>
+
+          <div class="card p-4">
+            <p class="text-sm font-display font-semibold text-gray-900 mb-3">Histórico de Hoje</p>
+            <div id="caixa-historico-mov" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- Botão Fechamento do Caixa -->
+        <div id="caixa-botao-fechamento" class="mb-6">
+          <button onclick="caixa_e_pagamentos_abrir_fechamento()" class="btn w-full bg-marca-800 hover:bg-marca-900 text-white active:scale-95 transition-transform flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Fechar Caixa do Dia
+          </button>
+        </div>
+      </div>
+    </section>
+```
+
+```javascript
+    const caixa_e_pagamentos_abas = { receber: true, pagar: false, repasses: false, sangria: false };
+    let caixa_e_pagamentos_filtroAtual = 'todos';
+    let caixa_e_pagamentos_tipoMovAtual = 'sangria';
+    let caixa_e_pagamentos_contadorConfirmacoes = 0;
+
+    const caixa_e_pagamentos_lancamentosReceber = [
+      { id: 1, paciente: 'Maria Oliveira', avatar: 'MO', corAvatar: 'bg-green-200 text-green-800', servico: 'Consulta Dermatologia', centroCusto: 'Unidade Centro', valor: 280.00, data: '2026-01-15', hora: '09:30', status: 'pendente', forma: '', parcelas: 0, medico: 'Dr. Carlos Mendes' },
+      { id: 2, paciente: 'João Pedro Silva', avatar: 'JP', corAvatar: 'bg-blue-200 text-blue-800', servico: 'Exame Cardiológico', centroCusto: 'Unidade Sul', valor: 450.00, data: '2026-01-15', hora: '10:15', status: 'pendente', forma: '', parcelas: 0, medico: 'Dra. Ana Ribeiro' },
+      { id: 3, paciente: 'Fernanda Costa', avatar: 'FC', corAvatar: 'bg-purple-200 text-purple-800', servico: 'Sessão de Fisioterapia', centroCusto: 'Unidade Centro', valor: 150.00, data: '2026-01-15', hora: '11:00', status: 'pago', forma: 'Pix', parcelas: 0, medico: 'Dr. Ricardo Souza' },
+      { id: 4, paciente: 'Lucas Martins', avatar: 'LM', corAvatar: 'bg-amber-200 text-amber-800', servico: 'Consulta Ortopedia', centroCusto: 'Unidade Norte', valor: 320.00, data: '2026-01-15', hora: '13:45', status: 'pendente', forma: '', parcelas: 0, medico: 'Dra. Patrícia Lima' },
+      { id: 5, paciente: 'Amanda Ribeiro', avatar: 'AR', corAvatar: 'bg-pink-200 text-pink-800', servico: 'Hemograma Completo + Perfil Lipídico', centroCusto: 'LabMed Labs', valor: 185.00, data: '2026-01-15', hora: '14:30', status: 'parcelado', forma: 'Cartão Crédito', parcelas: 3, medico: 'LabMed' },
+      { id: 6, paciente: 'Roberto Almeida', avatar: 'RA', corAvatar: 'bg-teal-200 text-teal-800', servico: 'Consulta Neurologia', centroCusto: 'Unidade Centro', valor: 400.00, data: '2026-01-15', hora: '15:00', status: 'pendente', forma: '', parcelas: 0, medico: 'Dr. Fernando Viegas' },
+      { id: 7, paciente: 'Camila Ferreira', avatar: 'CF', corAvatar: 'bg-indigo-200 text-indigo-800', servico: 'Ultrassom Abdominal', centroCusto: 'LabMed Labs', valor: 220.00, data: '2026-01-15', hora: '16:00', status: 'pago', forma: 'Débito', parcelas: 0, medico: 'Dra. Isabela M.' },
+      { id: 8, paciente: 'Pedro Henrique', avatar: 'PH', corAvatar: 'bg-orange-200 text-orange-800', servico: 'Raio-X Tórax', centroCusto: 'Unidade Sul', valor: 130.00, data: '2026-01-15', hora: '16:45', status: 'pendente', forma: '', parcelas: 0, medico: 'Dr. Lucas N.' }
+    ];
+
+    const caixa_e_pagamentos_lancamentosPagar = [
+      { id: 101, fornecedor: 'Laboratório BioAnálise', avatar: 'LB', corAvatar: 'bg-cyan-200 text-cyan-800', descricao: 'Exames terceirizados — Convênio Unimed', centroCusto: 'LabMed Labs', valor: 890.00, dataVenc: '2026-01-15', status: 'pendente', tipo: 'fornecedor' },
+      { id: 102, fornecedor: 'Dr. Carlos Mendes', avatar: 'CM', corAvatar: 'bg-green-200 text-green-800', descricao: 'Repasse honorários — 12 consultas', centroCusto: 'Unidade Centro', valor: 560.00, dataVenc: '2026-01-15', status: 'pendente', tipo: 'profissional' },
+      { id: 103, fornecedor: 'Fornecedor Medical Supply', avatar: 'MS', corAvatar: 'bg-red-200 text-red-800', descricao: 'Materiais descartáveis — janeiro', centroCusto: 'Unidade Centro', valor: 1200.00, dataVenc: '2026-01-15', status: 'pago', tipo: 'fornecedor' },
+      { id: 104, fornecedor: 'Dra. Ana Ribeiro', avatar: 'AR', corAvatar: 'bg-blue-200 text-blue-800', descricao: 'Repasse honorários — 8 exames cardiológicos', centroCusto: 'Unidade Sul', valor: 400.00, dataVenc: '2026-01-16', status: 'pendente', tipo: 'profissional' },
+      { id: 105, fornecedor: 'Aluguel Medical Center', avatar: 'AM', corAvatar: 'bg-gray-200 text-gray-800', descricao: 'Aluguel sala clínica — janeiro/2026', centroCusto: 'Unidade Norte', valor: 3200.00, dataVenc: '2026-01-10', status: 'pago', tipo: 'fixo' }
+    ];
+
+    const caixa_e_pagamentos_repasses = [
+      { id: 201, profissional: 'Dr. Carlos Mendes', avatar: 'CM', corAvatar: 'bg-green-200 text-green-800', servico: '12 Consultas Dermatologia', centroCusto: 'Unidade Centro', valorTotal: 3360.00, valorRepasse: 2688.00, comissao: 672.00, data: '2026-01-15', status: 'pendente' },
+      { id: 202, profissional: 'Dra. Ana Ribeiro', avatar: 'AR', corAvatar: 'bg-blue-200 text-blue-800', servico: '8 Exames Cardiológicos', centroCusto: 'Unidade Sul', valorTotal: 2400.00, valorRepasse: 1920.00, comissao: 480.00, data: '2026-01-15', status: 'pendente' },
+      { id: 203, profissional: 'Dr. Ricardo Souza', avatar: 'RS', corAvatar: 'bg-purple-200 text-purple-800', servico: '6 Sessões Fisioterapia', centroCusto: 'Unidade Centro', valorTotal: 900.00, valorRepasse: 630.00, comissao: 270.00, data: '2026-01-15', status: 'pago' },
+      { id: 204, profissional: 'Dra. Patrícia Lima', avatar: 'PL', corAvatar: 'bg-amber-200 text-amber-800', servico: '5 Consultas Ortopedia', centroCusto: 'Unidade Norte', valorTotal: 1600.00, valorRepasse: 1200.00, comissao: 400.00, data: '2026-01-16', status: 'pendente' }
+    ];
+
+    const caixa_e_pagamentos_movimentacoesHoje = [
+      { tipo: 'suprimento', valor: 500.00, descricao: 'Aporte inicial do dia', hora: '08:00', usuario: 'Caixa — Ana' },
+      { tipo: 'sangria', valor: 200.00, descricao: 'Depósito bancário — Banco do Brasil', hora: '12:30', usuario: 'Caixa — Ana' },
+      { tipo: 'suprimento', valor: 300.00, descricao: 'Troco para o dia', hora: '13:00', usuario: 'Caixa — Carlos' }
+    ];
+
+    function caixa_e_pagamentos_init() {
+      const d = new Date();
+      const opcoes = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+      const dataStr = d.toLocaleDateString('pt-BR', opcoes);
+      const el = document.getElementById('caixa-data-hoje');
+      if (el) el.textContent = dataStr.charAt(0).toUpperCase() + dataStr.slice(1);
+      caixa_e_pagamentos_renderizarReceber();
+      caixa_e_pagamentos_renderizarPagar();
+      caixa_e_pagamentos_renderizarRepasses();
+      caixa_e_pagamentos_renderizarMovimentacoes();
+    }
+
+    function caixa_e_pagamentos_aba(aba) {
+      caixa_e_pagamentos_abas = { receber: aba === 'receber', pagar: aba === 'pagar', repasses: aba === 'repasses', sangria: aba === 'sangria' };
+      document.querySelectorAll('.caixa-aba').forEach(b => { b.classList.remove('bg-marca-800','text-white'); b.classList.add('text-gray-500'); });
+      const btnAtivo = document.getElementById('caixa-aba-' + aba);
+      if (btnAtivo) { btnAtivo.classList.add('bg-marca-800','text-white'); btnAtivo.classList.remove('text-gray-500'); }
+      document.querySelectorAll('.caixa-conteudo').forEach(c => c.classList.add('hidden'));
+      const conteudo = document.getElementById('caixa-conteudo-' + aba);
+      if (conteudo) conteudo.classList.remove('hidden');
+      const botaoFech = document.getElementById('caixa-botao-fechamento');
+      if (botaoFech) botaoFech.style.display = aba === 'sangria' ? 'none' : 'block';
+      caixa_e_pagamentos_filtroAtual = 'todos';
+      document.querySelectorAll('.caixa-filtro-btn').forEach(b => { b.classList.remove('bg-marca-800','text-white'); b.classList.add('bg-gray-100','text-gray-600'); });
+      const btnTodos = document.querySelector('.caixa-filtro-btn[data-filtro="todos"]');
+      if (btnTodos) { btnTodos.classList.add('bg-marca-800','text-white'); btnTodos.classList.remove('bg-gray-100','text-gray-600'); }
+      caixa_e_pagamentos_renderizarReceber();
+      caixa_e_pagamentos_renderizarPagar();
+      caixa_e_pagamentos_renderizarRepasses();
+    }
+
+    function caixa_e_pagamentos_filtrar(filtro) {
+      caixa_e_pagamentos_filtroAtual = filtro;
+      document.querySelectorAll('.caixa-filtro-btn').forEach(b => { b.classList.remove('bg-marca-800','text-white'); b.classList.add('bg-gray-100','text-gray-600'); });
+      const btn = document.querySelector(`.caixa-filtro-btn[data-filtro="${filtro}"]`);
+      if (btn) { btn.classList.add('bg-marca-800','text-white'); btn.classList.remove('bg-gray-100','text-gray-600'); }
+      if (caixa_e_pagamentos_abas.receber) caixa_e_pagamentos_renderizarReceber();
+      if (caixa_e_pagamentos_abas.pagar) caixa_e_pagamentos_renderizarPagar();
+      if (caixa_e_pagamentos_abas.repasses) caixa_e_pagamentos_renderizarRepasses();
+    }
+
+    function caixa_e_pagamentos_buscar() {
+      const termo = document.getElementById('caixa-busca').value.toLowerCase();
+      if (caixa_e_pagamentos_abas.receber) caixa_e_pagamentos_renderizarReceber(termo);
+      if (caixa_e_pagamentos_abas.pagar) caixa_e_pagamentos_renderizarPagar(termo);
+      if (caixa_e_pagamentos_abas.repasses) caixa_e_pagamentos_renderizarRepasses(termo);
+    }
+
+    function caixa_e_pagamentos_statusBadge(status) {
+      const map = {
+        pendente: '<span class="badge bg-amber-100 text-amber-700">Pendente</span>',
+        pago: '<span class="badge bg-green-100 text-green-700">Pago</span>',
+        parcelado: '<span class="badge bg-blue-100 text-blue-700">Parcelado</span>',
+        confirmado: '<span class="badge bg-green-100 text-green-700">Confirmado</span>'
+      };
+      return map[status] || map.pendente;
+    }
+
+    function caixa_e_pagamentos_acoesReceber(item) {
+      if (item.status === 'pago') return '<span class="text-xs text-gray-400 font-body">Recebido via ' + item.forma + '</span>';
+      if (item.status === 'parcelado') return '<span class="text-xs text-blue-600 font-body">' + item.parcelas + 'x no ' + item.forma + '</span>';
+      let html = '<div class="flex gap-1.5 mt-2 flex-wrap">';
+      html += '<button onclick="caixa_e_pagamentos_pagar_pix(' + item.id + ')" class="text-xs px-2.5 py-1.5 rounded-lg bg-green-50 text-green-700 font-body font-medium hover:bg-green-100 active:scale-95 transition-all">Pix</button>';
+      html += '<button onclick="caixa_e_pagamentos_pagar_debito(' + item.id + ')" class="text-xs px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-body font-medium hover:bg-blue-100 active:scale-95 transition-all">Débito</button>';
+      html += '<button onclick="caixa_e_pagamentos_pagar_credito(' + item.id + ')" class="text-xs px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 font-body font-medium hover:bg-indigo-100 active:scale-95 transition-all">Crédito</button>';
+      html += '<button onclick="caixa_e_pagamentos_pagar_dinheiro(' + item.id + ')" class="text-xs px-2.5 py-1.5 rounded-lg bg-gray-100 text-gray-700 font-body font-medium hover:bg-gray-200 active:scale-95 transition-all">Dinheiro</button>';
+      html += '</div>';
+      return html;
+    }
+
+    function caixa_e_pagamentos_renderizarReceber(busca) {
+      const container = document.getElementById('caixa-lista-receber');
+      const vazio = document.getElementById('caixa-vazio-receber');
+      if (!container) return;
+      let itens = caixa_e_pagamentos_lancamentosReceber;
+      if (caixa_e_pagamentos_filtroAtual === 'pendente') itens = itens.filter(i => i.status === 'pendente');
+      if (caixa_e_pagamentos_filtroAtual === 'pago') itens = itens.filter(i => i.status === 'pago');
+      if (caixa_e_pagamentos_filtroAtual === 'parcelado') itens = itens.filter(i => i.status === 'parcelado');
+      if (busca) itens = itens.filter(i => i.paciente.toLowerCase().includes(busca) || i.servico.toLowerCase().includes(busca) || i.medico.toLowerCase().includes(busca));
+      if (itens.length === 0) { container.innerHTML = ''; vazio.classList.remove('hidden'); return; }
+      vazio.classList.add('hidden');
+      container.innerHTML = itens.map(item => {
+        const parcelasInfo = item.status === 'parcelado' ? '<p class="text-xs text-blue-500 font-body">' + item.parcelas + 'x de ' + brl(item.valor / item.parcelas) + '</p>' : '';
+        return '<div class="card p-3 cursor-pointer hover:shadow-md transition-all" onclick="caixa_e_pagamentos_detalhe_receber(' + item.id + ')">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-10 h-10 rounded-full ' + item.corAvatar + ' flex items-center justify-center flex-shrink-0">' +
+              '<span class="text-xs font-bold font-body">' + item.avatar + '</span>' +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center justify-between">' +
+                '<p class="text-sm font-body font-semibold text-gray-900 truncate">' + item.paciente + '</p>' +
+                '<span class="text-sm font-display font-bold text-gray-900 ml-2">' + brl(item.valor) + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-gray-500 font-body truncate">' + item.servico + '</p>' +
+              '<div class="flex items-center justify-between mt-1">' +
+                '<span class="text-xs text-gray-400 font-body">' + item.centroCusto + ' · ' + item.medico + '</span>' +
+                caixa_e_pagamentos_statusBadge(item.status) +
+              '</div>' +
+              parcelasInfo +
+              caixa_e_pagamentos_acoesReceber(item) +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function caixa_e_pagamentos_renderizarPagar(busca) {
+      const container = document.getElementById('caixa-lista-pagar');
+      const vazio = document.getElementById('caixa-vazio-pagar');
+      if (!container) return;
+      let itens = caixa_e_pagamentos_lancamentosPagar;
+      if (caixa_e_pagamentos_filtroAtual === 'pendente') itens = itens.filter(i => i.status === 'pendente');
+      if (caixa_e_pagamentos_filtroAtual === 'pago') itens = itens.filter(i => i.status === 'pago');
+      if (busca) itens = itens.filter(i => i.fornecedor.toLowerCase().includes(busca) || i.descricao.toLowerCase().includes(busca));
+      if (itens.length === 0) { container.innerHTML = ''; vazio.classList.remove('hidden'); return; }
+      vazio.classList.add('hidden');
+      container.innerHTML = itens.map(item => {
+        const acao = item.status === 'pago'
+          ? '<span class="text-xs text-green-600 font-body">✓ Pago em ' + dataBR(item.dataVenc) + '</span>'
+          : '<button onclick="caixa_e_pagamentos_pagar_fornecedor(' + item.id + ')" class="btn text-xs py-1.5 px-3 mt-2 active:scale-95 transition-transform">Pagar Agora</button>';
+        const tipoIcon = item.tipo === 'profissional' ? '👨‍⚕️' : item.tipo === 'fornecedor' ? '📦' : '🏢';
+        return '<div class="card p-3">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-10 h-10 rounded-full ' + item.corAvatar + ' flex items-center justify-center flex-shrink-0 text-lg">' + tipoIcon + '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center justify-between">' +
+                '<p class="text-sm font-body font-semibold text-gray-900 truncate">' + item.fornecedor + '</p>' +
+                '<span class="text-sm font-display font-bold text-red-700 ml-2">' + brl(item.valor) + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-gray-500 font-body truncate">' + item.descricao + '</p>' +
+              '<div class="flex items-center justify-between mt-1">' +
+                '<span class="text-xs text-gray-400 font-body">Venc: ' + dataBR(item.dataVenc) + ' · ' + item.centroCusto + '</span>' +
+                caixa_e_pagamentos_statusBadge(item.status) +
+              '</div>' +
+              acao +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function caixa_e_pagamentos_renderizarRepasses(busca) {
+      const container = document.getElementById('caixa-lista-repasses');
+      const vazio = document.getElementById('caixa-vazio-repasses');
+      if (!container) return;
+      let itens = caixa_e_pagamentos_repasses;
+      if (caixa_e_pagamentos_filtroAtual === 'pendente') itens = itens.filter(i => i.status === 'pendente');
+      if (caixa_e_pagamentos_filtroAtual === 'pago') itens = itens.filter(i => i.status === 'pago');
+      if (busca) itens = itens.filter(i => i.profissional.toLowerCase().includes(busca) || i.servico.toLowerCase().includes(busca));
+      if (itens.length === 0) { container.innerHTML = ''; vazio.classList.remove('hidden'); return; }
+      vazio.classList.add('hidden');
+      container.innerHTML = itens.map(item => {
+        const acao = item.status === 'pago'
+          ? '<span class="text-xs text-green-600 font-body">✓ Repasse efetuado</span>'
+          : '<button onclick="caixa_e_pagamentos_efetuar_repasse(' + item.id + ')" class="btn text-xs py-1.5 px-3 mt-2 active:scale-95 transition-transform">Pagar Agora</button>';
+        return '<div class="card p-3">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-10 h-10 rounded-full ' + item.corAvatar + ' flex items-center justify-center flex-shrink-0">' +
+              '<span class="text-xs font-bold font-body">' + item.avatar + '</span>' +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center justify-between">' +
+                '<p class="text-sm font-body font-semibold text-gray-900 truncate">' + item.profissional + '</p>' +
+                '<span class="text-sm font-display font-bold text-green-700 ml-2">' + brl(item.valorRepasse) + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-gray-500 font-body truncate">' + item.servico + '</p>' +
+              '<div class="flex items-center justify-between mt-1">' +
+                '<span class="text-xs text-gray-400 font-body">' + item.centroCusto + ' · Comissão: ' + brl(item.comissao) + '</span>' +
+                caixa_e_pagamentos_statusBadge(item.status) +
+              '</div>' +
+              acao +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function caixa_e_pagamentos_renderizarMovimentacoes() {
+      const container = document.getElementById('caixa-historico-mov');
+      if (!container) return;
+      if (caixa_e_pagamentos_movimentacoesHoje.length === 0) {
+        container.innerHTML = '<p class="text-sm text-gray-400 font-body text-center py-4">Nenhuma movimentação registrada hoje.</p>';
+        return;
+      }
+      container.innerHTML = caixa_e_pagamentos_movimentacoesHoje.map(mov => {
+        const isSangria = mov.tipo === 'sangria';
+        const icone = isSangria
+          ? '<svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6"/></svg>'
+          : '<svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/></svg>';
+        return '<div class="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">' +
+          '<div class="flex items-center gap-2">' + icone +
+            '<div><p class="text-xs font-body font-medium text-gray-700">' + mov.descricao + '</p><p class="text-xs text-gray-400 font-body">' + mov.hora + ' · ' + mov.usuario + '</p></div>' +
+          '</div>' +
+          '<span class="text-sm font-display font-bold ' + (isSangria ? 'text-red-600' : 'text-green-700') + '">' + (isSangria ? '-' : '+') + brl(mov.valor) + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    function caixa_e_pagamentos_tipo_mov(tipo) {
+      caixa_e_pagamentos_tipoMovAtual = tipo;
+      const btnSangria = document.getElementById('caixa-btn-sangria');
+      const btnSuprimento = document.getElementById('caixa-btn-suprimento');
+      if (tipo === 'sangria') {
+        btnSangria.classList.add('bg-red-50','text-red-700','border-red-200');
+        btnSangria.classList.remove('bg-gray-50','text-gray-500','border-gray-200');
+        btnSuprimento.classList.remove('bg-green-50','text-green-700','border-green-200');
+        btnSuprimento.classList.add('bg-gray-50','text-gray-500','border-gray-200');
+      } else {
+        btnSuprimento.classList.add('bg-green-50','text-green-700','border-green-200');
+        btnSuprimento.classList.remove('bg-gray-50','text-gray-500','border-gray-200');
+        btnSangria.classList.remove('bg-red-50','text-red-700','border-red-200');
+        btnSangria.classList.add('bg-gray-50','text-gray-500','border-gray-200');
+      }
+    }
+
+    function caixa_e_pagamentos_mascara_moeda(input) {
+      let v = input.value.replace(/[^\d,]/g, '').replace(',', '.');
+      if (v && !isNaN(v)) {
+        const num = parseFloat(v);
+        if (!isNaN(num) && num >= 0) {
+          input.value = num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+      }
+    }
+
+    function caixa_e_pagamentos_registrar_mov() {
+      const valorEl = document.getElementById('caixa-valor-mov');
+      const descEl = document.getElementById('caixa-desc-mov');
+      const valor = parseFloat(valorEl.value.replace(/\./g, '').replace(',', '.'));
+      const descricao = descEl.value.trim();
+      if (!valor || valor <= 0) { toast('Informe um valor válido.', 'erro'); return; }
+      if (!descricao) { toast('Informe uma descrição.', 'erro'); return; }
+      const mov = { tipo: caixa_e_pagamentos_tipoMovAtual, valor: valor, descricao: descricao, hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), usuario: 'Você' };
+      caixa_e_pagamentos_movimentacoesHoje.push(mov);
+      caixa_e_pagamentos_renderizarMovimentacoes();
+      valorEl.value = '';
+      descEl.value = '';
+      const sinal = caixa_e_pagamentos_tipoMovAtual === 'sangria' ? 'Sangria' : 'Suprimento';
+      toast(sinal + ' de ' + brl(valor) + ' registrado(a) com sucesso!', 'ok');
+    }
+
+    function caixa_e_pagamentos_modal_pix(id) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (!item) return;
+      const qrCodeSvg = '<svg viewBox="0 0 200 200" class="w-48 h-48 mx-auto mb-3"><rect width="200" height="200" fill="white"/><rect x="10" y="10" width="50" height="50" fill="#14532D"/><rect x="70" y="10" width="20" height="20" fill="#14532D"/><rect x="100" y="10" width="50" height="50" fill="#14532D"/><rect x="10" y="70" width="20" height="20" fill="#14532D"/><rect x="40" y="70" width="20" height="20" fill="white"/><rect x="70" y="70" width="50" height="50" fill="#14532D"/><rect x="130" y="70" width="20" height="20" fill="#14532D"/><rect x="160" y="70" width="20" height="20" fill="white"/><rect x="10" y="100" width="50" height="50" fill="#14532D"/><rect x="70" y="100" width="20" height="20" fill="white"/><rect x="100" y="100" width="50" height="50" fill="#14532D"/><rect x="10" y="160" width="20" height="20" fill="#14532D"/><rect x="40" y="160" width="20" height="20" fill="#22C55E"/><rect x="70" y="160" width="50" height="50" fill="#14532D"/><rect x="130" y="160" width="20" height="20" fill="#14532D"/><rect x="160" y="160" width="20" height="20" fill="#14532D"/><rect x="20" y="20" width="30" height="30" fill="white"/><rect x="110" y="20" width="30" height="30" fill="white"/><rect x="20" y="110" width="30" height="30" fill="white"/><rect x="80" y="110" width="20" height="20" fill="white"/><rect x="110" y="110" width="30" height="30" fill="white"/><rect x="20" y="170" width="10" height="10" fill="white"/><rect x="80" y="170" width="20" height="20" fill="white"/><rect x="140" y="20" width="10" height="10" fill="white"/><rect x="140" y="80" width="10" height="10" fill="white"/></svg>';
+      const html = '<div class="text-center px-2">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Pagamento via Pix — ' + item.paciente + '</p>' +
+        '<p class="text-2xl font-display font-bold text-marca-800 mb-3">' + brl(item.valor) + '</p>' +
+        qrCodeSvg +
+        '<p class="text-xs font-body text-gray-400 mb-4">Chave: pagamentos@labmedfacilities.com.br</p>' +
+        '<div class="flex gap-2">' +
+          '<button onclick="caixa_e_pagamentos_confirmar_pagamento(' + id + ',\'Pix\')" class="btn flex-1 active:scale-95 transition-transform">Confirmar Recebimento</button>' +
+          '<button onclick="fecharModal()" class="flex-1 py-2.5 text-sm font-body text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all">Fechar</button>' +
+        '</div>' +
+      '</div>';
+      abrirModal(html, 'QR Code Pix');
+    }
+
+    function caixa_e_pagamentos_modal_credito(id) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (!item) return;
+      let opcoes = '';
+      for (let p = 1; p <= 12; p++) {
+        const valorParcela = (item.valor * (1 + 0.0299 * (p > 1 ? p * 0.15 : 0))).toFixed(2);
+        const juros = p > 1 ? (p * 1.49).toFixed(2) : '0,00';
+        const valorFinal = p > 1 ? (item.valor * (1 + 0.0299 * (p * 0.15))).toFixed(2) : item.valor.toFixed(2);
+        opcoes += '<button onclick="caixa_e_pagamentos_confirmar_parcelado(' + id + ',' + p + ')" class="w-full flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-gray-50 transition-all text-left mb-1">' +
+          '<span class="text-sm font-body font-medium text-gray-700">' + p + 'x de ' + brl(parseFloat(valorFinal) / p) + '</span>' +
+          '<span class="text-xs text-gray-400 font-body">' + (p > 1 ? 'Juros: R$ ' + juros : 'Sem juros') + '</span>' +
+        '</button>';
+      }
+      const html = '<div class="px-1">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Cartão de Crédito — ' + item.paciente + '</p>' +
+        '<p class="text-xl font-display font-bold text-marca-800 mb-3">' + brl(item.valor) + '</p>' +
+        '<p class="text-xs font-body text-gray-400 mb-2">Selecione o número de parcelas:</p>' +
+        '<div class="max-h-64 overflow-y-auto mb-3">' + opcoes + '</div>' +
+        '<button onclick="fecharModal()" class="w-full py-2.5 text-sm font-body text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all">Cancelar</button>' +
+      '</div>';
+      abrirModal(html, 'Cartão de Crédito');
+    }
+
+    function caixa_e_pagamentos_pagar_pix(id) { caixa_e_pagamentos_modal_pix(id); }
+    function caixa_e_pagamentos_pagar_debito(id) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (!item) return;
+      const html = '<div class="text-center px-2">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Cartão de Débito — ' + item.paciente + '</p>' +
+        '<p class="text-2xl font-display font-bold text-marca-800 mb-3">' + brl(item.valor) + '</p>' +
+        '<svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>' +
+        '<p class="text-xs font-body text-gray-400 mb-4">Aproxime ou insira o cartão na maquininha</p>' +
+        '<div class="flex gap-2">' +
+          '<button onclick="caixa_e_pagamentos_confirmar_pagamento(' + id + ',\'Débito\')" class="btn flex-1 active:scale-95 transition-transform">Confirmar Recebimento</button>' +
+          '<button onclick="fecharModal()" class="flex-1 py-2.5 text-sm font-body text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all">Cancelar</button>' +
+        '</div>' +
+      '</div>';
+      abrirModal(html, 'Cartão de Débito');
+    }
+    function caixa_e_pagamentos_pagar_credito(id) { caixa_e_pagamentos_modal_credito(id); }
+    function caixa_e_pagamentos_pagar_dinheiro(id) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (!item) return;
+      const html = '<div class="text-center px-2">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Dinheiro — ' + item.paciente + '</p>' +
+        '<p class="text-2xl font-display font-bold text-marca-800 mb-3">' + brl(item.valor) + '</p>' +
+        '<div class="mb-4">' +
+          '<label class="text-xs text-gray-500 font-body mb-1 block">Valor recebido (R$)</label>' +
+          '<input id="caixa-valor-recebido" type="text" inputmode="decimal" value="' + item.valor.toFixed(2).replace('.', ',') + '" oninput="caixa_e_pagamentos_calc_troco(' + item.valor + ')" class="w-full px-3 py-2.5 text-sm font-body border border-gray-200 rounded-xl text-center focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500">' +
+        '</div>' +
+        '<p class="text-sm font-body text-gray-600 mb-1">Troco: <strong id="caixa-troco" class="text-green-700">R$ 0,00</strong></p>' +
+        '<div class="flex gap-2 mt-3">' +
+          '<button onclick="caixa_e_pagamentos_confirmar_pagamento(' + id + ',\'Dinheiro\')" class="btn flex-1 active:scale-95 transition-transform">Confirmar Recebimento</button>' +
+          '<button onclick="fecharModal()" class="flex-1 py-2.5 text-sm font-body text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all">Cancelar</button>' +
+        '</div>' +
+      '</div>';
+      abrirModal(html, 'Pagamento em Dinheiro');
+    }
+
+    function caixa_e_pagamentos_calc_troco(valorOriginal) {
+      const input = document.getElementById('caixa-valor-recebido');
+      const trocoEl = document.getElementById('caixa-troco');
+      if (!input || !trocoEl) return;
+      const v = parseFloat(input.value.replace(/\./g, '').replace(',', '.'));
+      if (!isNaN(v) && v >= valorOriginal) {
+        trocoEl.textContent = 'R$ ' + (v - valorOriginal).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+      } else {
+        trocoEl.textContent = 'R$ 0,00';
+      }
+    }
+
+    function caixa_e_pagamentos_confirmar_pagamento(id, forma) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (item) {
+        item.status = 'pago';
+        item.forma = forma;
+        item.parcelas = 0;
+      }
+      caixa_e_pagamentos_renderizarReceber();
+      caixa_e_pagamentos_atualizar_totais();
+      fecharModal();
+      toast('Pagamento de ' + brl(item.valor) + ' confirmado via ' + forma + '!', 'ok');
+    }
+
+    function caixa_e_pagamentos_confirmar_parcelado(id, parcelas) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (item) {
+        item.status = 'parcelado';
+        item.forma = 'Cartão Crédito';
+        item.parcelas = parcelas;
+      }
+      caixa_e_pagamentos_renderizarReceber();
+      caixa_e_pagamentos_atualizar_totais();
+      fecharModal();
+      toast('Pagamento parcelado em ' + parcelas + 'x confirmado!', 'ok');
+    }
+
+    function caixa_e_pagamentos_pagar_fornecedor(id) {
+      const item = caixa_e_pagamentos_lancamentosPagar.find(i => i.id === id);
+      if (!item) return;
+      const html = '<div class="px-1">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Confirmar pagamento para:</p>' +
+        '<p class="text-lg font-display font-bold text-gray-900 mb-1">' + item.fornecedor + '</p>' +
+        '<p class="text-sm text-gray-500 font-body mb-1">' + item.descricao + '</p>' +
+        '<p class="text-2xl font-display font-bold text-red-700 mb-4">' + brl(item.valor) + '</p>' +
+        '<div class="mb-3">' +
+          '<label class="text-xs text-gray-500 font-body mb-1 block">Forma de Pagamento</label>' +
+          '<select id="caixa-forma-pag-forn" class="w-full px-3 py-2.5 text-sm font-body border border-gray-200 rounded-xl bg-white">' +
+            '<option>Pix</option><option>Cartão de Débito</option><option>Cartão de Crédito</option><option>Transferência</option><option>Dinheiro</option>' +
+          '</select>' +
+        '</div>' +
+        '<div class="flex gap-2">' +
+          '<button onclick="caixa_e_pagamentos_confirmar_pag_fornecedor(' + id + ')" class="btn flex-1 active:scale-95 transition-transform">Confirmar Pagamento</button>' +
+          '<button onclick="fecharModal()" class="flex-1 py-2.5 text-sm font-body text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all">Cancelar</button>' +
+        '</div>' +
+      '</div>';
+      abrirModal(html, 'Pagar Fornecedor');
+    }
+
+    function caixa_e_pagamentos_confirmar_pag_fornecedor(id) {
+      const item = caixa_e_pagamentos_lancamentosPagar.find(i => i.id === id);
+      if (item) item.status = 'pago';
+      caixa_e_pagamentos_renderizarPagar();
+      caixa_e_pagamentos_atualizar_totais();
+      fecharModal();
+      toast('Pagamento a ' + item.fornecedor + ' de ' + brl(item.valor) + ' registrado!', 'ok');
+    }
+
+    function caixa_e_pagamentos_efetuar_repasse(id) {
+      const item = caixa_e_pagamentos_repasses.find(i => i.id === id);
+      if (!item) return;
+      const html = '<div class="px-1">' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Confirmar repasse para:</p>' +
+        '<p class="text-lg font-display font-bold text-gray-900 mb-1">' + item.profissional + '</p>' +
+        '<p class="text-sm text-gray-500 font-body mb-1">' + item.servico + '</p>' +
+        '<div class="bg-gray-50 rounded-xl p-3 mb-3">' +
+          '<div class="flex justify-between text-xs font-body mb-1"><span class="text-gray-500">Valor total:</span><span class="font-semibold text-gray-700">' + brl(item.valorTotal) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body mb-1"><span class="text-gray-500">Comissão clínica:</span><span class="font-semibold text-gray-700">' + brl(item.comissao) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body"><span class="text-gray-500">Repasse:</span><span class="font-semibold text-green-700">' + brl(item.valorRepasse) + '</span></div>' +
+        '</div>' +
+        '<div class="flex gap-2">' +
+          '<button onclick="caixa_e_pagamentos_confirmar_repasse(' + id + ')" class="btn flex-1 active:scale-95 transition-transform">Confirmar Repasse</button>' +
+          '<button onclick="caixa_e_pagamentos_gerar_comprovante(' + id + ')" class="flex-1 py-2.5 text-sm font-body text-marca-700 bg-marca-50 rounded-xl hover:bg-marca-100 transition-all font-medium">Gerar Comprovante</button>' +
+        '</div>' +
+      '</div>';
+      abrirModal(html, 'Efetuar Repasse');
+    }
+
+    function caixa_e_pagamentos_confirmar_repasse(id) {
+      const item = caixa_e_pagamentos_repasses.find(i => i.id === id);
+      if (item) item.status = 'pago';
+      caixa_e_pagamentos_renderizarRepasses();
+      caixa_e_pagamentos_atualizar_totais();
+      fecharModal();
+      toast('Repasse de ' + brl(item.valorRepasse) + ' para ' + item.profissional + ' confirmado!', 'ok');
+    }
+
+    function caixa_e_pagamentos_gerar_comprovante(id) {
+      const item = caixa_e_pagamentos_repasses.find(i => i.id === id);
+      if (!item) return;
+      const numDoc = 'REP-' + String(id).padStart(6, '0') + '-' + Date.now().toString(36).toUpperCase();
+      const html = '<div class="text-center px-1">' +
+        '<div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">' +
+          '<svg class="w-7 h-7 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' +
+        '</div>' +
+        '<p class="text-sm font-body text-gray-500 mb-1">Comprovante de Repasse</p>' +
+        '<p class="text-xs text-gray-400 font-body mb-3">' + numDoc + '</p>' +
+        '<div class="bg-gray-50 rounded-xl p-3 mb-3 text-left">' +
+          '<p class="text-xs font-body text-gray-500 mb-1">Profissional:</p><p class="text-sm font-body font-semibold text-gray-900 mb-2">' + item.profissional + '</p>' +
+          '<p class="text-xs font-body text-gray-500 mb-1">Serviço:</p><p class="text-sm font-body text-gray-700 mb-2">' + item.servico + '</p>' +
+          '<p class="text-xs font-body text-gray-500 mb-1">Data:</p><p class="text-sm font-body text-gray-700 mb-2">' + dataBR(item.data) + '</p>' +
+          '<p class="text-xs font-body text-gray-500 mb-1">Valor Repassado:</p><p class="text-lg font-display font-bold text-green-700">' + brl(item.valorRepasse) + '</p>' +
+        '</div>' +
+        '<button onclick="fecharModal(); toast(\'Comprovante enviado por e-mail!\', \'ok\')" class="btn w-full active:scale-95 transition-transform">Enviar Comprovante</button>' +
+      '</div>';
+      abrirModal(html, 'Comprovante de Repasse');
+    }
+
+    function caixa_e_pagamentos_detalhe_receber(id) {
+      const item = caixa_e_pagamentos_lancamentosReceber.find(i => i.id === id);
+      if (!item) return;
+      const historicoHtml = '<div class="space-y-2 mb-3">' +
+        '<div class="flex justify-between text-xs font-body py-1.5 border-b border-gray-50"><span class="text-gray-500">Agendamento</span><span class="text-gray-700">' + dataBR(item.data) + ' às ' + item.hora + '</span></div>' +
+        '<div class="flex justify-between text-xs font-body py-1.5 border-b border-gray-50"><span class="text-gray-500">Profissional</span><span class="text-gray-700">' + item.medico + '</span></div>' +
+        '<div class="flex justify-between text-xs font-body py-1.5 border-b border-gray-50"><span class="text-gray-500">Centro de Custo</span><span class="text-gray-700">' + item.centroCusto + '</span></div>' +
+        '<div class="flex justify-between text-xs font-body py-1.5"><span class="text-gray-500">Convênio</span><span class="text-gray-700">Particular</span></div>' +
+      '</div>';
+      const acoesDetalhe = item.status === 'pago'
+        ? '<p class="text-center text-xs text-green-600 font-body">Pagamento já realizado via ' + item.forma + '</p>'
+        : '<div class="flex gap-2">' +
+            '<button onclick="fecharModal(); caixa_e_pagamentos_modal_pix(' + id + ')" class="btn flex-1 text-xs active:scale-95 transition-transform">Receber Pix</button>' +
+            '<button onclick="fecharModal(); caixa_e_pagamentos_pagar_credito(' + id + ')" class="flex-1 py-2 text-xs font-body text-indigo-700 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-all">Crédito</button>' +
+          '</div>';
+      const html = '<div class="px-1">' +
+        '<div class="flex items-center gap-3 mb-4">' +
+          '<div class="w-12 h-12 rounded-full ' + item.corAvatar + ' flex items-center justify-center"><span class="text-sm font-bold font-body">' + item.avatar + '</span></div>' +
+          '<div><p class="text-base font-display font-bold text-gray-900">' + item.paciente + '</p><p class="text-xs text-gray-500 font-body">' + item.servico + '</p></div>' +
+        '</div>' +
+        historicoHtml +
+        '<p class="text-right text-xl font-display font-bold text-marca-800 mb-3">' + brl(item.valor) + '</p>' +
+        acoesDetalhe +
+      '</div>';
+      abrirModal(html, 'Detalhe do Lançamento');
+    }
+
+    function caixa_e_pagamentos_atualizar_totais() {
+      const recebidos = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago').reduce((s, i) => s + i.valor, 0);
+      const elRecebido = document.getElementById('caixa-recebido');
+      if (elRecebido) elRecebido.textContent = brl(recebidos);
+      const elSaldo = document.getElementById('caixa-saldo');
+      if (elSaldo) {
+        const novoSaldo = 8630.00 + recebidos - caixa_e_pagamentos_lancamentosPagar.filter(i => i.status === 'pago').reduce((s, i) => s + i.valor, 0);
+        elSaldo.textContent = brl(novoSaldo);
+      }
+    }
+
+    function caixa_e_pagamentos_abrir_fechamento() {
+      const totalRecebido = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago').reduce((s, i) => s + i.valor, 0);
+      const totalPix = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago' && i.forma === 'Pix').reduce((s, i) => s + i.valor, 0);
+      const totalDebito = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago' && i.forma === 'Débito').reduce((s, i) => s + i.valor, 0);
+      const totalCredito = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago' && i.forma === 'Cartão Crédito').reduce((s, i) => s + i.valor, 0);
+      const totalDinheiro = caixa_e_pagamentos_lancamentosReceber.filter(i => i.status === 'pago' && i.forma === 'Dinheiro').reduce((s, i) => s + i.valor, 0);
+      const totalPagar = caixa_e_pagamentos_lancamentosPagar.filter(i => i.status === 'pago').reduce((s, i) => s + i.valor, 0);
+      const totalRepasse = caixa_e_pagamentos_repasses.filter(i => i.status === 'pago').reduce((s, i) => s + i.valorRepasse, 0);
+      const sangrias = caixa_e_pagamentos_movimentacoesHoje.filter(m => m.tipo === 'sangria').reduce((s, m) => s + m.valor, 0);
+      const suplementos = caixa_e_pagamentos_movimentacoesHoje.filter(m => m.tipo === 'suprimento').reduce((s, m) => s + m.valor, 0);
+      const saldoFinal = 8630.00 + suplementos - sangrias + totalRecebido - totalPagar - totalRepasse;
+      const html = '<div class="px-1">' +
+        '<p class="text-sm font-body text-gray-500 mb-3 text-center">Fechamento do Caixa — ' + new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) + '</p>' +
+        '<div class="bg-marca-50 rounded-xl p-3 mb-3">' +
+          '<p class="text-xs text-marca-700 font-body mb-2 font-semibold uppercase tracking-wider">Resumo por Forma de Pagamento</p>' +
+          '<div class="flex justify-between text-xs font-body py-1"><span class="text-gray-600">Pix</span><span class="font-semibold">' + brl(totalPix) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body py-1"><span class="text-gray-600">Cartão Débito</span><span class="font-semibold">' + brl(totalDebito) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body py-1"><span class="text-gray-600">Cartão Crédito</span><span class="font-semibold">' + brl(totalCredito) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body py-1"><span class="text-gray-600">Dinheiro</span><span class="font-semibold">' + brl(totalDinheiro) + '</span></div>' +
+          '<div class="border-t border-marca-200 mt-1 pt-1 flex justify-between text-xs font-body font-bold"><span class="text-marca-800">Total Recebido</span><span class="text-marca-800">' + brl(totalRecebido) + '</span></div>' +
+        '</div>' +
+        '<div class="bg-red-50 rounded-xl p-3 mb-3">' +
+          '<p class="text-xs text-red-700 font-body mb-1 font-semibold">Pagamentos Realizados</p>' +
+          '<div class="flex justify-between text-xs font-body py-0.5"><span class="text-gray-600">A Pagar</span><span class="font-semibold">' + brl(totalPagar) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body py-0.5"><span class="text-gray-600">Repasses</span><span class="font-semibold">' + brl(totalRepasse) + '</span></div>' +
+          '<div class="flex justify-between text-xs font-body py-0.5"><span class="text-gray-600">Sangrias</span><span class="font-semibold">' + brl(sangrias) + '</span></div>' +
+        '</div>' +
+        '<div class="bg-gray-50 rounded-xl p-3 mb-4">' +
+          '<div class="flex justify-between text-xs font-body py-0.5"><span class="text-gray-600">Suprimentos</span><span class="font-semibold text-green-700">+' + brl(suplementos) + '</span></div>' +
+          '<div class="border-t border-gray-200 mt-1 pt-1 flex justify-between text-sm font-body font-bold"><span class="text-gray-900">Saldo Final</span><span class="text-marca-800">' + brl(saldoFinal) + '</span></div>' +
+        '</div>' +
+        '<button onclick="caixa_e_pagamentos_confirmar_fechamento()" class="btn w-full active:scale-95 transition-transform">Confirmar Fechamento</button>' +
+        '<button onclick="fecharModal()" class="w-full py-2.5 text-sm font-body text-gray-500 mt-2 hover:text-gray-700 transition-all">Cancelar</button>' +
+      '</div>';
+      abrirModal(html, 'Fechamento do Caixa');
+    }
+
+    function caixa_e_pagamentos_confirmar_fechamento() {
+      caixa_e_pagamentos_contadorConfirmacoes++;
+      fecharModal();
+      toast('Caixa fechado com sucesso! Relatório gerado.', 'ok');
+      const btnFech = document.getElementById('caixa-botao-fechamento');
+      if (btnFech) {
+        btnFech.innerHTML = '<div class="flex items-center justify-center gap-2 text-green-700"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="font-body font-semibold">Caixa Fechado — ' + new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }) + '</span></div>';
+        btnFech.disabled = true;
+        btnFech.classList.add('opacity-70');
+      }
+    }
+
+    setTimeout(caixa_e_pagamentos_init, 0);
+
     <!-- TELAS -->
     </main>
 
