@@ -1292,6 +1292,436 @@
           </div>
           <div class="flex gap-2 overflow-x
 
+    <section data-tela="centro-de-custos" class="hidden">
+  <div class="mb-5">
+    <div class="flex items-center justify-between mb-1">
+      <div>
+        <h2 class="font-display text-xl font-bold text-gray-900">Centro de Custos</h2>
+        <p class="text-sm text-gray-500 mt-0.5">Visão gerencial por unidade e departamento</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="centro_de_custos_abrirPeriodo()" class="card p-2.5 active:scale-95 transition-all" title="Período personalizado">
+          <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </button>
+        <button onclick="centro_de_custos_exportar()" class="card p-2.5 active:scale-95 transition-all" title="Exportar relatório">
+          <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-1.5 bg-gray-100 rounded-xl p-1 mb-5">
+    <button onclick="centro_de_custos_setPeriodo('dia')" data-periodo="dia" class="centro-de-custos-periodo flex-1 text-xs font-semibold py-2 rounded-lg transition-all bg-marca-800 text-white">Dia</button>
+    <button onclick="centro_de_custos_setPeriodo('semana')" data-periodo="semana" class="centro-de-custos-periodo flex-1 text-xs font-semibold py-2 rounded-lg transition-all text-gray-600 hover:text-gray-800">Semana</button>
+    <button onclick="centro_de_custos_setPeriodo('mes')" data-periodo="mes" class="centro-de-custos-periodo flex-1 text-xs font-semibold py-2 rounded-lg transition-all text-gray-600 hover:text-gray-800">Mês</button>
+    <button onclick="centro_de_custos_setPeriodo('ano')" data-periodo="ano" class="centro-de-custos-periodo flex-1 text-xs font-semibold py-2 rounded-lg transition-all text-gray-600 hover:text-gray-800">Ano</button>
+  </div>
+
+  <div id="periodo-label" class="text-xs text-gray-500 mb-3 flex items-center gap-1">
+    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>14 a 20 de Junho, 2025</span>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3 mb-5">
+    <div class="card p-3.5">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+          <svg class="w-4 h-4 text-marca-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <span class="text-xs text-gray-500 font-medium">Receita Total</span>
+      </div>
+      <p class="font-display text-lg font-bold text-gray-900">R$ 78.450</p>
+      <span class="text-xs text-green-600 font-semibold">↑ 12,3% vs período ant.</span>
+    </div>
+    <div class="card p-3.5">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+          <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8l-8 8M8 8l8 8"/></svg>
+        </div>
+        <span class="text-xs text-gray-500 font-medium">Custo Total</span>
+      </div>
+      <p class="font-display text-lg font-bold text-gray-900">R$ 46.300</p>
+      <span class="text-xs text-red-500 font-semibold">↑ 3,1% vs período ant.</span>
+    </div>
+    <div class="card p-3.5">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+          <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <span class="text-xs text-gray-500 font-medium">Lucro Total</span>
+      </div>
+      <p class="font-display text-lg font-bold text-marca-800">R$ 32.150</p>
+      <span class="text-xs text-green-600 font-semibold">↑ 28,7% vs período ant.</span>
+    </div>
+    <div class="card p-3.5">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <span class="text-xs text-gray-500 font-medium">Margem Média</span>
+      </div>
+      <p class="font-display text-lg font-bold text-gray-900">40,9%</p>
+      <span class="text-xs text-green-600 font-semibold">↑ 5,2pp vs período ant.</span>
+    </div>
+  </div>
+
+  <div class="card p-4 mb-5">
+    <h3 class="text-sm font-semibold text-gray-700 mb-3">Distribuição de Custos</h3>
+    <div class="flex items-center justify-center">
+      <svg viewBox="0 0 200 200" class="w-44 h-44">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#F0FDF4" stroke-width="35"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#14532D" stroke-width="35" stroke-dasharray="131.95 439.82" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#22C55E" stroke-width="35" stroke-dasharray="102.13 439.82" stroke-dashoffset="-131.95" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#86EFAC" stroke-width="35" stroke-dasharray="87.96 439.82" stroke-dashoffset="-234.08" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#DCFCE7" stroke-width="35" stroke-dasharray="117.78 439.82" stroke-dashoffset="-322.04" transform="rotate(-90 100 100)"/>
+        <text x="100" y="96" text-anchor="middle" class="font-display" font-size="22" font-weight="bold" fill="#14532D">R$ 46.3k</text>
+        <text x="100" y="116" text-anchor="middle" font-size="11" fill="#6B7280">Total custos</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-2 gap-2 mt-3">
+      <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-sm bg-marca-800 inline-block flex-shrink-0"></span><span class="text-gray-600">Clínica Centro <strong class="text-gray-800">R$ 18.200</strong></span></div>
+      <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-sm bg-marca-500 inline-block flex-shrink-0"></span><span class="text-gray-600">Laboratório <strong class="text-gray-800">R$ 15.800</strong></span></div>
+      <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-sm bg-green-300 inline-block flex-shrink-0"></span><span class="text-gray-600">Imagem <strong class="text-gray-800">R$ 12.300</strong></span></div>
+      <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-sm bg-green-100 inline-block flex-shrink-0"></span><span class="text-gray-600">Administrativo <strong class="text-gray-800">R$ 1.100</strong></span></div>
+    </div>
+  </div>
+
+  <div class="mb-2 flex items-center justify-between">
+    <h3 class="font-display text-base font-bold text-gray-900">Unidades e Departamentos</h3>
+    <button onclick="centro_de_custos_addUnidade()" class="text-xs font-semibold text-marca-700 hover:text-marca-900 flex items-center gap-1 active:scale-95 transition-all">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Novo Centro
+    </button>
+  </div>
+
+  <div class="space-y-3">
+    <div class="card overflow-hidden" data-centro-id="1">
+      <button onclick="centro_de_custos_toggleExpand(1)" class="w-full text-left p-4 flex items-center justify-between active:scale-[0.99] transition-all">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-marca-800 flex items-center justify-center text-white font-display font-bold text-sm">CC</div>
+          <div>
+            <p class="font-semibold text-gray-900 text-sm">Clínica Centro</p>
+            <p class="text-xs text-gray-500">Unidade principal · Av. Paulista, 1578</p>
+          </div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 transition-transform centro-de-custos-chevron" data-chevron="1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="centro-de-custos-detail px-4 pb-4 hidden" data-detail="1">
+        <div class="bg-marca-50 rounded-xl p-3 mb-3">
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Receita</p>
+              <p class="font-display font-bold text-sm text-marca-900">R$ 32.100</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Custo</p>
+              <p class="font-display font-bold text-sm text-red-700">R$ 18.200</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Lucro</p>
+              <p class="font-display font-bold text-sm text-marca-800">R$ 13.900</p>
+            </div>
+          </div>
+          <div class="mt-2 h-2 bg-marca-100 rounded-full overflow-hidden flex">
+            <div class="bg-marca-800 h-full" style="width:43%"></div>
+            <div class="bg-green-500 h-full" style="width:57%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-500 mt-1"><span>Custo 43%</span><span>Lucro 57%</span></div>
+        </div>
+        <div class="space-y-2 mb-3">
+          <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Repasses e Custos</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-800"></span>Repasses para terceiros</span><span class="font-semibold text-gray-900">R$ 6.200</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-500"></span>Comissões profissionais</span><span class="font-semibold text-gray-900">R$ 5.800</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Fornecedores e insumos</span><span class="font-semibold text-gray-900">R$ 4.500</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Pequeno caixa (localidade)</span><span class="font-semibold text-gray-900">R$ 1.700</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="centro_de_custos_detalhe(1)" class="w-full btn text-sm">Ver relatório completo</button>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-centro-id="2">
+      <button onclick="centro_de_custos_toggleExpand(2)" class="w-full text-left p-4 flex items-center justify-between active:scale-[0.99] transition-all">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-marca-500 flex items-center justify-center text-white font-display font-bold text-sm">LB</div>
+          <div>
+            <p class="font-semibold text-gray-900 text-sm">Laboratório</p>
+            <p class="text-xs text-gray-500">Unidade anexa · R. Augusta, 2200</p>
+          </div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 transition-transform centro-de-custos-chevron" data-chevron="2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="centro-de-custos-detail px-4 pb-4 hidden" data-detail="2">
+        <div class="bg-marca-50 rounded-xl p-3 mb-3">
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Receita</p>
+              <p class="font-display font-bold text-sm text-marca-900">R$ 21.400</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Custo</p>
+              <p class="font-display font-bold text-sm text-red-700">R$ 15.800</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Lucro</p>
+              <p class="font-display font-bold text-sm text-marca-800">R$ 5.600</p>
+            </div>
+          </div>
+          <div class="mt-2 h-2 bg-marca-100 rounded-full overflow-hidden flex">
+            <div class="bg-marca-800 h-full" style="width:74%"></div>
+            <div class="bg-green-500 h-full" style="width:26%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-500 mt-1"><span>Custo 74%</span><span>Lucro 26%</span></div>
+        </div>
+        <div class="space-y-2 mb-3">
+          <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Repasses e Custos</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-800"></span>Repasses para terceiros</span><span class="font-semibold text-gray-900">R$ 4.100</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-500"></span>Comissões profissionais</span><span class="font-semibold text-gray-900">R$ 3.900</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Fornecedores e insumos</span><span class="font-semibold text-gray-900">R$ 5.600</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Pequeno caixa (localidade)</span><span class="font-semibold text-gray-900">R$ 2.200</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="centro_de_custos_detalhe(2)" class="w-full btn text-sm">Ver relatório completo</button>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-centro-id="3">
+      <button onclick="centro_de_custos_toggleExpand(3)" class="w-full text-left p-4 flex items-center justify-between active:scale-[0.99] transition-all">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-marca-500 flex items-center justify-center text-white font-display font-bold text-sm">IM</div>
+          <div>
+            <p class="font-semibold text-gray-900 text-sm">Imagem</p>
+            <p class="text-xs text-gray-500">Unidade anexa · R. Oscar Freire, 512</p>
+          </div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 transition-transform centro-de-custos-chevron" data-chevron="3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="centro-de-custos-detail px-4 pb-4 hidden" data-detail="3">
+        <div class="bg-marca-50 rounded-xl p-3 mb-3">
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Receita</p>
+              <p class="font-display font-bold text-sm text-marca-900">R$ 24.950</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Custo</p>
+              <p class="font-display font-bold text-sm text-red-700">R$ 12.300</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Lucro</p>
+              <p class="font-display font-bold text-sm text-marca-800">R$ 12.650</p>
+            </div>
+          </div>
+          <div class="mt-2 h-2 bg-marca-100 rounded-full overflow-hidden flex">
+            <div class="bg-marca-800 h-full" style="width:49%"></div>
+            <div class="bg-green-500 h-full" style="width:51%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-500 mt-1"><span>Custo 49%</span><span>Lucro 51%</span></div>
+        </div>
+        <div class="space-y-2 mb-3">
+          <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Repasses e Custos</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-800"></span>Repasses para terceiros</span><span class="font-semibold text-gray-900">R$ 3.100</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-500"></span>Comissões profissionais</span><span class="font-semibold text-gray-900">R$ 3.200</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Fornecedores e insumos</span><span class="font-semibold text-gray-900">R$ 4.200</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Pequeno caixa (localidade)</span><span class="font-semibold text-gray-900">R$ 1.800</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="centro_de_custos_detalhe(3)" class="w-full btn text-sm">Ver relatório completo</button>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden" data-centro-id="4">
+      <button onclick="centro_de_custos_toggleExpand(4)" class="w-full text-left p-4 flex items-center justify-between active:scale-[0.99] transition-all">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gray-700 flex items-center justify-center text-white font-display font-bold text-sm">AD</div>
+          <div>
+            <p class="font-semibold text-gray-900 text-sm">Administrativo</p>
+            <p class="text-xs text-gray-500">Sede corporativa · Sala 401</p>
+          </div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 transition-transform centro-de-custos-chevron" data-chevron="4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="centro-de-custos-detail px-4 pb-4 hidden" data-detail="4">
+        <div class="bg-marca-50 rounded-xl p-3 mb-3">
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Receita</p>
+              <p class="font-display font-bold text-sm text-marca-900">R$ 0</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Custo</p>
+              <p class="font-display font-bold text-sm text-red-700">R$ 1.100</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-0.5">Lucro</p>
+              <p class="font-display font-bold text-sm text-red-600">R$ -1.100</p>
+            </div>
+          </div>
+          <div class="mt-2 h-2 bg-marca-100 rounded-full overflow-hidden flex">
+            <div class="bg-red-400 h-full" style="width:100%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-500 mt-1"><span>Custo 100%</span><span>Sem receita direta</span></div>
+        </div>
+        <div class="space-y-2 mb-3">
+          <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Repasses e Custos</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Aluguel e condomínio</span><span class="font-semibold text-gray-900">R$ 550</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Fornecedores e insumos</span><span class="font-semibold text-gray-900">R$ 350</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-white rounded-lg px-3 py-2 border border-gray-100">
+              <span class="text-gray-600 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-marca-500"></span>Comissões profissionais</span><span class="font-semibold text-gray-900">R$ 200</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="centro_de_custos_detalhe(4)" class="w-full btn text-sm">Ver relatório completo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5 flex gap-3">
+    <button onclick="mostrarTela('financeiro-e-repasses')" class="flex-1 btn text-sm">Financeiro e Repasses</button>
+    <button onclick="mostrarTela('relatorios-gerenciais')" class="flex-1 btn-outline text-sm border border-marca-700 text-marca-700">Relatórios</button>
+  </div>
+</section>
+
+<script>
+  function centro_de_custos_setPeriodo(periodo) {
+    document.querySelectorAll('.centro-de-custos-periodo').forEach(b => {
+      b.classList.remove('bg-marca-800', 'text-white');
+      b.classList.add('text-gray-600');
+    });
+    const ativo = document.querySelector(`[data-periodo="${periodo}"]`);
+    ativo.classList.add('bg-marca-800', 'text-white');
+    ativo.classList.remove('text-gray-600');
+    const labels = { dia: 'Hoje · 20 de Junho, 2025', semana: '14 a 20 de Junho, 2025', mes: 'Junho de 2025', ano: 'Ano de 2025' };
+    document.querySelector('#periodo-label span').textContent = labels[periodo] || '';
+    toast('Período atualizado', 'info');
+  }
+  function centro_de_custos_toggleExpand(id) {
+    const detail = document.querySelector(`[data-detail="${id}"]`);
+    const chevron = document.querySelector(`[data-chevron="${id}"]`);
+    if (detail.classList.contains('hidden')) {
+      detail.classList.remove('hidden');
+      detail.style.animation = 'fadeSlideIn 0.25s ease';
+      chevron.style.transform = 'rotate(180deg)';
+    } else {
+      detail.classList.add('hidden');
+      chevron.style.transform = 'rotate(0deg)';
+    }
+  }
+  function centro_de_custos_detalhe(id) {
+    const centros = { 1: 'Clínica Centro', 2: 'Laboratório', 3: 'Imagem', 4: 'Administrativo' };
+    const html = `
+      <div class="space-y-4">
+        <div class="bg-marca-50 rounded-xl p-4">
+          <h4 class="font-display font-bold text-marca-900 text-lg mb-3">${centros[id]} — Detalhamento</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Receita</p><p class="font-bold text-marca-900">R$ ${(id===1?'32.100':id===2?'21.400':id===3?'24.950':'0').replace('.',',')}</p></div>
+            <div class="bg-white rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Custo</p><p class="font-bold text-red-700">R$ ${(id===1?'18.200':id===2?'15.800':id===3?'12.300':'1.100').replace('.',',')}</p></div>
+            <div class="bg-white rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Lucro</p><p class="font-bold ${id===4?'text-red-600':'text-marca-800'}">R$ ${(id===1?'13.900':id===2?'5.600':id===3?'12.650':'-1.100').replace('.',',')}</p></div>
+            <div class="bg-white rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Margem</p><p class="font-bold text-gray-900">${(id===1?'43':id===2?'26':id===3?'51':'0')}%</p></div>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-sm font-semibold text-gray-700 mb-2">Últimos lançamentos</h5>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs bg-gray-50 rounded-lg px-3 py-2">
+              <div><span class="text-gray-700 font-medium">Consulta Dr. Roberto</span><br><span class="text-gray-400">14/06</span></div>
+              <span class="font-semibold text-green-600">+ R$ 450,00</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-gray-50 rounded-lg px-3 py-2">
+              <div><span class="text-gray-700 font-medium">Exame Hemograma</span><br><span class="text-gray-400">15/06</span></div>
+              <span class="font-semibold text-green-600">+ R$ 120,00</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-gray-50 rounded-lg px-3 py-2">
+              <div><span class="text-gray-700 font-medium">Repasse Dr. Silva</span><br><span class="text-gray-400">15/06</span></div>
+              <span class="font-semibold text-red-600">- R$ 2.400,00</span>
+            </div>
+            <div class="flex items-center justify-between text-xs bg-gray-50 rounded-lg px-3 py-2">
+              <div><span class="text-gray-700 font-medium">Insumos Lab. R$</span><br><span class="text-gray-400">16/06</span></div>
+              <span class="font-semibold text-red-600">- R$ 890,00</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="fecharModal(); mostrarTela('relatorios-gerenciais')" class="w-full btn text-sm">Ver relatório gerencial</button>
+      </div>
+    `;
+    abrirModal(html, 'Detalhamento — ' + centros[id]);
+  }
+  function centro_de_custos_exportar() {
+    toast('Relatório exportado em Excel com sucesso', 'ok');
+  }
+  function centro_de_custos_abrirPeriodo() {
+    const html = `
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Data inicial</label>
+          <input type="date" value="2025-06-14" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-body focus:outline-none focus:ring-2 focus:ring-marca-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Data final</label>
+          <input type="date" value="2025-06-20" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-body focus:outline-none focus:ring-2 focus:ring-marca-500">
+        </div>
+        <button onclick="fecharModal(); centro_de_custos_aplicarPeriodo()" class="w-full btn text-sm">Aplicar período</button>
+      </div>
+    `;
+    abrirModal(html, 'Período personalizado');
+  }
+  function centro_de_custos_aplicarPeriodo() {
+    toast('Período aplicado com sucesso', 'ok');
+  }
+  function centro_de_custos_addUnidade() {
+    const html = `
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Nome da unidade</label>
+          <input type="text" placeholder="Ex: Dermatologia" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-body focus:outline-none focus:ring-2 focus:ring-marca-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Endereço</label>
+          <input type="text" placeholder="Rua, número, bairro" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-body focus:outline-none focus:ring-2 focus:ring-marca-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Responsável</label>
+          <input type="text" placeholder="Nome do responsável" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-body focus:outline-none focus:ring-2 focus:ring-marca-500">
+        </div>
+        <button onclick="fecharModal(); toast('Centro de custo cadastrado', 'ok')" class="w-full btn text-sm">Cadastrar</button>
+      </div>
+    `;
+    abrirModal(html, 'Novo Centro de Custos');
+  }
+</script>
+
     <!-- TELAS -->
     </main>
 
