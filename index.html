@@ -1722,6 +1722,422 @@
   }
 </script>
 
+    <section data-tela="cadastro-de-pacientes" class="hidden">
+      <div class="cadastro-de-pacientes-fade-in px-4 pb-6 pt-2 max-w-[430px] mx-auto">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h1 class="font-display text-xl font-bold text-marca-900 tracking-tight">Cadastro de Pacientes</h1>
+            <p class="text-xs text-marca-700/60 mt-0.5 font-body">Gerencie pacientes, prontuários e histórico</p>
+          </div>
+          <button onclick="cadastro_de_pacientes_abrirFormulario()" class="btn bg-marca-500 hover:bg-marca-600 text-white rounded-xl px-4 py-2.5 text-sm font-semibold flex items-center gap-1.5 active:scale-95 transition-all shadow-md shadow-marca-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            Novo Paciente
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex-1 relative">
+            <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-marca-700/40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="cadBusca" type="text" placeholder="Buscar por nome, CPF ou prontuário..." oninput="cadastro_de_pacientes_buscar()" class="w-full pl-9 pr-4 py-2.5 bg-white border border-marca-200 rounded-xl text-sm font-body text-marca-900 placeholder:text-marca-700/40 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500 transition-all shadow-sm">
+          </div>
+          <button onclick="cadastro_de_pacientes_toggleFiltros()" id="btnFiltros" class="p-2.5 bg-white border border-marca-200 rounded-xl hover:bg-marca-50 transition-all relative active:scale-95 shadow-sm">
+            <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 4h18M3 12h12M3 20h6"/></svg>
+            <span id="filtroBadge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-marca-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+          </button>
+        </div>
+
+        <div id="filtrosPainel" class="hidden mb-4 bg-white rounded-xl border border-marca-200 p-3 shadow-sm space-y-3">
+          <div>
+            <label class="text-xs font-semibold text-marca-700 mb-1 block">Unidade</label>
+            <select id="filtroUnidade" onchange="cadastro_de_pacientes_buscar()" class="w-full px-3 py-2 bg-marca-50 border border-marca-200 rounded-lg text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+              <option value="">Todas as unidades</option>
+              <option>Unidade Centro</option>
+              <option>Unidade Jardins</option>
+              <option>Unidade Zona Sul</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-marca-700 mb-1 block">Convênio</label>
+            <select id="filtroConvenio" onchange="cadastro_de_pacientes_buscar()" class="w-full px-3 py-2 bg-marca-50 border border-marca-200 rounded-lg text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+              <option value="">Todos</option>
+              <option>Particular</option>
+              <option>Unimed</option>
+              <option>Bradesco Saúde</option>
+              <option>SulAmérica</option>
+              <option>Amil</option>
+            </select>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1">
+              <label class="text-xs font-semibold text-marca-700 mb-1 block">Idade de</label>
+              <input type="number" id="filtroIdadeMin" placeholder="0" oninput="cadastro_de_pacientes_buscar()" class="w-full px-3 py-2 bg-marca-50 border border-marca-200 rounded-lg text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+            </div>
+            <div class="flex-1">
+              <label class="text-xs font-semibold text-marca-700 mb-1 block">até</label>
+              <input type="number" id="filtroIdadeMax" placeholder="120" oninput="cadastro_de_pacientes_buscar()" class="w-full px-3 py-2 bg-marca-50 border border-marca-200 rounded-lg text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+            </div>
+          </div>
+          <button onclick="cadastro_de_pacientes_limparFiltros()" class="text-xs text-marca-500 font-semibold hover:underline">Limpar filtros</button>
+        </div>
+
+        <div class="flex items-center justify-between mb-3">
+          <span id="resultadoContagem" class="text-xs text-marca-700/60 font-body">8 pacientes encontrados</span>
+          <select id="ordenacao" onchange="cadastro_de_pacientes_buscar()" class="text-xs bg-white border border-marca-200 rounded-lg px-2 py-1 text-marca-700 focus:outline-none">
+            <option>Mais recentes</option>
+            <option>Nome A-Z</option>
+            <option>Nome Z-A</option>
+            <option>Último atendimento</option>
+          </select>
+        </div>
+
+        <div id="listaPacientes" class="space-y-3"></div>
+
+        <div id="vazioBusca" class="hidden text-center py-12">
+          <svg class="w-16 h-16 mx-auto text-marca-300 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <p class="text-sm text-marca-700/50 font-body">Nenhum paciente encontrado</p>
+          <p class="text-xs text-marca-700/40 mt-1 font-body">Tente outro termo ou ajuste os filtros</p>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-marca-200">
+          <button onclick="cadastro_de_pacientes_abrirImportacao()" class="w-full bg-marca-50 hover:bg-marca-100 border border-dashed border-marca-300 rounded-xl py-3 text-sm font-semibold text-marca-600 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Importar Pacientes via Excel
+          </button>
+        </div>
+      </div>
+
+      <div id="modalPaciente" class="hidden fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-[430px] max-h-[90vh] overflow-y-auto shadow-2xl" id="modalPacienteConteudo"></div>
+      </div>
+
+      <div id="modalNovoPaciente" class="hidden fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-[430px] max-h-[90vh] overflow-y-auto shadow-2xl">
+          <div class="sticky top-0 bg-white z-10 flex items-center justify-between p-4 border-b border-marca-200">
+            <h2 class="font-display text-lg font-bold text-marca-900">Novo Paciente</h2>
+            <button onclick="cadastro_de_pacientes_fecharFormulario()" class="p-1.5 hover:bg-marca-100 rounded-lg transition-all active:scale-95"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="p-4 space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Nome completo *</label>
+              <input id="formNome" type="text" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-500" placeholder="Nome do paciente">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Data de nascimento *</label>
+                <input id="formNascimento" type="date" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-marca-700 mb-1.5 block">CPF *</label>
+                <input id="formCpf" type="text" oninput="cadastro_de_pacientes_mascaraCpf(this)" maxlength="14" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30" placeholder="000.000.000-00">
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Telefone / WhatsApp</label>
+              <input id="formTelefone" type="text" oninput="cadastro_de_pacientes_mascaraTel(this)" maxlength="15" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30" placeholder="(00) 00000-0000">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">E-mail</label>
+              <input id="formEmail" type="email" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30" placeholder="email@exemplo.com">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Endereço completo</label>
+              <input id="formEndereco" type="text" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30" placeholder="Rua, número, bairro, cidade - UF">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Convênio</label>
+                <select id="formConvenio" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+                  <option value="">Particular</option>
+                  <option>Unimed</option>
+                  <option>Bradesco Saúde</option>
+                  <option>SulAmérica</option>
+                  <option>Amil</option>
+                  <option>Golden Cross</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Unidade</label>
+                <select id="formUnidade" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30">
+                  <option>Unidade Centro</option>
+                  <option>Unidade Jardins</option>
+                  <option>Unidade Zona Sul</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Responsável (se menor de idade)</label>
+              <input id="formResponsavel" type="text" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30" placeholder="Nome do responsável">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-marca-700 mb-1.5 block">Observações clínicas</label>
+              <textarea id="formObs" rows="3" class="w-full px-3 py-2.5 bg-marca-50 border border-marca-200 rounded-xl text-sm text-marca-900 focus:outline-none focus:ring-2 focus:ring-marca-500/30 resize-none" placeholder="Alergias, condições pré-existentes, observações relevantes..."></textarea>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button onclick="cadastro_de_pacientes_fecharFormulario()" class="flex-1 py-3 border border-marca-200 rounded-xl text-sm font-semibold text-marca-700 hover:bg-marca-50 transition-all active:scale-95">Cancelar</button>
+              <button onclick="cadastro_de_pacientes_salvarPaciente()" class="flex-1 py-3 bg-marca-500 hover:bg-marca-600 text-white rounded-xl text-sm font-bold transition-all active:scale-95 shadow-md shadow-marca-500/20">Salvar Paciente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalImportacao" class="hidden fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-[430px] shadow-2xl">
+          <div class="sticky top-0 bg-white z-10 flex items-center justify-between p-4 border-b border-marca-200">
+            <h2 class="font-display text-lg font-bold text-marca-900">Importar via Excel</h2>
+            <button onclick="document.getElementById('modalImportacao').classList.add('hidden')" class="p-1.5 hover:bg-marca-100 rounded-lg transition-all active:scale-95"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="p-4 space-y-4">
+            <div class="border-2 border-dashed border-marca-300 rounded-xl p-6 text-center hover:border-marca-500 transition-all cursor-pointer" onclick="toast('Selecione um arquivo .xlsx ou .csv','info')">
+              <svg class="w-10 h-10 mx-auto text-marca-400 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <p class="text-sm font-semibold text-marca-700">Toque para selecionar arquivo</p>
+              <p class="text-xs text-marca-700/50 mt-1">.xlsx ou .csv (até 10MB)</p>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold text-marca-700 mb-2">Mapeamento de colunas</h3>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2"><span class="w-32 text-xs text-marca-700/70 truncate">Nome completo</span><select class="flex-1 px-2 py-1.5 bg-marca-50 border border-marca-200 rounded-lg text-xs"><option>Coluna A</option><option>Coluna B</option><option>Coluna C</option></select></div>
+                <div class="flex items-center gap-2"><span class="w-32 text-xs text-marca-700/70 truncate">CPF</span><select class="flex-1 px-2 py-1.5 bg-marca-50 border border-marca-200 rounded-lg text-xs"><option>Coluna B</option><option>Coluna A</option><option>Coluna C</option></select></div>
+                <div class="flex items-center gap-2"><span class="w-32 text-xs text-marca-700/70 truncate">Data nascimento</span><select class="flex-1 px-2 py-1.5 bg-marca-50 border border-marca-200 rounded-lg text-xs"><option>Coluna C</option><option>Coluna A</option><option>Coluna B</option></select></div>
+                <div class="flex items-center gap-2"><span class="w-32 text-xs text-marca-700/70 truncate">Telefone</span><select class="flex-1 px-2 py-1.5 bg-marca-50 border border-marca-200 rounded-lg text-xs"><option>Coluna D</option><option>Coluna A</option></select></div>
+                <div class="flex items-center gap-2"><span class="w-32 text-xs text-marca-700/70 truncate">Convênio</span><select class="flex-1 px-2 py-1.5 bg-marca-50 border border-marca-200 rounded-lg text-xs"><option>Coluna E</option><option>Coluna A</option></select></div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <button onclick="document.getElementById('modalImportacao').classList.add('hidden')" class="flex-1 py-3 border border-marca-200 rounded-xl text-sm font-semibold text-marca-700 hover:bg-marca-50 transition-all active:scale-95">Cancelar</button>
+              <button onclick="cadastro_de_pacientes_processarImportacao()" class="flex-1 py-3 bg-marca-500 hover:bg-marca-600 text-white rounded-xl text-sm font-bold transition-all active:scale-95 shadow-md shadow-marca-500/20">Importar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      (function(){
+        const pacientes = [
+          { id: 1, nome: 'Maria Fernanda Oliveira Costa', cpf: '123.456.789-00', nascimento: '1985-03-15', telefone: '(11) 98765-4321', email: 'maria.costa@email.com', endereco: 'Av. Paulista, 1000, Bela Vista, São Paulo - SP', convenio: 'Unimed', unidade: 'Unidade Centro', ultimoAtendimento: '2025-01-28', status: 'ativo', idade: 40, foto: 'MO', responsavel: '', obs: 'Alergia a penicilina. Hipertensão controlada.', cor: '#22C55E' },
+          { id: 2, nome: 'João Pedro Almeida Santos', cpf: '987.654.321-00', nascimento: '1978-08-22', telefone: '(11) 91234-5678', email: 'joao.almeida@email.com', endereco: 'Rua Augusta, 500, Consolação, São Paulo - SP', convenio: 'Bradesco Saúde', unidade: 'Unidade Jardins', ultimoAtendimento: '2025-02-10', status: 'ativo', idade: 47, foto: 'JA', responsavel: '', obs: 'Diabetes tipo 2. Acompanhamento trimestral.', cor: '#3B82F6' },
+          { id: 3, nome: 'Ana Beatriz Souza Lima', cpf: '456.789.123-00', nascimento: '2016-05-10', telefone: '(11) 99876-5432', email: 'ana.lima@email.com', endereco: 'Rua dos Pinheiros, 200, Pinheiros, São Paulo - SP', convenio: 'Unimed', unidade: 'Unidade Zona Sul', ultimoAtendimento: '2025-01-15', status: 'ativo', idade: 9, foto: 'AS', responsavel: 'Carlos Eduardo Lima', obs: 'Paciente pediátrico. Asma leve.', cor: '#F59E0B' },
+          { id: 4, nome: 'Roberto Carlos Ferreira', cpf: '321.654.987-00', nascimento: '1960-12-01', telefone: '(11) 97654-3210', email: 'roberto.ferreira@email.com', endereco: 'Alameda Santos, 800, Jardins, São Paulo - SP', convenio: 'SulAmérica', unidade: 'Unidade Jardins', ultimoAtendimento: '2024-11-20', status: 'ativo', idade: 65, foto: 'RF', responsavel: '', obs: 'Cardiopata. Uso de anticoagulante.', cor: '#EF4444' },
+          { id: 5, nome: 'Camila Regina Moura', cpf: '654.987.321-00', nascimento: '1992-07-30', telefone: '(11) 96543-2109', email: 'camila.moura@email.com', endereco: 'Rua Oscar Freire, 150, Jardins, São Paulo - SP', convenio: 'Amil', unidade: 'Unidade Centro', ultimoAtendimento: '2025-02-01', status: 'ativo', idade: 33, foto: 'CM', responsavel: '', obs: 'Gestante (28 semanas). Pré-natal.', cor: '#EC4899' },
+          { id: 6, nome: 'Pedro Henrique Dias', cpf: '789.123.456-00', nascimento: '1945-09-14', telefone: '(11) 95432-1098', email: 'pedro.dias@email.com', endereco: 'Av. Faria Lima, 3000, Itaim Bibi, São Paulo - SP', convenio: 'Particular', unidade: 'Unidade Jardins', ultimoAtendimento: '2024-10-05', status: 'inativo', idade: 80, foto: 'PD', responsavel: '', obs: 'Paciente inativo desde out/2024.', cor: '#6B7280' },
+          { id: 7, nome: 'Larissa Gabriela Rocha', cpf: '147.258.369-00', nascimento: '2001-01-20', telefone: '(11) 94321-0987', email: 'larissa.rocha@email.com', endereco: 'Rua Haddock Lobo, 400, Cerqueira César, São Paulo - SP', convenio: 'Particular', unidade: 'Unidade Centro', ultimoAtendimento: '2025-02-15', status: 'ativo', idade: 24, foto: 'LR', responsavel: '', obs: '', cor: '#8B5CF6' },
+          { id: 8, nome: 'Thiago Augusto Nascimento', cpf: '258.369.147-00', nascimento: '1988-11-05', telefone: '(11) 93210-9876', email: 'thiago.nasc@email.com', endereco: 'Rua Vergueiro, 1200, Liberdade, São Paulo - SP', convenio: 'Bradesco Saúde', unidade: 'Unidade Zona Sul', ultimoAtendimento: '2025-01-30', status: 'ativo', idade: 37, foto: 'TN', responsavel: '', obs: 'Hérnia de disco lombar. Fisioterapia em andamento.', cor: '#14B8A6' }
+        ];
+
+        let filtrosAtivos = 0;
+
+        function mascaraCpf(v) {
+          let x = v.value.replace(/\D/g, '');
+          x = x.replace(/(\d{3})(\d)/, '$1.$2');
+          x = x.replace(/(\d{3})(\d)/, '$1.$2');
+          x = x.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+          v.value = x;
+        }
+        function mascaraTel(v) {
+          let x = v.value.replace(/\D/g, '');
+          x = x.replace(/^(\d{2})(\d)/, '($1) $2');
+          x = x.replace(/(\d)(\d{4})$/, '$1-$2');
+          v.value = x;
+        }
+
+        function buscarPacientes() {
+          const termo = document.getElementById('cadBusca').value.toLowerCase().trim();
+          const unidade = document.getElementById('filtroUnidade').value;
+          const convenio = document.getElementById('filtroConvenio').value;
+          const idadeMin = parseInt(document.getElementById('filtroIdadeMin').value) || 0;
+          const idadeMax = parseInt(document.getElementById('filtroIdadeMax').value) || 150;
+          const ordem = document.getElementById('ordenacao').value;
+
+          filtrosAtivos = (unidade ? 1 : 0) + (convenio ? 1 : 0) + (idadeMin > 0 ? 1 : 0) + (idadeMax < 150 ? 1 : 0);
+          const badge = document.getElementById('filtroBadge');
+          if (filtrosAtivos > 0) { badge.classList.remove('hidden'); badge.textContent = filtrosAtivos; }
+          else { badge.classList.add('hidden'); }
+
+          let resultados = pacientes.filter(p => {
+            const matchTermo = !termo || p.nome.toLowerCase().includes(termo) || p.cpf.includes(termo) || p.id.toString().includes(termo);
+            const matchUnidade = !unidade || p.unidade === unidade;
+            const matchConvenio = !convenio || p.convenio === convenio;
+            const matchIdade = p.idade >= idadeMin && p.idade <= idadeMax;
+            return matchTermo && matchUnidade && matchConvenio && matchIdade;
+          });
+
+          if (ordem === 'Nome A-Z') resultados.sort((a,b) => a.nome.localeCompare(b.nome));
+          else if (ordem === 'Nome Z-A') resultados.sort((a,b) => b.nome.localeCompare(a.nome));
+          else if (ordem === 'Último atendimento') resultados.sort((a,b) => new Date(b.ultimoAtendimento) - new Date(a.ultimoAtendimento));
+
+          renderLista(resultados);
+        }
+
+        function renderLista(lista) {
+          const container = document.getElementById('listaPacientes');
+          const vazio = document.getElementById('vazioBusca');
+          document.getElementById('resultadoContagem').textContent = lista.length + ' paciente' + (lista.length !== 1 ? 's' : '') + ' encontrado' + (lista.length !== 1 ? 's' : '');
+
+          if (lista.length === 0) {
+            container.innerHTML = '';
+            vazio.classList.remove('hidden');
+            return;
+          }
+          vazio.classList.add('hidden');
+          container.innerHTML = lista.map(p => {
+            const cor = p.cor;
+            const statusCor = p.status === 'ativo' ? 'bg-marca-100 text-marca-700' : 'bg-gray-100 text-gray-500';
+            const statusLabel = p.status === 'ativo' ? 'Ativo' : 'Inativo';
+            return `<div onclick="cadastro_de_pacientes_abrirDetalhe(${p.id})" class="card bg-white rounded-xl p-3.5 border border-marca-200 cursor-pointer hover:shadow-lg hover:border-marca-300 transition-all active:scale-[0.98] group">
+              <div class="flex items-start gap-3">
+                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md" style="background:${cor}">${p.foto}</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-semibold text-marca-900 truncate">${p.nome}</h3>
+                    <span class="badge ${statusCor} text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0 ml-2">${statusLabel}</span>
+                  </div>
+                  <p class="text-xs text-marca-700/50 mt-0.5 font-body">${p.convenio} • ${p.unidade.replace('Unidade ', '')}</p>
+                  <div class="flex items-center justify-between mt-2">
+                    <span class="text-[11px] text-marca-700/40">Prontuário #${String(p.id).padStart(5,'0')}</span>
+                    <span class="text-[11px] text-marca-500 font-medium">Último: ${new Date(p.ultimoAtendimento).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</span>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          }).join('');
+        }
+
+        function toggleFiltros() {
+          const painel = document.getElementById('filtrosPainel');
+          painel.classList.toggle('hidden');
+        }
+
+        function limparFiltros() {
+          document.getElementById('filtroUnidade').value = '';
+          document.getElementById('filtroConvenio').value = '';
+          document.getElementById('filtroIdadeMin').value = '';
+          document.getElementById('filtroIdadeMax').value = '';
+          buscarPacientes();
+        }
+
+        function abrirDetalhe(id) {
+          const p = pacientes.find(x => x.id === id);
+          if (!p) return;
+          const statusCor = p.status === 'ativo' ? 'bg-marca-100 text-marca-700' : 'bg-gray-100 text-gray-500';
+          const statusLabel = p.status === 'ativo' ? 'Ativo' : 'Inativo';
+          const cor = p.cor;
+          const content = document.getElementById('modalPacienteConteudo');
+          content.innerHTML = `
+            <div class="relative">
+              <div class="h-24 rounded-t-2xl" style="background: linear-gradient(135deg, ${cor}22, ${cor}44)"></div>
+              <button onclick="document.getElementById('modalPaciente').classList.add('hidden')" class="absolute top-4 right-4 p-1.5 bg-white/80 hover:bg-white rounded-lg transition-all active:scale-95 z-10"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+              <div class="absolute -bottom-8 left-4">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold border-4 border-white shadow-lg" style="background:${cor}">${p.foto}</div>
+              </div>
+            </div>
+            <div class="pt-11 px-4 pb-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="font-display text-lg font-bold text-marca-900">${p.nome}</h3>
+                  <p class="text-xs text-marca-700/50 mt-0.5">Prontuário #${String(p.id).padStart(5,'0')} • ${p.idade} anos</p>
+                </div>
+                <span class="badge ${statusCor} text-xs px-2.5 py-1 rounded-full font-semibold">${statusLabel}</span>
+              </div>
+              <div class="flex gap-2 mt-3">
+                <button onclick="mostrarTela('agenda-multiprofissional');document.getElementById('modalPaciente').classList.add('hidden')" class="flex-1 py-2 bg-marca-50 hover:bg-marca-100 border border-marca-200 rounded-lg text-xs font-semibold text-marca-700 transition-all active:scale-95">Agendar</button>
+                <button onclick="mostrarTela('prontuario-digital');document.getElementById('modalPaciente').classList.add('hidden')" class="flex-1 py-2 bg-marca-50 hover:bg-marca-100 border border-marca-200 rounded-lg text-xs font-semibold text-marca-700 transition-all active:scale-95">Prontuário</button>
+                <button onclick="mostrarTela('financeiro-e-repasses');document.getElementById('modalPaciente').classList.add('hidden')" class="flex-1 py-2 bg-marca-50 hover:bg-marca-100 border border-marca-200 rounded-lg text-xs font-semibold text-marca-700 transition-all active:scale-95">Financeiro</button>
+              </div>
+              <div class="mt-4 border-t border-marca-200 pt-3">
+                <div class="flex border-b border-marca-200">
+                  <button onclick="cadastro_de_pacientes_abaDetalhe(this,'dados')" class="aba-detalhe flex-1 pb-2 text-xs font-semibold text-marca-500 border-b-2 border-marca-500 transition-all">Dados</button>
+                  <button onclick="cadastro_de_pacientes_abaDetalhe(this,'agendamentos')" class="aba-detalhe flex-1 pb-2 text-xs font-semibold text-marca-700/40 transition-all">Agendamentos</button>
+                  <button onclick="cadastro_de_pacientes_abaDetalhe(this,'financeiro')" class="aba-detalhe flex-1 pb-2 text-xs font-semibold text-marca-700/40 transition-all">Financeiro</button>
+                  <button onclick="cadastro_de_pacientes_abaDetalhe(this,'prontuarios')" class="aba-detalhe flex-1 pb-2 text-xs font-semibold text-marca-700/40 transition-all">Prontuários</button>
+                </div>
+                <div id="aba-dados" class="aba-conteudo pt-3 space-y-2.5">
+                  <div class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 text-xs">
+                    <span class="text-marca-700/50 font-medium">CPF</span><span class="text-marca-900 font-medium">${p.cpf}</span>
+                    <span class="text-marca-700/50 font-medium">Nascimento</span><span class="text-marca-900">${new Date(p.nascimento).toLocaleDateString('pt-BR')}</span>
+                    <span class="text-marca-700/50 font-medium">Telefone</span><span class="text-marca-900">${p.telefone}</span>
+                    <span class="text-marca-700/50 font-medium">E-mail</span><span class="text-marca-900">${p.email}</span>
+                    <span class="text-marca-700/50 font-medium">Endereço</span><span class="text-marca-900">${p.endereco}</span>
+                    <span class="text-marca-700/50 font-medium">Convênio</span><span class="badge bg-marca-100 text-marca-700 text-[10px] px-2 py-0.5 rounded-full font-semibold w-fit">${p.convenio}</span>
+                    <span class="text-marca-700/50 font-medium">Unidade</span><span class="text-marca-900">${p.unidade}</span>
+                    ${p.responsavel ? '<span class="text-marca-700/50 font-medium">Responsável</span><span class="text-marca-900">' + p.responsavel + '</span>' : ''}
+                  </div>
+                  ${p.obs ? '<div class="mt-2 p-2.5 bg-marca-50 rounded-lg"><p class="text-xs text-marca-700/70"><span class="font-semibold">Obs:</span> ${p.obs}</p></div>' : ''}
+                </div>
+                <div id="aba-agendamentos" class="aba-conteudo hidden pt-3 space-y-2">
+                  <div class="p-3 bg-marca-50 rounded-lg flex items-center justify-between"><div><p class="text-xs font-semibold text-marca-900">Consulta de Retorno</p><p class="text-[11px] text-marca-700/50">Dr. Silva • 03/03/2025 09:00</p></div><span class="badge bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">Confirmado</span></div>
+                  <div class="p-3 bg-marca-50/50 rounded-lg flex items-center justify-between"><div><p class="text-xs font-semibold text-marca-900">Exame de Sangue</p><p class="text-[11px] text-marca-700/50">Lab. Central • 10/03/2025 07:30</p></div><span class="badge bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">Pendente</span></div>
+                </div>
+                <div id="aba-financeiro" class="aba-conteudo hidden pt-3 space-y-2">
+                  <div class="p-3 bg-marca-50 rounded-lg flex items-center justify-between"><span class="text-xs text-marca-700/70">Último pagamento</span><span class="text-xs font-semibold text-marca-900">R$ 350,00 • 15/01/2025</span></div>
+                  <div class="p-3 bg-marca-50 rounded-lg flex items-center justify-between"><span class="text-xs text-marca-700/70">Em aberto</span><span class="text-xs font-semibold text-orange-600">R$ 120,00</span></div>
+                  <button onclick="mostrarTela('financeiro-e-repasses');document.getElementById('modalPaciente').classList.add('hidden')" class="w-full py-2 bg-marca-500 hover:bg-marca-600 text-white rounded-lg text-xs font-semibold transition-all active:scale-95 mt-1">Ver detalhes financeiros</button>
+                </div>
+                <div id="aba-prontuarios" class="aba-conteudo hidden pt-3 space-y-2">
+                  <div onclick="mostrarTela('prontuario-digital');document.getElementById('modalPaciente').classList.add('hidden')" class="p-3 bg-marca-50 rounded-lg cursor-pointer hover:bg-marca-100 transition-all"><p class="text-xs font-semibold text-marca-900">Consulta Cardiológica</p><p class="text-[11px] text-marca-700/50">Dr. Roberto Mendes • 28/01/2025</p></div>
+                  <div onclick="mostrarTela('prontuario-digital');document.getElementById('modalPaciente').classList.add('hidden')" class="p-3 bg-marca-50 rounded-lg cursor-pointer hover:bg-marca-100 transition-all"><p class="text-xs font-semibold text-marca-900">Exame Laboratorial</p><p class="text-[11px] text-marca-700/50">Resultado disponível • 15/01/2025</p></div>
+                </div>
+              </div>
+            </div>
+          `;
+          document.getElementById('modalPaciente').classList.remove('hidden');
+        }
+
+        function abaDetalhe(btn, aba) {
+          document.querySelectorAll('.aba-detalhe').forEach(b => { b.classList.remove('text-marca-500', 'border-b-2', 'border-marca-500'); b.classList.add('text-marca-700/40'); });
+          btn.classList.remove('text-marca-700/40'); btn.classList.add('text-marca-500', 'border-b-2', 'border-marca-500');
+          document.querySelectorAll('.aba-conteudo').forEach(c => c.classList.add('hidden'));
+          document.getElementById('aba-' + aba).classList.remove('hidden');
+        }
+
+        function abrirFormulario() {
+          document.getElementById('modalNovoPaciente').classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+        function fecharFormulario() {
+          document.getElementById('modalNovoPaciente').classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+        function salvarPaciente() {
+          const nome = document.getElementById('formNome').value.trim();
+          if (!nome) { toast('Preencha o nome do paciente', 'erro'); return; }
+          const cpf = document.getElementById('formCpf').value.trim();
+          if (!cpf) { toast('Preencha o CPF', 'erro'); return; }
+          const cores = ['#22C55E','#3B82F6','#F59E0B','#EF4444','#EC4899','#8B5CF6','#14B8A6','#F97316'];
+          const iniciais = nome.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+          pacientes.unshift({ id: Date.now(), nome, cpf: cpf || '000.000.000-00', nascimento: document.getElementById('formNascimento').value || '1990-01-01', telefone: document.getElementById('formTelefone').value || '(00) 00000-0000', email: document.getElementById('formEmail').value || '', endereco: document.getElementById('formEndereco').value || '', convenio: document.getElementById('formConvenio').value || 'Particular', unidade: document.getElementById('formUnidade').value || 'Unidade Centro', ultimoAtendimento: new Date().toISOString().split('T')[0], status: 'ativo', idade: 30, foto: iniciais, responsavel: document.getElementById('formResponsavel').value, obs: document.getElementById('formObs').value, cor: cores[Math.floor(Math.random()*cores.length)] });
+          ['formNome','formCpf','formTelefone','formEmail','formEndereco','formNascimento','formResponsavel','formObs'].forEach(id => document.getElementById(id).value = '');
+          fecharFormulario();
+          buscarPacientes();
+          toast('Paciente cadastrado com sucesso!', 'ok');
+        }
+
+        function abrirImportacao() {
+          document.getElementById('modalImportacao').classList.remove('hidden');
+        }
+
+        function processarImportacao() {
+          document.getElementById('modalImportacao').classList.add('hidden');
+          toast('Importação iniciada. Processando 24 registros...', 'info');
+          setTimeout(() => toast('Importação concluída! 22 pacientes adicionados, 2 duplicatas ignoradas.', 'ok'), 2000);
+        }
+
+        window.cadastro_de_pacientes_buscar = buscarPacientes;
+        window.cadastro_de_pacientes_toggleFiltros = toggleFiltros;
+        window.cadastro_de_pacientes_limparFiltros = limparFiltros;
+        window.cadastro_de_pacientes_abrirDetalhe = abrirDetalhe;
+        window.cadastro_de_pacientes_abaDetalhe = abaDetalhe;
+        window.cadastro_de_pacientes_abrirFormulario = abrirFormulario;
+        window.cadastro_de_pacientes_fecharFormulario = fecharFormulario;
+        window.cadastro_de_pacientes_salvarPaciente = salvarPaciente;
+        window.cadastro_de_pacientes_abrirImportacao = abrirImportacao;
+        window.cadastro_de_pacientes_processarImportacao = processarImportacao;
+        window.cadastro_de_pacientes_mascaraCpf = mascaraCpf;
+        window.cadastro_de_pacientes_mascaraTel = mascaraTel;
+
+        buscarPacientes();
+      })();
+      </script>
+    </section>
+
     <!-- TELAS -->
     </main>
 
