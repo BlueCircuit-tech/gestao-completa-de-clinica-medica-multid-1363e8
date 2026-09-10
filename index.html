@@ -1071,6 +1071,227 @@
 })();
 </script>
 
+    <section data-tela="prontuario-digital" class="hidden flex flex-col min-h-[100svh] fade-in">
+  <!-- Cabeçalho -->
+  <header class="w-full px-4 pt-4 pb-2 flex flex-col gap-1">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="font-display text-lg text-marca-900">Prontuário Digital</h1>
+        <p class="text-sm text-marca-700 font-body">Atendimento médico unificado | Dra. Renata Carvalho - 13/06/2024</p>
+      </div>
+      <button type="button" aria-label="Voltar para o painel" onclick="mostrarTela('agenda-multiprofissional')" class="btn px-2 py-2 bg-marca-50 text-marca-700 hover:bg-marca-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+    </div>
+    <div class="flex gap-2 mt-3">
+      <button type="button" data-abapr="dados" onclick="prontuario_digital_mudarAba('dados')" class="fonte-abas transition px-2 py-1 rounded-t-lg border-b-2 border-transparent text-marca-700 hover:border-marca-200 focus:border-marca-400">Dados do Paciente</button>
+      <button type="button" data-abapr="evolucao" onclick="prontuario_digital_mudarAba('evolucao')" class="fonte-abas transition px-2 py-1 rounded-t-lg border-b-2 border-transparent text-marca-700 hover:border-marca-200 focus:border-marca-400">Evolução Clínica</button>
+      <button type="button" data-abapr="anexos" onclick="prontuario_digital_mudarAba('anexos')" class="fonte-abas transition px-2 py-1 rounded-t-lg border-b-2 border-transparent text-marca-700 hover:border-marca-200 focus:border-marca-400">Anexos</button>
+      <button type="button" data-abapr="receituario" onclick="prontuario_digital_mudarAba('receituario')" class="fonte-abas transition px-2 py-1 rounded-t-lg border-b-2 border-transparent text-marca-700 hover:border-marca-200 focus:border-marca-400">Receituário</button>
+    </div>
+    <div id="prontuario_digital_abas" class="mt-2 font-body"></div>
+  </header>
+
+  <div class="flex-1 min-h-0 pb-32">
+    <!-- Área dinâmica das abas -->
+    <div id="prontuario_digital_conteudoAba"></div>
+    <!-- Histórico de atendimentos -->
+    <section class="mt-6 px-4 pb-2">
+      <h2 class="text-marca-800 font-semibold text-sm mb-3">Histórico de Atendimentos</h2>
+      <div class="flex flex-col gap-2 max-h-44 overflow-y-auto custom-scroll" id="prontuario_digital_listaHistorico"></div>
+    </section>
+  </div>
+
+  <!-- Integração WhatsApp -->
+  <aside class="fixed bottom-24 left-0 right-0 mx-auto max-w-[430px] w-full px-4 z-10">
+    <div class="rounded-xl bg-marca-50 border border-marca-100 shadow-md flex items-center py-2 px-3 gap-2">
+      <svg class="w-6 h-6 text-[#25d366]" fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 14.9c-.3-.2-1.9-1-2.2-1.2-.3-.1-.5-.2-.7.1-.2.2-.7.8-.9 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.7.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.6-1.6-.8-2.3-.2-.7-.4-.6-.6-.6h-.5c-.2 0-.5.1-.7.4-.2.3-.7.9-.7 2s.7 2.3 1.4 3.1c.7.8 1.8 1.7 2.7 2.1 1.1.4 2 .4 2.5.4.4 0 .8 0 1.2-.5.4-.5 1.2-1.4 1.3-1.8.1-.4.1-.6-.2-.8z"/><circle cx="12" cy="12" r="10" stroke="#22C55E" stroke-width="2" fill="none"/></svg>
+      <input type="text" id="prontuario_digital_msgWhatsapp" class="flex-1 border-0 outline-none text-marca-800 bg-transparent font-body text-[15px] placeholder-marca-500" placeholder="Envie mensagem ao paciente..." maxlength="255">
+      <button onclick="prontuario_digital_enviarWhatsapp()" class="btn bg-[#25d366] text-white hover:bg-[#1da851] transition p-2 flex items-center justify-center rounded-full" aria-label="Enviar WhatsApp">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Rodapé de ações -->
+  <footer class="fixed bottom-0 left-0 right-0 mx-auto max-w-[430px] w-full bg-white/90 border-t border-marca-100 flex gap-3 px-4 py-3 z-20">
+    <button type="button" onclick="prontuario_digital_salvar()" class="btn flex-1 bg-marca-600 text-white font-semibold hover:bg-marca-700 active:scale-95 transition">Salvar</button>
+    <button type="button" onclick="prontuario_digital_finalizarAtendimento()" class="btn flex-1 bg-marca-800 text-white font-semibold hover:bg-marca-900 active:scale-95 transition">Finalizar Atendimento</button>
+    <button type="button" onclick="prontuario_digital_solicitarExame()" class="btn flex-1 bg-marca-50 text-marca-900 border border-marca-200 hover:bg-marca-100 active:scale-95 transition flex gap-2 items-center justify-center">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7-7 7M5 12h16"/></svg>
+      Solicitar Exame
+    </button>
+  </footer>
+
+  <script>
+  // Estado do prontuário digital
+  const prontuario_digital_estado = {
+    aba: 'dados',
+    paciente: {
+      nome: 'Letícia Almeida Ramos',
+      avatar: 'LA',
+      cor: '#22C55E',
+      foto: null,
+      cpf: '428.119.208-41',
+      nascimento: '1997-09-04',
+      convenio: 'Unimed Nacional',
+      telefone: '(11) 97322-8817',
+      email: 'leticia.ramos@gmail.com',
+      sexo: 'Feminino',
+      endereco: 'R. Matriz, 375 - Campinas, SP',
+      numeroProntuario: '003857',
+    },
+    evolucao: '',
+    anexos: [
+      {id:1, type:'foto', url:'https://ui-avatars.com/api/?name=Exame+Rx&background=22C55E&color=fff', nome:'Exame RX Tórax', data:'2024-06-10'},
+      {id:2, type:'exame', url:'https://ui-avatars.com/api/?name=Hemograma&background=22C55E&color=fff', nome:'Hemograma Completo', data:'2024-06-04'},
+      {id:3, type:'doc', url:'https://ui-avatars.com/api/?name=RG&background=22C55E&color=fff', nome:'Documento RG', data:'2023-10-28'},
+      {id:4, type:'foto', url:'https://ui-avatars.com/api/?name=Les%E3o+Consultorio&background=14532D&color=fff', nome:'Foto Lesão Consulta', data:'2024-06-13'},
+      {id:5, type:'exame', url:'https://ui-avatars.com/api/?name=Bioqu%EDmica&background=14532D&color=fff', nome:'Bioquímica', data:'2024-05-29'},
+      {id:6, type:'doc', url:'https://ui-avatars.com/api/?name=Laudo+Ultrassom&background=F0FDF4&color=14532D', nome:'Ultrassom Abdome', data:'2024-06-09'},
+    ],
+    receituario: {
+      texto: '',
+      assinatura: false,
+    },
+    historico: [
+      {
+        // detalhamento simplificado, pode ser modal expandido
+        data: '2024-06-04T15:47',
+        profissional: 'Dra. Renata Carvalho',
+        especialidade: 'Clínica Médica',
+        resumo: 'Consulta de rotina. Pressão normal. Solicitado hemograma.',
+      },
+      {
+        data: '2024-05-29T18:24',
+        profissional: 'Dr. André Silva',
+        especialidade: 'Reumatologia',
+        resumo: 'Queixa de dor nas articulações. Solicitada bioquímica e RX.',
+      },
+      {
+        data: '2024-05-12T08:51',
+        profissional: 'Dra. Julia Mendes',
+        especialidade: 'Dermatologia',
+        resumo: 'Avaliação de lesão cutânea. Realizada foto. Medicação prescrita.',
+      },
+      {
+        data: '2024-01-10T10:12',
+        profissional: 'Dr. Jean Victor',
+        especialidade: 'Clínica Médica',
+        resumo: 'Retorno pós-cirurgia. Laudo ultrassom incluso nos anexos.',
+      },
+      {
+        data: '2023-10-28T11:03',
+        profissional: 'Dra. Adriana Costa',
+        especialidade: 'Clínica Médica',
+        resumo: 'Atualização de cadastro. Documento RG anexado.',
+      },
+      {
+        data: '2023-05-04T09:14',
+        profissional: 'Dr. Rafael Batista',
+        especialidade: 'Endocrinologia',
+        resumo: 'Exames laboratoriais e encaixe para retorno.',
+      }
+    ],
+    templatesEvolucao: [
+      {nome:'Clínica Médica', texto: 'Paciente em bom estado geral. Sinais vitais estáveis. Sem queixas relevantes.'},
+      {nome:'Dermatologia', texto: 'Lesão analisada, sem sinais de infecção. Sugerido acompanhamento.'},
+      {nome:'Pediatria', texto: 'Criança bem hidratada, alimentação preservada. Seme de infecção.'},
+      {nome:'Ortopedia', texto: 'Movimentação preservada dos membros. Solicitar RX.'},
+    ],
+    templatesReceita: [
+      {nome:'Receita Simples', texto: 'Paracetamol 500mg, tomar 1 comp 8/8h por 5 dias.'},
+      {nome:'Receita Controlada', texto: 'Receita para medicamento controlado, imprima e assine digitalmente.'},
+    ],
+    msgWhatsapp: '',
+  };
+
+  function prontuario_digital_mudarAba(aba) {
+    prontuario_digital_estado.aba = aba;
+    prontuario_digital_renderAba();
+    // Destacar aba ativa
+    document.querySelectorAll('[data-abapr]').forEach(btn => {
+      btn.classList.remove('border-marca-600', 'font-semibold', 'bg-marca-100', 'text-marca-900');
+      const ativa = btn.getAttribute('data-abapr') === aba;
+      if (ativa) {
+        btn.classList.add('border-marca-600','font-semibold','bg-marca-100','text-marca-900');
+      }
+    });
+  }
+
+  function prontuario_digital_renderAba() {
+    let html = '';
+    const est = prontuario_digital_estado;
+    if(est.aba === 'dados') {
+      // Dados do Paciente
+      html = `
+        <section class="p-4 pb-0 flex flex-col gap-3 card mb-2">
+          <div class="flex gap-4 items-center">
+            <div class="relative">
+              <span class="inline-flex rounded-full bg-marca-200 w-14 h-14 justify-center items-center font-bold text-2xl text-white" style="background:${est.paciente.foto ? `url('${est.paciente.foto}') center/cover` : est.paciente.cor};">
+                ${est.paciente.avatar}
+              </span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-lg font-semibold text-marca-900 font-display">${est.paciente.nome}</span>
+                <span class="badge bg-marca-50 border border-marca-200 text-marca-700 text-xs">${est.paciente.sexo}</span>
+              </div>
+              <div class="text-sm text-marca-700">${est.paciente.numeroProntuario} &middot; CPF: ${est.paciente.cpf}</div>
+              <div class="text-xs text-marca-500">${est.paciente.endereco}</div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3 mt-2">
+            <div>
+              <div class="font-semibold text-marca-700 text-[13px]">Nascimento</div>
+              <div class="text-[14px] text-marca-900">${dataBR(est.paciente.nascimento)}</div>
+            </div>
+            <div>
+              <div class="font-semibold text-marca-700 text-[13px]">Telefone</div>
+              <div class="text-[14px] text-marca-900">${est.paciente.telefone}</div>
+            </div>
+            <div>
+              <div class="font-semibold text-marca-700 text-[13px]">E-mail</div>
+              <div class="text-[14px] text-marca-900">${est.paciente.email}</div>
+            </div>
+            <div>
+              <div class="font-semibold text-marca-700 text-[13px]">Convênio</div>
+              <div class="text-[14px] text-marca-900">${est.paciente.convenio}</div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+    if(est.aba === 'evolucao') {
+      html = `
+        <form onsubmit="event.preventDefault(); prontuario_digital_salvarEvolucao();" class="p-4 pb-0 flex flex-col gap-4 card mb-2">
+          <label class="block text-marca-700 font-semibold mb-1">Evolução Clínica</label>
+          <textarea id="prontuario_digital_evolucao" required rows="5" maxlength="1500"
+            class="w-full border rounded-xl bg-marca-50 text-marca-900 p-3 font-body placeholder-marca-400 focus:border-marca-600 transition"
+            placeholder="Digite a evolução do atendimento...">${est.evolucao}</textarea>
+          <div class="flex flex-wrap gap-2">
+            ${est.templatesEvolucao.map((tpl,i)=>`
+              <button type="button" class="badge bg-marca-100 hover:bg-marca-200 text-marca-700 border border-marca-200 px-2 py-1 transition text-xs"
+                onclick="prontuario_digital_usarTemplateEvolucao(${i})">${tpl.nome}</button>
+            `).join('')}
+          </div>
+          <button type="submit" class="btn mt-2 bg-marca-600 text-white hover:bg-marca-700 active:scale-95 transition">Salvar Evolução</button>
+        </form>
+      `;
+    }
+    if(est.aba === 'anexos') {
+      html = `
+        <section class="card p-4 pb-2 flex flex-col gap-3 mb-2">
+          <div class="flex items-center gap-2 justify-between">
+            <span class="font-semibold text-marca-700">Galeria de Anexos</span>
+            <button type="button" class="btn bg-marca-50 border border-marca-200 text-marca-800 hover:bg-marca-100 py-1 px-2 text-sm rounded shadow-sm transition active:scale-95"
+              onclick="prontuario_digital_abrirUpload()">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1 inline" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 20h16" stroke-linecap="round"/></svg>
+              Adicionar
+            </button>
+          </div>
+          <div class="flex gap-2 overflow-x
+
     <!-- TELAS -->
     </main>
 
