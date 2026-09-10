@@ -3589,6 +3589,272 @@
     const txt = (input?.value || "").trim();
     if(!txt){ toast('Digite uma mensagem antes de enviar', 'erro'); return
 
+    <section data-tela="administracao-e-acessos" class="hidden">
+  <div class="px-5 pt-6 pb-32">
+
+    <div class="flex items-start justify-between gap-3 mb-5">
+      <div class="min-w-0">
+        <p class="font-body text-[11px] uppercase tracking-widest text-marca-600 font-semibold">Configurações</p>
+        <h1 class="font-display text-2xl text-marca-900 leading-tight">Administração & Acessos</h1>
+        <p class="font-body text-sm text-slate-500 mt-1">Controle de usuários, unidades, integrações e identidade visual da clínica.</p>
+      </div>
+      <button onclick="administracao_e_acessos_novo()" class="btn bg-marca-700 text-white px-4 py-2.5 rounded-xl font-body font-semibold text-sm shadow-md active:scale-95 flex items-center gap-1.5 shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Novo
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mb-5">
+      <div class="card bg-white p-3.5 border border-slate-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+            <svg class="w-4 h-4 text-marca-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          </div>
+          <span class="badge bg-marca-100 text-marca-800 text-[10px] px-2 py-0.5 rounded-full font-semibold">+3</span>
+        </div>
+        <p class="font-display text-2xl text-marca-900 leading-none">47</p>
+        <p class="font-body text-[11px] text-slate-500 mt-1">Usuários ativos</p>
+      </div>
+      <div class="card bg-white p-3.5 border border-slate-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+            <svg class="w-4 h-4 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          </div>
+          <span class="badge bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-semibold">OK</span>
+        </div>
+        <p class="font-display text-2xl text-marca-900 leading-none">6</p>
+        <p class="font-body text-[11px] text-slate-500 mt-1">Unidades vinculadas</p>
+      </div>
+      <div class="card bg-white p-3.5 border border-slate-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7 0l4-4a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-4 4a5 5 0 0 0 7 7l1-1"/></svg>
+          </div>
+          <span class="badge bg-amber-100 text-amber-800 text-[10px] px-2 py-0.5 rounded-full font-semibold">4 ativas</span>
+        </div>
+        <p class="font-display text-2xl text-marca-900 leading-none">12</p>
+        <p class="font-body text-[11px] text-slate-500 mt-1">Integrações</p>
+      </div>
+      <div class="card bg-white p-3.5 border border-slate-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center">
+            <svg class="w-4 h-4 text-violet-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <span class="badge bg-violet-100 text-violet-800 text-[10px] px-2 py-0.5 rounded-full font-semibold">Hoje</span>
+        </div>
+        <p class="font-display text-2xl text-marca-900 leading-none">328</p>
+        <p class="font-body text-[11px] text-slate-500 mt-1">Ações no log</p>
+      </div>
+    </div>
+
+    <div class="flex gap-1.5 overflow-x-auto pb-1 mb-4 -mx-5 px-5 scrollbar-hide" id="administracao-tabs">
+      <button onclick="administracao_e_acessos_tab('usuarios')" data-tab="usuarios" class="tab-btn shrink-0 px-4 py-2 rounded-full font-body text-xs font-semibold bg-marca-700 text-white">Usuários</button>
+      <button onclick="administracao_e_acessos_tab('unidades')" data-tab="unidades" class="tab-btn shrink-0 px-4 py-2 rounded-full font-body text-xs font-semibold bg-white text-slate-600 border border-slate-200">Unidades</button>
+      <button onclick="administracao_e_acessos_tab('integracoes')" data-tab="integracoes" class="tab-btn shrink-0 px-4 py-2 rounded-full font-body text-xs font-semibold bg-white text-slate-600 border border-slate-200">Integrações</button>
+      <button onclick="administracao_e_acessos_tab('marca')" data-tab="marca" class="tab-btn shrink-0 px-4 py-2 rounded-full font-body text-xs font-semibold bg-white text-slate-600 border border-slate-200">Marca</button>
+      <button onclick="administracao_e_acessos_tab('logs')" data-tab="logs" class="tab-btn shrink-0 px-4 py-2 rounded-full font-body text-xs font-semibold bg-white text-slate-600 border border-slate-200">Log de atividades</button>
+    </div>
+
+    <div id="administracao-painel-usuarios" class="administracao-tab">
+      <div class="relative mb-3">
+        <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="administracao-busca" oninput="administracao_e_acessos_filtrar()" type="text" placeholder="Buscar por nome, CPF ou cargo..." class="w-full pl-10 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl font-body text-sm focus:outline-none focus:border-marca-500 focus:ring-2 focus:ring-marca-100">
+      </div>
+
+      <div class="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
+        <button onclick="administracao_e_acessos_filtroPerfil('todos', this)" data-perfil="todos" class="perfil-btn shrink-0 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-marca-50 text-marca-800 border border-marca-200">Todos</button>
+        <button onclick="administracao_e_acessos_filtroPerfil('admin', this)" data-perfil="admin" class="perfil-btn shrink-0 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Admin</button>
+        <button onclick="administracao_e_acessos_filtroPerfil('medico', this)" data-perfil="medico" class="perfil-btn shrink-0 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Médicos</button>
+        <button onclick="administracao_e_acessos_filtroPerfil('recepcao', this)" data-perfil="recepcao" class="perfil-btn shrink-0 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Recepção</button>
+        <button onclick="administracao_e_acessos_filtroPerfil('financeiro', this)" data-perfil="financeiro" class="perfil-btn shrink-0 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Financeiro</button>
+      </div>
+
+      <div id="administracao-lista-usuarios" class="space-y-2.5"></div>
+
+      <div id="administracao-vazio-usuarios" class="hidden text-center py-10">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+          <svg class="w-7 h-7 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </div>
+        <p class="font-display text-slate-700">Nada por aqui</p>
+        <p class="font-body text-xs text-slate-500 mt-1">Tente outro termo ou perfil.</p>
+      </div>
+    </div>
+
+    <div id="administracao-painel-unidades" class="administracao-tab hidden">
+      <div class="space-y-3" id="administracao-lista-unidades"></div>
+    </div>
+
+    <div id="administracao-painel-integracoes" class="administracao-tab hidden">
+      <div class="space-y-3" id="administracao-lista-integracoes"></div>
+    </div>
+
+    <div id="administracao-painel-marca" class="administracao-tab hidden">
+      <div class="card bg-white p-5 border border-slate-100 mb-3">
+        <h3 class="font-display text-base text-marca-900 mb-1">Logotipo da clínica</h3>
+        <p class="font-body text-xs text-slate-500 mb-4">Envie o arquivo em PNG ou SVG, fundo transparente recomendado.</p>
+        <div class="flex items-center gap-4">
+          <div id="administracao-logo-preview" class="w-20 h-20 rounded-2xl bg-gradient-to-br from-marca-700 to-marca-500 flex items-center justify-center text-white font-display text-2xl shadow-md">LM</div>
+          <div class="flex-1">
+            <label class="block">
+              <input type="file" accept="image/*" onchange="administracao_e_acessos_uploadLogo(event)" class="hidden">
+              <span class="btn bg-marca-700 text-white px-4 py-2.5 rounded-xl font-body text-xs font-semibold inline-block active:scale-95 cursor-pointer">Escolher arquivo</span>
+            </label>
+            <p class="font-body text-[11px] text-slate-500 mt-2">labmed-logo-v3.png · 248 KB</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-white p-5 border border-slate-100 mb-3">
+        <h3 class="font-display text-base text-marca-900 mb-1">Identidade visual</h3>
+        <p class="font-body text-xs text-slate-500 mb-4">Defina as cores principais e secundárias usadas no app e nos documentos.</p>
+        <div class="space-y-3">
+          <div>
+            <label class="font-body text-xs font-semibold text-slate-700 mb-1.5 block">Cor primária</label>
+            <div class="flex items-center gap-2">
+              <input id="administracao-cor-primaria" type="color" value="#14532D" onchange="administracao_e_acessos_atualizarCor()" class="w-12 h-10 rounded-lg border border-slate-200 cursor-pointer">
+              <input id="administracao-cor-primaria-hex" type="text" value="#14532D" maxlength="7" onchange="administracao_e_acessos_atualizarCor()" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="font-body text-xs font-semibold text-slate-700 mb-1.5 block">Cor de destaque</label>
+            <div class="flex items-center gap-2">
+              <input id="administracao-cor-destaque" type="color" value="#22C55E" onchange="administracao_e_acessos_atualizarCor()" class="w-12 h-10 rounded-lg border border-slate-200 cursor-pointer">
+              <input id="administracao-cor-destaque-hex" type="text" value="#22C55E" maxlength="7" onchange="administracao_e_acessos_atualizarCor()" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="font-body text-xs font-semibold text-slate-700 mb-1.5 block">Fundo padrão</label>
+            <div class="flex items-center gap-2">
+              <input id="administracao-cor-fundo" type="color" value="#F0FDF4" onchange="administracao_e_acessos_atualizarCor()" class="w-12 h-10 rounded-lg border border-slate-200 cursor-pointer">
+              <input id="administracao-cor-fundo-hex" type="text" value="#F0FDF4" maxlength="7" onchange="administracao_e_acessos_atualizarCor()" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs">
+            </div>
+          </div>
+        </div>
+        <button onclick="administracao_e_acessos_salvarCores()" class="w-full mt-4 btn bg-marca-700 text-white py-2.5 rounded-xl font-body text-sm font-semibold active:scale-95">Salvar identidade</button>
+      </div>
+
+      <div class="card bg-white p-5 border border-slate-100">
+        <h3 class="font-display text-base text-marca-900 mb-1">Vídeos institucionais</h3>
+        <p class="font-body text-xs text-slate-500 mb-4">Links do YouTube exibidos na recepção digital e no site.</p>
+        <div id="administracao-lista-videos" class="space-y-2 mb-3"></div>
+        <button onclick="administracao_e_acessos_addVideo()" class="w-full btn border-2 border-dashed border-slate-300 text-slate-600 py-2.5 rounded-xl font-body text-xs font-semibold active:scale-95">+ Adicionar vídeo</button>
+      </div>
+    </div>
+
+    <div id="administracao-painel-logs" class="administracao-tab hidden">
+      <div class="flex gap-2 mb-3">
+        <button onclick="administracao_e_acessos_logFiltro('todos', this)" data-log="todos" class="log-btn flex-1 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-marca-50 text-marca-800 border border-marca-200">Tudo</button>
+        <button onclick="administracao_e_acessos_logFiltro('acesso', this)" data-log="acesso" class="log-btn flex-1 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Acessos</button>
+        <button onclick="administracao_e_acessos_logFiltro('cadastro', this)" data-log="cadastro" class="log-btn flex-1 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Cadastros</button>
+        <button onclick="administracao_e_acessos_logFiltro('financeiro', this)" data-log="financeiro" class="log-btn flex-1 px-3 py-1.5 rounded-full font-body text-[11px] font-semibold bg-white text-slate-600 border border-slate-200">Financeiro</button>
+      </div>
+      <div id="administracao-lista-logs" class="space-y-2"></div>
+    </div>
+
+  </div>
+
+<script>
+(function(){
+  const USUARIOS = [
+    { id:1, nome:'Dra. Helena Coutinho',      iniciais:'HC', cor:'from-emerald-500 to-emerald-700', perfil:'admin',      cargo:'Diretora Médica',     cpf:'123.456.789-00', unidade:'Matriz · Centro', status:'ativo',    ultimo:'Há 4 min',  email:'helena.coutinho@labmed.com.br',    tel:'(11) 98765-4321' },
+    { id:2, nome:'Dr. Rafael Mendes',          iniciais:'RM', cor:'from-sky-500 to-sky-700',       perfil:'medico',     cargo:'Cardiologista',        cpf:'234.567.890-11', unidade:'Unidade Vila Mariana', status:'ativo', ultimo:'Há 12 min', email:'rafael.mendes@labmed.com.br',     tel:'(11) 97654-3210' },
+    { id:3, nome:'Beatriz Lacerda',            iniciais:'BL', cor:'from-amber-500 to-amber-700',   perfil:'recepcao',   cargo:'Recepção · Plantão',  cpf:'345.678.901-22', unidade:'Matriz · Centro',       status:'ativo', ultimo:'Há 22 min', email:'beatriz.lacerda@labmed.com.br',   tel:'(11) 96543-2109' },
+    { id:4, nome:'Marcelo Tavares',            iniciais:'MT', cor:'from-violet-500 to-violet-700', perfil:'financeiro', cargo:'Analista Financeiro',  cpf:'456.789.012-33', unidade:'Matriz · Centro',       status:'ativo', ultimo:'Há 1 h',    email:'marcelo.tavares@labmed.com.br',   tel:'(11) 95432-1098' },
+    { id:5, nome:'Dra. Camila Siqueira',       iniciais:'CS', cor:'from-rose-500 to-rose-700',     perfil:'medico',     cargo:'Endocrinologista',     cpf:'567.890.123-44', unidade:'Unidade Tatuapé',       status:'ativo', ultimo:'Há 2 h',    email:'camila.siqueira@labmed.com.br',   tel:'(11) 94321-0987' },
+    { id:6, nome:'Júlio Aragão',               iniciais:'JA', cor:'from-indigo-500 to-indigo-700', perfil:'admin',      cargo:'Coord. de TI',         cpf:'678.901.234-55', unidade:'Matriz · Centro',       status:'ativo', ultimo:'Há 3 h',    email:'julio.aragao@labmed.com.br',      tel:'(11) 93210-9876' },
+    { id:7, nome:'Patrícia Nogueira',          iniciais:'PN', cor:'from-teal-500 to-teal-700',     perfil:'recepcao',   cargo:'Recepção · Tatuapé',   cpf:'789.012.345-66', unidade:'Unidade Tatuapé',       status:'ativo', ultimo:'Há 5 h',    email:'patricia.nogueira@labmed.com.br', tel:'(11) 92109-8765' },
+    { id:8, nome:'Dr. Vinícius Pacheco',       iniciais:'VP', cor:'from-cyan-500 to-cyan-700',     perfil:'medico',     cargo:'Ortopedista',          cpf:'890.123.456-77', unidade:'Unidade Vila Mariana', status:'ferias',  ultimo:'Há 2 dias',email:'vinicius.pacheco@labmed.com.br',  tel:'(11) 91098-7654' },
+    { id:9, nome:'Larissa Cordeiro',           iniciais:'LC', cor:'from-pink-500 to-pink-700',     perfil:'financeiro', cargo:'Aux. Financeiro',      cpf:'901.234.567-88', unidade:'Matriz · Centro',       status:'ativo', ultimo:'Há 6 h',    email:'larissa.cordeiro@labmed.com.br',  tel:'(11) 90987-6543' },
+    { id:10,nome:'Eduardo Bernardes',          iniciais:'EB', cor:'from-lime-500 to-lime-700',     perfil:'recepcao',   cargo:'Recepção · Vila Mariana',cpf:'012.345.678-99', unidade:'Unidade Vila Mariana', status:'inativo', ultimo:'Há 9 dias',email:'eduardo.bernardes@labmed.com.br', tel:'(11) 99876-5432' }
+  ];
+
+  const UNIDADES = [
+    { id:1, nome:'LabMed · Centro',            cidade:'São Paulo · SP',  centro:'CC-MAT-01', resp:'Dra. Helena Coutinho', exames:18, ativo:true,  pacientes:4280, lab:'Fleury' },
+    { id:2, nome:'LabMed · Vila Mariana',     cidade:'São Paulo · SP',  centro:'CC-VLM-02', resp:'Dr. Rafael Mendes',    exames:14, ativo:true,  pacientes:2640, lab:'Dasa' },
+    { id:3, nome:'LabMed · Tatuapé',          cidade:'São Paulo · SP',  centro:'CC-TAT-03', resp:'Dra. Camila Siqueira', exames:12, ativo:true,  pacientes:1985, lab:'Delboni' },
+    { id:4, nome:'LabMed · Santo Amaro',      cidade:'São Paulo · SP',  centro:'CC-STA-04', resp:'Patrícia Nogueira',    exames:11, ativo:true,  pacientes:1620, lab:'Fleury' },
+    { id:5, nome:'LabMed · Guarulhos',        cidade:'Guarulhos · SP',  centro:'CC-GRU-05', resp:'Júlio Aragão',         exames:9,  ativo:true,  pacientes:1120, lab:'Lavoisier' },
+    { id:6, nome:'LabMed · Osasco',           cidade:'Osasco · SP',     centro:'CC-OSA-06', resp:'Beatriz Lacerda',      exames:7,  ativo:false, pacientes:540,  lab:'Lavoisier' }
+  ];
+
+  const INTEGRACOES = [
+    { id:1, nome:'Site institucional',     url:'labmedfacilitiesservices.com.br', tipo:'site',    status:'conectado', cor:'emerald', desc:'Sincronização de agendamentos e resultados com o portal.' },
+    { id:2, nome:'WhatsApp Business API',  url:'meta.whatsapp.com',               tipo:'whatsapp',status:'conectado', cor:'emerald', desc:'Atendimento, lembretes e envio de laudos direto pelo app.' },
+    { id:3, nome:'Cielo · Pagamentos',     url:'cielo.com.br',                    tipo:'pagamento',status:'conectado',cor:'emerald', desc:'Links de cobrança com Pix, cartão e parcelamento.' },
+    { id:4, nome:'Rede · Pagamentos',      url:'userede.com.br',                  tipo:'pagamento',status:'conectado', cor:'emerald', desc:'Maquininha e split de pagamento entre centros de custo.' },
+    { id:5, nome:'Fleury · Laboratórios',  url:'fleury.com.br',                   tipo:'laboratorio',status:'conectado', cor:'emerald', desc:'Importação de resultados e laudos de exames.' },
+    { id:6, nome:'Dasa · Laboratórios',    url:'dasa.com.br',                     tipo:'laboratorio',status:'conectado', cor:'emerald', desc:'Integração de resultados e imagens médicas.' },
+    { id:7, nome:'Delboni · Laboratórios', url:'delboni.com.br',                  tipo:'laboratorio',status:'conectado', cor:'emerald', desc:'Laudos automáticos com assinatura digital.' },
+    { id:8, nome:'Lavoisier · Laboratórios',url:'lavoisier.com.br',               tipo:'laboratorio',status:'conectado', cor:'emerald', desc:'Resultados críticos com alerta em tempo real.' },
+    { id:9, nome:'Google Drive · Backup',  url:'drive.google.com',                tipo:'backup',  status:'parado',    cor:'amber',   desc:'Backup automático de documentos e prontuários.' },
+    { id:10,nome:'Mailchimp · Marketing', url:'mailchimp.com',                   tipo:'marketing',status:'desconectado',cor:'slate', desc:'Campanhas de e-mail e SMS para pacientes.' }
+  ];
+
+  const VIDEOS = [
+    { id:1, titulo:'Tour pela clínica Matriz', duracao:'2:14', url:'youtube.com/labmed-tour' },
+    { id:2, titulo:'Como funciona o check-in digital', duracao:'1:38', url:'youtube.com/labmed-checkin' },
+    { id:3, titulo:'Tire suas dúvidas sobre exames', duracao:'4:02', url:'youtube.com/labmed-duvidas' }
+  ];
+
+  const LOGS = [
+    { id:1, user:'Dra. Helena Coutinho', tipo:'acesso',     acao:'Login realizado',                    alvo:'Painel Principal',         quando:'Hoje, 14:32', ip:'192.168.0.12' },
+    { id:2, user:'Marcelo Tavares',     tipo:'financeiro', acao:'Gerou repasse',                       alvo:'Dr. Rafael Mendes · R$ 4.820,00','quando':'Hoje, 14:18', ip:'192.168.0.45' },
+    { id:3, user:'Beatriz Lacerda',     tipo:'cadastro',   acao:'Cadastrou paciente',                  alvo:'Mariana Oliveira (ID 4821)','quando':'Hoje, 13:51', ip:'192.168.0.78' },
+    { id:4, user:'Júlio Aragão',        tipo:'acesso',     acao:'Permissão alterada',                  alvo:'Larissa Cordeiro → Financeiro Avançado','quando':'Hoje, 11:24', ip:'192.168.0.12' },
+    { id:5, user:'Dra. Camila Siqueira',tipo:'cadastro',   acao:'Salvou prontuário',                   alvo:'Roberto Silva (ID 3922)','quando':'Hoje, 10:47', ip:'192.168.0.31' },
+    { id:6, user:'Patrícia Nogueira',   tipo:'acesso',     acao:'Login realizado',                    alvo:'Tatuapé',                  'quando':'Hoje, 09:12',  ip:'10.0.4.18' },
+    { id:7, user:'Marcelo Tavares',     tipo:'financeiro', acao:'Conciliou pagamentos',               alvo:'14 transações · R$ 12.480,00','quando':'Hoje, 08:55', ip:'192.168.0.45' },
+    { id:8, user:'Dr. Rafael Mendes',   tipo:'cadastro',   acao:'Anexou exame ao prontuário',        alvo:'João Pereira · Hemograma','quando':'Ontem, 17:38',  ip:'192.168.0.22' },
+    { id:9, user:'Sistema',             tipo:'acesso',     acao:'Backup automático concluído',        alvo:'Google Drive · 2.4 GB',    'quando':'Ontem, 03:00',  ip:'interno' },
+    { id:10,user:'Júlio Aragão',        tipo:'cadastro',   acao:'Importou planilha de pacientes',     alvo:'Excel · 248 registros',    'quando':'Ontem, 16:12',  ip:'192.168.0.12' }
+  ];
+
+  const PERFIL_LABEL = { admin:'Admin', medico:'Médico', recepcao:'Recepção', financeiro:'Financeiro' };
+  const PERFIL_BG    = { admin:'bg-violet-100 text-violet-800', medico:'bg-sky-100 text-sky-800', recepcao:'bg-amber-100 text-amber-800', financeiro:'bg-emerald-100 text-emerald-800' };
+  const STATUS_BG    = { ativo:'bg-emerald-100 text-emerald-800', ferias:'bg-amber-100 text-amber-800', inativo:'bg-slate-200 text-slate-700' };
+  const STATUS_LABEL = { ativo:'Ativo', ferias:'Férias', inativo:'Inativo' };
+
+  let filtroAtivo = 'todos';
+
+  window.administracao_e_acessos_tab = function(tab){
+    document.querySelectorAll('#administracao-tabs .tab-btn').forEach(b => {
+      const ativo = b.dataset.tab === tab;
+      b.classList.toggle('bg-marca-700', ativo);
+      b.classList.toggle('text-white', ativo);
+      b.classList.toggle('bg-white', !ativo);
+      b.classList.toggle('text-slate-600', !ativo);
+      b.classList.toggle('border', !ativo);
+      b.classList.toggle('border-slate-200', !ativo);
+    });
+    document.querySelectorAll('.administracao-tab').forEach(p => p.classList.add('hidden'));
+    document.getElementById('administracao-painel-' + tab).classList.remove('hidden');
+    if (tab === 'logs')       administracao_e_acessos_renderLogs();
+    if (tab === 'unidades')   administracao_e_acessos_renderUnidades();
+    if (tab === 'integracoes')administracao_e_acessos_renderIntegracoes();
+    if (tab === 'marca')      administracao_e_acessos_renderVideos();
+  };
+
+  window.administracao_e_acessos_filtrar = function(){
+    const q = (document.getElementById('administracao-busca').value || '').toLowerCase().trim();
+    const lista = USUARIOS.filter(u => {
+      const okBusca = !q || u.nome.toLowerCase().includes(q) || u.cpf.includes(q) || u.cargo.toLowerCase().includes(q);
+      const okPerfil = filtroAtivo === 'todos' || u.perfil === filtroAtivo;
+      return okBusca && okPerfil;
+    });
+    renderUsuarios(lista);
+  };
+
+  window.administracao_e_acessos_filtroPerfil = function(perfil, btn){
+    filtroAtivo = perfil;
+    document.querySelectorAll('.perfil-btn').forEach(b => {
+      const ativo = b === btn;
+      b.classList.toggle('bg-marca-50', ativo);
+      b.classList.toggle('text-marca-800', ativo);
+      b.classList.toggle('border-marca-200', ativo);
+      b.classList.toggle('bg-white', !ativo);
+      b.classList.toggle('text-slate-600', !ativo);
+      b.classList.toggle('border-s
+
     <!-- TELAS -->
     </main>
 
