@@ -558,6 +558,519 @@
   </script>
 </section>
 
+    <section data-tela="agenda-multiprofissional" class="hidden">
+  <div class="agenda-entrance">
+    <!-- Header da Tela -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="font-display text-xl font-bold text-gray-900 leading-tight">Agenda Multiprofissional</h2>
+        <p class="text-sm text-gray-500 mt-0.5">Visão semanal · 6 profissionais · 3 unidades</p>
+      </div>
+      <button onclick="agenda_multiprofissional_irParaHoje()" class="btn text-sm py-2 px-4 bg-marca-50 text-marca-700 rounded-xl font-semibold border border-marca-200 active:scale-95 transition-all">
+        Hoje
+      </button>
+    </div>
+
+    <!-- Navegação da Semana -->
+    <div class="flex items-center justify-between bg-white rounded-xl p-1 border border-gray-100 mb-3">
+      <button onclick="agenda_multiprofissional_navegarSemana(-1)" class="p-2 rounded-lg hover:bg-gray-50 active:scale-95 transition-all">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="text-center">
+        <span id="agenda-semana-label" class="font-display font-bold text-gray-900 text-sm"></span>
+        <span id="agenda-semana-ano" class="text-xs text-gray-400 ml-1"></span>
+      </div>
+      <button onclick="agenda_multiprofissional_navegarSemana(1)" class="p-2 rounded-lg hover:bg-gray-50 active:scale-95 transition-all">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Dias da Semana -->
+    <div id="agenda-dias-semana" class="flex justify-between gap-1 mb-3"></div>
+
+    <!-- Filtros -->
+    <div class="space-y-2 mb-3">
+      <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+        <button onclick="agenda_multiprofissional_toggleFiltro(this,'unidade')" class="filtro-chip whitespace-nowrap text-xs py-1.5 px-3 rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition-all" data-filtro="unidade">🏥 Unidades</button>
+        <button onclick="agenda_multiprofissional_toggleFiltro(this,'especialidade')" class="filtro-chip whitespace-nowrap text-xs py-1.5 px-3 rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition-all" data-filtro="especialidade">🩺 Especialidades</button>
+        <button onclick="agenda_multiprofissional_toggleFiltro(this,'convenio')" class="filtro-chip whitespace-nowrap text-xs py-1.5 px-3 rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition-all" data-filtro="convenio">💳 Convênios</button>
+        <button onclick="agenda_multiprofissional_toggleFiltro(this,'tipo')" class="filtro-chip whitespace-nowrap text-xs py-1.5 px-3 rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition-all" data-filtro="tipo">📋 Tipos</button>
+      </div>
+      <!-- Painel de filtros expandido -->
+      <div id="agenda-filtros-panel" class="hidden bg-white rounded-xl border border-gray-100 p-3">
+        <div id="agenda-filtros-conteudo" class="space-y-2"></div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho das Colunas (Profissionais) -->
+    <div id="agenda-cabecalhos" class="grid gap-2 mb-1" style="grid-template-columns: 60px repeat(var(--num-prof), 1fr);"></div>
+
+    <!-- Grade de Horários -->
+    <div id="agenda-grade" class="overflow-y-auto rounded-xl border border-gray-100 bg-white" style="height: 380px;"></div>
+
+    <!-- Resumo do Dia -->
+    <div class="mt-3 flex gap-2">
+      <div class="flex items-center gap-1.5 text-xs text-gray-600 bg-white rounded-lg px-2.5 py-2 border border-gray-100 flex-1">
+        <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span> Consulta
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-gray-600 bg-white rounded-lg px-2.5 py-2 border border-gray-100 flex-1">
+        <span class="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block"></span> Retorno
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-gray-600 bg-white rounded-lg px-2.5 py-2 border border-gray-100 flex-1">
+        <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block"></span> Exame
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-gray-600 bg-white rounded-lg px-2.5 py-2 border border-gray-100 flex-1">
+        <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> Emergência
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const ICONS = {
+    calendar: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>',
+    clock: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+    map: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+    check: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
+    x: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>',
+    phone: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>',
+    search: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
+    refresh: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>',
+    filter: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>',
+    eye: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>',
+    pencil: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+    more: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>'
+  };
+
+  window.agenda_multiprofissional_profissionais = [
+    { id: 'p1', nome: 'Dr. Ricardo Almeida', especialidade: 'Pediatria', cor: '#14532D', unidade: 'Unidade Centro', sigla: 'RA' },
+    { id: 'p2', nome: 'Dra. Camila Santos', especialidade: 'Ortopedia', cor: '#15803D', unidade: 'Unidade Norte', sigla: 'CS' },
+    { id: 'p3', nome: 'Dr. Felipe Oliveira', especialidade: 'Fisioterapia', cor: '#16A34A', unidade: 'Unidade Centro', sigla: 'FO' },
+    { id: 'p4', nome: 'Dra. Juliana Costa', especialidade: 'Cardiologia', cor: '#22C55E', unidade: 'Unidade Sul', sigla: 'JC' },
+    { id: 'p5', nome: 'Dra. Patrícia Lima', especialidade: 'Ginecologia', cor: '#4ADE80', unidade: 'Unidade Norte', sigla: 'PL' },
+    { id: 'p6', nome: 'LabMed Center', especialidade: 'Análises Clínicas', cor: '#86EFAC', unidade: 'Unidade Centro', sigla: 'LC' }
+  ];
+
+  window.agenda_multiprofissional_unidades = ['Todas', 'Unidade Centro', 'Unidade Norte', 'Unidade Sul'];
+  window.agenda_multiprofissional_especialidades = ['Todas', 'Pediatria', 'Ortopedia', 'Fisioterapia', 'Cardiologia', 'Ginecologia', 'Análises Clínicas'];
+  window.agenda_multiprofissional_convenios = ['Todos', 'Particular', 'Unimed', 'Bradesco Saúde', 'SulAmérica', 'Hapvida', 'Amil', 'INSS'];
+  window.agenda_multiprofissional_tipos = ['Todos', 'Consulta', 'Retorno', 'Exame', 'Emergência'];
+
+  const pacientes = [
+    { nome: 'Maria Silva Santos', cpf: '123.456.789-00', idade: 34, tel: '(11) 98765-4321', convenio: 'Unimed' },
+    { nome: 'José Pedro Oliveira', cpf: '987.654.321-00', idade: 52, tel: '(11) 91234-5678', convenio: 'Bradesco Saúde' },
+    { nome: 'Ana Carolina Ferreira', cpf: '456.789.123-00', idade: 28, tel: '(11) 99876-5432', convenio: 'Particular' },
+    { nome: 'Carlos Eduardo Lima', cpf: '321.654.987-00', idade: 61, tel: '(11) 97654-3210', convenio: 'SulAmérica' },
+    { nome: 'Fernanda Souza Reis', cpf: '654.987.321-00', idade: 41, tel: '(11) 96543-2109', convenio: 'Hapvida' },
+    { nome: 'Paulo Henrique Dias', cpf: '789.123.456-00', idade: 19, tel: '(11) 95432-1098', convenio: 'Particular' },
+    { nome: 'Luciana Pereira Costa', cpf: '147.258.369-00', idade: 37, tel: '(11) 94321-0987', convenio: 'Amil' },
+    { nome: 'Roberto Nascimento', cpf: '258.369.147-00', idade: 55, tel: '(11) 93210-9876', convenio: 'INSS' }
+  ];
+
+  const tipos = { consulta: { cor: 'bg-blue-500', borda: 'border-blue-400', icone: '🩺', bg_claro: 'bg-blue-50', texto: 'text-blue-700' }, retorno: { cor: 'bg-amber-400', borda: 'border-amber-300', icone: '🔄', bg_claro: 'bg-amber-50', texto: 'text-amber-700' }, exame: { cor: 'bg-purple-500', borda: 'border-purple-400', icone: '🔬', bg_claro: 'bg-purple-50', texto: 'text-purple-700' }, emergencia: { cor: 'bg-red-500', borda: 'border-red-400', icone: '🚨', bg_claro: 'bg-red-50', texto: 'text-red-700' } };
+  const statusMap = { confirmado: { texto: 'Confirmado', cor: 'bg-emerald-100 text-emerald-700' }, pendente: { texto: 'Pendente', cor: 'bg-amber-100 text-amber-700' }, realizado: { texto: 'Realizado', cor: 'bg-blue-100 text-blue-700' }, cancelado: { texto: 'Cancelado', cor: 'bg-red-100 text-red-700' } };
+
+  let agendaState = {
+    semanaOffset: 0,
+    filtroAberto: null,
+    filtros: { unidade: 'Todas', especialidade: 'Todas', convenio: 'Todos', tipo: 'Todos' },
+    profissionalAtivo: null
+  };
+
+  function getInicioSemana(offset) {
+    const d = new Date();
+    const day = d.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    d.setDate(d.getDate() + diff + (offset * 7));
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  function getDataSemana() {
+    const inicio = getInicioSemana(agendaState.semanaOffset);
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(inicio);
+      d.setDate(d.getDate() + i);
+      return d;
+    });
+  }
+
+  function ehHoje(d) {
+    const h = new Date();
+    return d.toDateString() === h.toDateString();
+  }
+
+  function dataStr(d) {
+    return d.toISOString().split('T')[0];
+  }
+
+  function diaSemanaStr(d) {
+    return ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'][d.getDay()];
+  }
+
+  function formatarHora(h) {
+    return h + ':00';
+  }
+
+  window.agenda_multiprofissional_gerarAgendamentos = function(datasSemana, profissionais) {
+    const agendamentos = [];
+    const idsUtilizados = new Set();
+    let id = 1;
+    const nomesUsados = new Set();
+
+    profissionais.forEach(prof => {
+      datasSemana.forEach(data => {
+        const dow = data.getDay();
+        if (dow === 0) return;
+
+        const horaInicio = prof.especialidade === 'Análises Clínicas' ? 7 : 8;
+        const horaFim = prof.especialidade === 'Análises Clínicas' ? 19 : 18;
+
+        const slotsPossiveis = [];
+        for (let h = horaInicio; h < horaFim; h++) {
+          const tipoRandom = Math.random();
+          let tipo;
+          if (prof.especialidade === 'Análises Clínicas') tipo = 'exame';
+          else if (tipoRandom < 0.55) tipo = 'consulta';
+          else if (tipoRandom < 0.80) tipo = 'retorno';
+          else if (tipoRandom < 0.92) tipo = 'exame';
+          else tipo = 'emergencia';
+
+          if (Math.random() < 0.65) {
+            const paciente = pacientes[Math.floor(Math.random() * pacientes.length)];
+            const statusKeys = ['confirmado', 'confirmado', 'confirmado', 'pendente', 'realizado', 'realizado'];
+            const status = statusKeys[Math.floor(Math.random() * statusKeys.length)];
+            const duracao = tipo === 'consulta' ? 1 : tipo === 'exame' ? 1 : 1;
+            const valor = tipo === 'consulta' ? 280 + Math.floor(Math.random() * 320) : tipo === 'retorno' ? 120 : tipo === 'exame' ? 150 + Math.floor(Math.random() * 800) : 400;
+
+            agendamentos.push({
+              id: id++, profId: prof.id, data: dataStr(data), hora: h, duracao, tipo, status,
+              paciente: { ...paciente },
+              procedimento: tipo === 'consulta' ? 'Consulta ' + prof.especialidade : tipo === 'retorno' ? 'Retorno pós-consulta' : tipo === 'exame' ? getExame(prof.especialidade) : 'Atendimento de urgência',
+              valor, centroCusto: getCentroCusto(prof.unidade)
+            });
+          }
+        }
+      });
+    });
+
+    return agendamentos;
+  };
+
+  function getExame(espec) {
+    const exames = { 'Pediatria': 'Hemograma completo + glicose', 'Ortopedia': 'Raio-X Coluna Lombar', 'Fisioterapia': 'Avaliação fisioterapêutica', 'Cardiologia': 'ECG + Teste Ergométrico', 'Ginecologia': 'Ultrassom Transvaginal', 'Análises Clínicas': 'Painel metabólico completo' };
+    return exames[espec] || 'Exame laboratorial';
+  }
+
+  function getCentroCusto(unidade) {
+    const centros = { 'Unidade Centro': 'CC-001 · Centro Principal', 'Unidade Norte': 'CC-002 · Filial Norte', 'Unidade Sul': 'CC-003 · Filial Sul' };
+    return centros[unidade] || 'CC-001';
+  }
+
+  window.agenda_multiprofissional_agendamentosAtuais = window.agenda_multiprofissional_gerarAgendamentos(getDataSemana(), window.agenda_multiprofissional_profissionais);
+
+  function filtrarProfissionais() {
+    const f = agendaState.filtros;
+    return window.agenda_multiprofissional_profissionais.filter(p => {
+      if (f.unidade !== 'Todas' && p.unidade !== f.unidade) return false;
+      if (f.especialidade !== 'Todas' && p.especialidade !== f.especialidade) return false;
+      return true;
+    });
+  }
+
+  function filtrarAgendamentos(profId, data) {
+    const f = agendaState.filtros;
+    const ds = dataStr(data);
+    return window.agenda_multiprofissional_agendamentosAtuais.filter(a => {
+      if (a.profId !== profId || a.data !== ds) return false;
+      if (f.convenio !== 'Todos' && a.paciente.convenio !== f.convenio) return false;
+      if (f.tipo !== 'Todos' && a.tipo !== f.tipo) return false;
+      return true;
+    });
+  }
+
+  window.agenda_multiprofissional_navegarSemana = function(dir) {
+    agendaState.semanaOffset += dir;
+    window.agenda_multiprofissional_agendamentosAtuais = window.agenda_multiprofissional_gerarAgendamentos(getDataSemana(), window.agenda_multiprofissional_profissionais);
+    agenda_multiprofissional_render();
+  };
+
+  window.agenda_multiprofissional_irParaHoje = function() {
+    agendaState.semanaOffset = 0;
+    window.agenda_multiprofissional_agendamentosAtuais = window.agenda_multiprofissional_gerarAgendamentos(getDataSemana(), window.agenda_multiprofissional_profissionais);
+    agenda_multiprofissional_render();
+    toast('Navegou para a semana atual', 'info');
+  };
+
+  window.agenda_multiprofissional_toggleFiltro = function(btn, tipo) {
+    const panel = document.getElementById('agenda-filtros-panel');
+    if (agendaState.filtroAberto === tipo) {
+      agendaState.filtroAberto = null;
+      panel.classList.add('hidden');
+      btn.classList.remove('bg-marca-50', 'text-marca-700', 'border-marca-300');
+      btn.classList.add('bg-gray-50', 'text-gray-600', 'border-gray-200');
+    } else {
+      agendaState.filtroAberto = tipo;
+      agendaState.filtroAberto = tipo;
+      btn.classList.remove('bg-gray-50', 'text-gray-600', 'border-gray-200');
+      btn.classList.add('bg-marca-50', 'text-marca-700', 'border-marca-300');
+      const conteudo = document.getElementById('agenda-filtros-conteudo');
+      const opcoes = window['agenda_multiprofissional_' + tipo + 's'];
+      conteudo.innerHTML = '<div class="flex flex-wrap gap-1.5">' + opcoes.map(o => {
+        const ativo = agendaState.filtros[tipo] === o ? 'bg-marca-50 text-marca-700 border-marca-300' : 'bg-white text-gray-600 border-gray-200 hover:border-marca-200';
+        return '<button onclick="agenda_multiprofissional_aplicarFiltro(\'' + tipo + '\',\'' + o + '\',this)" class="text-xs py-1 px-2.5 rounded-full border transition-all ' + ativo + '">' + o + '</button>';
+      }).join('') + '</div>';
+      panel.classList.remove('hidden');
+    }
+  };
+
+  window.agenda_multiprofissional_aplicarFiltro = function(tipo, valor, btn) {
+    agendaState.filtros[tipo] = valor;
+    agendaState.filtroAberto = null;
+    document.getElementById('agenda-filtros-panel').classList.add('hidden');
+    agenda_multiprofissional_render();
+    toast('Filtro aplicado: ' + valor, 'info');
+  };
+
+  function abrirModalAgendamento(profId, data, hora) {
+    const prof = window.agenda_multiprofissional_profissionais.find(p => p.id === profId);
+    const dataFmt = dataBR(dataStr(data) + 'T' + hora + ':00');
+    const html = '<div class="space-y-4">' +
+      '<div class="bg-marca-50 rounded-xl p-3 flex items-center gap-3">' +
+        '<div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:' + prof.cor + '">' + prof.sigla + '</div>' +
+        '<div><p class="font-semibold text-sm text-gray-900">' + prof.nome + '</p><p class="text-xs text-gray-500">' + prof.especialidade + ' · ' + prof.unidade + '</p></div>' +
+      '</div>' +
+      '<div class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>' + dataFmt + '</div>' +
+      '<div class="relative"><input id="modal-search-paciente" type="text" placeholder="Buscar paciente por CPF ou nome..." oninput="agenda_multiprofissional_buscarPaciente(this.value)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm pl-10 focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" /><div class="absolute left-3 top-3.5 text-gray-400">' + ICONS.search + '</div></div>' +
+      '<div id="modal-resultados-pacientes" class="space-y-1 max-h-48 overflow-y-auto"></div>' +
+      '<div id="modal-form-agendamento" class="hidden space-y-3">' +
+        '<div class="grid grid-cols-2 gap-2">' +
+          '<div><label class="text-xs text-gray-500 block mb-1">Tipo de Atendimento</label><select id="modal-tipo" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500"><option value="consulta">🩺 Consulta</option><option value="retorno">🔄 Retorno</option><option value="exame">🔬 Exame</option><option value="emergencia">🚨 Emergência</option></select></div>' +
+          '<div><label class="text-xs text-gray-500 block mb-1">Convênio</label><select id="modal-convenio" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500"><option>Particular</option><option>Unimed</option><option>Bradesco Saúde</option><option>SulAmérica</option><option>Hapvida</option><option>Amil</option><option>INSS</option></select></div>' +
+        '</div>' +
+        '<div><label class="text-xs text-gray-500 block mb-1">Procedimento</label><input id="modal-procedimento" type="text" placeholder="Descrição do procedimento..." class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500" /></div>' +
+        '<div><label class="text-xs text-gray-500 block mb-1">Observações</label><textarea id="modal-obs" rows="2" placeholder="Observações sobre o atendimento..." class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none"></textarea></div>' +
+        '<button onclick="agenda_multiprofissional_confirmarAgendamento(\'' + profId + '\',\'' + dataStr(data) + '\',' + hora + ')" class="btn w-full py-3 bg-marca-600 text-white rounded-xl font-semibold active:scale-95 transition-all shadow-sm hover:bg-marca-700">Confirmar Agendamento</button>' +
+      '</div>' +
+    '</div>';
+    abrirModal(html, 'Novo Agendamento');
+  }
+
+  window.agenda_multiprofissional_buscarPaciente = function(termo) {
+    const container = document.getElementById('modal-resultados-pacientes');
+    const form = document.getElementById('modal-form-agendamento');
+    if (!termo || termo.length < 2) { container.innerHTML = ''; form.classList.add('hidden'); return; }
+    const resultados = pacientes.filter(p => p.nome.toLowerCase().includes(termo.toLowerCase()) || p.cpf.includes(termo));
+    container.innerHTML = resultados.length ? resultados.map((p, i) =>
+      '<button onclick="agenda_multiprofissional_selecionarPaciente(' + i + ',\'' + p.nome + '\',\'' + p.convenio + '\')" class="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-marca-50 transition-all text-left active:scale-[0.98]">' +
+        '<div class="w-9 h-9 rounded-full bg-marca-100 flex items-center justify-center text-marca-700 font-bold text-xs flex-shrink-0">' + p.nome.split(' ').map(w => w[0]).slice(0, 2).join('') + '</div>' +
+        '<div class="min-w-0"><p class="text-sm font-medium text-gray-900 truncate">' + p.nome + '</p><p class="text-xs text-gray-400">' + p.cpf + ' · ' + p.convenio + '</p></div>' +
+      '</button>'
+    ).join('') : '<p class="text-sm text-gray-400 text-center py-4">Nenhum paciente encontrado</p>';
+  };
+
+  window.agenda_multiprofissional_pacienteSelecionado = null;
+
+  window.agenda_multiprofissional_selecionarPaciente = function(idx, nome, convenio) {
+    window.agenda_multiprofissional_pacienteSelecionado = { nome, convenio };
+    const form = document.getElementById('modal-form-agendamento');
+    const container = document.getElementById('modal-resultados-pacientes');
+    container.innerHTML = '';
+    form.classList.remove('hidden');
+  };
+
+  window.agenda_multiprofissional_confirmarAgendamento = function(profId, data, hora) {
+    const tipo = document.getElementById('modal-tipo').value;
+    const procedimento = document.getElementById('modal-procedimento').value;
+    const convenio = document.getElementById('modal-convenio').value;
+    if (!procedimento) { toast('Preencha o procedimento', 'erro'); return; }
+    const prof = window.agenda_multiprofissional_profissionais.find(p => p.id === profId);
+    const valor = tipo === 'consulta' ? 250 + Math.floor(Math.random() * 350) : tipo === 'retorno' ? 120 : tipo === 'exame' ? 200 + Math.floor(Math.random() * 500) : 350;
+    window.agenda_multiprofissional_agendamentosAtuais.push({
+      id: Date.now(), profId, data, hora, duracao: 1, tipo, status: 'confirmado',
+      paciente: { nome: window.agenda_multiprofissional_pacienteSelecionado?.nome || 'Novo Paciente', cpf: '---', idade: '--', tel: '---', convenio },
+      procedimento, valor, centroCusto: getCentroCusto(prof.unidade)
+    });
+    window.agenda_multiprofissional_pacienteSelecionado = null;
+    fecharModal();
+    agenda_multiprofissional_render();
+    toast('✅ Agendamento confirmado com sucesso!', 'ok');
+  };
+
+  window.agenda_multiprofissional_abrirDetalheAgendamento = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (!ag) return;
+    const prof = window.agenda_multiprofissional_profissionais.find(p => p.id === ag.profId);
+    const st = statusMap[ag.status];
+    const tp = tipos[ag.tipo];
+    const dataFmt = dataBR(ag.data + 'T' + ag.hora + ':00');
+    const corAvatar = ['bg-red-100', 'bg-blue-100', 'bg-emerald-100', 'bg-purple-100'][Math.floor(Math.random() * 4)];
+
+    const html = '<div class="space-y-4">' +
+      '<div class="flex items-center gap-3">' +
+        '<div class="w-12 h-12 rounded-full ' + corAvatar + ' flex items-center justify-center text-gray-700 font-bold text-base flex-shrink-0">' + ag.paciente.nome.split(' ').map(w => w[0]).slice(0, 2).join('') + '</div>' +
+        '<div><p class="font-semibold text-gray-900">' + ag.paciente.nome + '</p><p class="text-xs text-gray-500">' + ag.paciente.idade + ' anos · ' + ag.paciente.convenio + '</p></div>' +
+        '<span class="badge ml-auto ' + st.cor + '">' + st.texto + '</span>' +
+      '</div>' +
+      '<div class="bg-gray-50 rounded-xl p-3 space-y-2 text-sm">' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Data e Hora</span><span class="font-medium text-gray-900">' + dataFmt + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Profissional</span><span class="font-medium text-gray-900">' + prof.nome + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Especialidade</span><span class="font-medium text-gray-900">' + prof.especialidade + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Procedimento</span><span class="font-medium text-gray-900">' + ag.procedimento + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Tipo</span><span class="font-medium text-gray-900">' + ag.tipo.charAt(0).toUpperCase() + ag.tipo.slice(1) + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Convênio</span><span class="font-medium text-gray-900">' + ag.paciente.convenio + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Valor</span><span class="font-bold text-marca-700">' + brl(ag.valor) + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Centro de Custo</span><span class="font-medium text-gray-900 text-xs">' + ag.centroCusto + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">CPF</span><span class="font-medium text-gray-900">' + ag.paciente.cpf + '</span></div>' +
+        '<div class="flex items-center justify-between"><span class="text-gray-500">Telefone</span><span class="font-medium text-gray-900">' + ag.paciente.tel + '</span></div>' +
+      '</div>' +
+      '<div class="flex gap-2">' +
+        (ag.status !== 'cancelado' && ag.status !== 'realizado' ? '<button onclick="agenda_multiprofissional_iniciarAtendimento(' + agId + ')" class="btn flex-1 py-2.5 bg-marca-600 text-white rounded-xl font-semibold text-sm active:scale-95 transition-all">▶ Iniciar Atendimento</button>' : '') +
+        (ag.status !== 'cancelado' && ag.status !== 'realizado' ? '<button onclick="agenda_multiprofissional_remarcar(' + agId + ')" class="btn flex-1 py-2.5 bg-amber-500 text-white rounded-xl font-semibold text-sm active:scale-95 transition-all">📅 Remarcar</button>' : '') +
+        (ag.status !== 'cancelado' && ag.status !== 'realizado' ? '<button onclick="agenda_multiprofissional_cancelar(' + agId + ')" class="btn flex-1 py-2.5 bg-red-500 text-white rounded-xl font-semibold text-sm active:scale-95 transition-all">✕ Cancelar</button>' : '') +
+      '</div>' +
+      (ag.status === 'confirmado' || ag.status === 'pendente' ? '<button onclick="agenda_multiprofissional_enviarLembreteWhatsApp(' + agId + ')" class="w-full py-2.5 bg-green-600 text-white rounded-xl font-semibold text-sm active:scale-95 transition-all flex items-center justify-center gap-2">💬 Enviar Lembrete WhatsApp</button>' : '') +
+    '</div>';
+    abrirModal(html, 'Detalhes do Agendamento');
+  };
+
+  window.agenda_multiprofissional_iniciarAtendimento = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (ag) { ag.status = 'realizado'; fecharModal(); agenda_multiprofissional_render(); toast('Atendimento iniciado! Direcionando para prontuário...', 'ok'); setTimeout(() => mostrarTela('prontuario-digital'), 800); }
+  };
+
+  window.agenda_multiprofissional_remarcar = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (ag) { ag.status = 'pendente'; fecharModal(); agenda_multiprofissional_render(); toast('Agendamento colocado como pendente de remarcação', 'info'); }
+  };
+
+  window.agenda_multiprofissional_cancelar = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (ag) {
+      const htmlConfirm = '<div class="text-center py-4">' +
+        '<div class="w-14 h-14 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-3"><svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg></div>' +
+        '<p class="font-semibold text-gray-900 mb-1">Cancelar agendamento?</p><p class="text-sm text-gray-500 mb-4">Esta ação não pode ser desfeita.</p>' +
+        '<div class="flex gap-2"><button onclick="fecharModal()" class="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600">Voltar</button><button onclick="agenda_multiprofissional_confirmarCancelamento(' + agId + ')" class="flex-1 py-2.5 bg-red-500 text-white rounded-xl text-sm font-semibold active:scale-95 transition-all">Sim, cancelar</button></div>' +
+      '</div>';
+      abrirModal(htmlConfirm, 'Confirmar Cancelamento');
+    }
+  };
+
+  window.agenda_multiprofissional_confirmarCancelamento = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (ag) { ag.status = 'cancelado'; fecharModal(); agenda_multiprofissional_render(); toast('Agendamento cancelado com sucesso', 'erro'); }
+  };
+
+  window.agenda_multiprofissional_enviarLembreteWhatsApp = function(agId) {
+    const ag = window.agenda_multiprofissional_agendamentosAtuais.find(a => a.id === agId);
+    if (ag) {
+      fecharModal();
+      toast('📱 Lembrete enviado via WhatsApp para ' + ag.paciente.nome.split(' ')[0], 'ok');
+    }
+  };
+
+  window.agenda_multiprofissional_render = function() {
+    const datas = getDataSemana();
+    const profs = filtrarProfissionais();
+    document.documentElement.style.setProperty('--num-prof', profs.length);
+
+    const semanaLabel = document.getElementById('agenda-semana-label');
+    const semanaAno = document.getElementById('agenda-semana-ano');
+    if (semanaLabel) {
+      const ini = datas[0], fim = datas[6];
+      semanaLabel.textContent = ini.getDate() + ' ' + ini.toLocaleString('pt-BR', { month: 'short' }) + ' – ' + fim.getDate() + ' ' + fim.toLocaleString('pt-BR', { month: 'short' });
+      semanaAno.textContent = ini.getFullYear();
+    }
+
+    const diasContainer = document.getElementById('agenda-dias-semana');
+    if (diasContainer) {
+      diasContainer.innerHTML = datas.map((d, i) => {
+        const hoje = ehHoje(d);
+        const fimSemana = d.getDay() === 0 || d.getDay() === 6;
+        return '<button onclick="agenda_multiprofissional_irParaDia(' + i + ')" class="flex-1 flex flex-col items-center py-2 rounded-xl transition-all active:scale-95 ' + (hoje ? 'bg-marca-600 text-white shadow-md' : fimSemana ? 'bg-gray-50 text-gray-400' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-100') + '">' +
+          '<span class="text-[10px] font-medium uppercase tracking-wide ' + (hoje ? 'text-marca-200' : 'text-gray-400') + '">' + diaSemanaStr(d) + '</span>' +
+          '<span class="font-display font-bold text-lg leading-tight mt-0.5">' + d.getDate() + '</span>' +
+        '</button>';
+      }).join('');
+    }
+
+    const cabecalhos = document.getElementById('agenda-cabecalhos');
+    if (cabecalhos) {
+      let html = '<div></div>';
+      profs.forEach(p => {
+        html += '<div class="text-center py-1.5">' +
+          '<div class="w-9 h-9 mx-auto rounded-full flex items-center justify-center text-white text-xs font-bold mb-1 shadow-sm" style="background:' + p.cor + '">' + p.sigla + '</div>' +
+          '<p class="text-[10px] font-semibold text-gray-700 leading-tight">' + p.nome.split(' ').slice(0, 2).join(' ') + '</p>' +
+          '<p class="text-[9px] text-gray-400 truncate">' + p.especialidade + '</p>' +
+        '</div>';
+      });
+      cabecalhos.innerHTML = html;
+    }
+
+    const grade = document.getElementById('agenda-grade');
+    if (grade) {
+      const horaInicio = 7, horaFim = 20;
+      let rowsHtml = '';
+      for (let h = horaInicio; h < horaFim; h++) {
+        const isAlmoco = h === 12;
+        rowsHtml += '<div class="grid border-b border-gray-50 ' + (isAlmoco ? 'bg-gray-50/50' : '') + '" style="grid-template-columns: 60px repeat(' + profs.length + ', 1fr); height: 42px;">';
+        rowsHtml += '<div class="flex items-start justify-end pr-2 pt-0.5 text-[10px] text-gray-400 font-medium">' + (h < 10 ? '0' : '') + h + ':00</div>';
+        profs.forEach(prof => {
+          const agendamentosSlot = filtrarAgendamentos(prof.id, datas[0]);
+          const agDoSlot = agendamentosSlot.filter(a => a.hora === h);
+          const bloco = agDoSlot.length ? renderBloco(agDoSlot[0], prof) : '';
+          rowsHtml += '<div class="relative border-l border-gray-50 hover:bg-marca-50/30 cursor-pointer transition-colors" onclick="agenda_multiprofissional_abrirModalAgendamento(\'' + prof.id + '\',\'' + dataStr(datas[0]) + '\',' + h + ')">' + bloco + '</div>';
+        });
+        rowsHtml += '</div>';
+      }
+
+      let colStats = '';
+      profs.forEach(prof => {
+        const ags = filtrarAgendamentos(prof.id, datas[0]);
+        const confirmados = ags.filter(a => a.status === 'confirmado').length;
+        const pendentes = ags.filter(a => a.status === 'pendente').length;
+        colStats += '<div class="flex flex-wrap gap-0.5 px-0.5 justify-center">' +
+          (confirmados ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-medium">' + confirmados + '</span>' : '') +
+          (pendentes ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">' + pendentes + '</span>' : '') +
+        '</div>';
+      });
+
+      grade.innerHTML = '<div class="relative">' + colStats + rowsHtml + '</div>';
+    }
+  };
+
+  function renderBloco(ag, prof) {
+    const tp = tipos[ag.tipo];
+    if (ag.status === 'cancelado') return '';
+    const width = ag.duracao === 2 ? 'top-0.5 bottom-0.5' : 'top-0.5 bottom-0.5';
+    const bgClass = ag.status === 'realizado' ? 'opacity-60 ' + tp.bg_claro : tp.bg_claro;
+    const borda = tp.borda;
+    return '<div onclick="event.stopPropagation(); agenda_multiprofissional_abrirDetalheAgendamento(' + ag.id + ')" class="absolute left-1 right-1 ' + width + ' rounded-lg border-l-[3px] ' + borda + ' ' + bgClass + ' px-1.5 py-1 cursor-pointer active:scale-[0.97] transition-all hover:shadow-sm z-10 overflow-hidden">' +
+      '<p class="text-[10px] font-semibold text-gray-800 truncate leading-tight">' + ag.paciente.nome.split(' ')[0] + '</p>' +
+      '<p class="text-[9px] text-gray-500 truncate">' + ag.procedimento.substring(0, 25) + (ag.procedimento.length > 25 ? '...' : '') + '</p>' +
+      '<div class="flex items-center justify-between mt-0.5">' +
+        '<span class="text-[9px] font-bold ' + tp.texto + '">' + ag.hora + ':00</span>' +
+        '<span class="text-[9px] font-medium text-gray-500">' + brl(ag.valor) + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  window.agenda_multiprofissional_irParaDia = function(idx) {
+    const datas = getDataSemana();
+    const alvo = datas[idx];
+    const hoje = new Date();
+    const diff = Math.round((alvo - hoje) / (1000 * 60 * 60 * 24));
+    if (diff > 0) { for (let i = 0; i < diff; i++) agendaState.semanaOffset++; }
+    else if (diff < 0) { for (let i = 0; i < Math.abs(diff); i++) agendaState.semanaOffset--; }
+    window.agenda_multiprofissional_agendamentosAtuais = window.agenda_multiprofissional_gerarAgendamentos(getDataSemana(), window.agenda_multiprofissional_profissionais);
+    agenda_multiprofissional_render();
+  };
+
+  window.agenda_multiprofissional_render();
+})();
+</script>
+
     <!-- TELAS -->
     </main>
 
