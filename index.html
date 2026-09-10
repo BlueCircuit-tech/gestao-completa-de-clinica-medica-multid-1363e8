@@ -2663,6 +2663,62 @@ renderizarCards();
 
     setTimeout(caixa_e_pagamentos_init, 0);
 
+    <section data-tela="atendimentos-whatsapp" class="hidden">
+      <div class="flex flex-col h-[calc(100vh-120px)]">
+        <!-- Header da tela -->
+        <div class="px-4 pt-4 pb-3 bg-white border-b border-gray-100">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="text-lg font-display font-bold text-marca-900">Atendimentos WhatsApp</h2>
+              <p class="text-xs text-gray-500">12 conversas ativas · 3 não lidas</p>
+            </div>
+            <button onclick="atendimentos_whatsapp_novaConversa()" class="btn bg-marca-600 text-white px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-transform">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Nova
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1 relative">
+              <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input id="aw-search" type="text" placeholder="Buscar paciente..." oninput="atendimentos_whatsapp_buscar(this.value)" class="w-full pl-9 pr-3 py-2 bg-gray-50 rounded-xl text-sm border border-gray-200 focus:border-marca-500 focus:ring-1 focus:ring-marca-500 outline-none transition-all">
+            </div>
+            <select id="aw-filtro-centro" onchange="atendimentos_whatsapp_filtrarCentro(this.value)" class="px-3 py-2 bg-gray-50 rounded-xl text-xs border border-gray-200 text-gray-700 outline-none focus:border-marca-500 transition-all">
+              <option value="todos">Todos Centros</option>
+              <option value="clinica-central">Clínica Central</option>
+              <option value="unidade-sul">Unidade Sul</option>
+              <option value="laboratorio-labmed">LabMed</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Layout principal -->
+        <div class="flex flex-1 overflow-hidden">
+          <!-- Lista de conversas -->
+          <div id="aw-lista" class="w-full md:w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0">
+            <div id="aw-conversas-container" class="divide-y divide-gray-100"></div>
+            <div id="aw-vazio" class="hidden p-8 text-center">
+              <svg class="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              <p class="text-sm text-gray-400">Nenhuma conversa encontrada</p>
+            </div>
+          </div>
+
+          <!-- Janela de conversa -->
+          <div id="aw-chat" class="hidden md:flex flex-1 flex-col bg-white">
+            <div id="aw-chat-vazio" class="flex-1 flex items-center justify-center">
+              <div class="text-center p-8">
+                <div class="w-20 h-20 bg-marca-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-10 h-10 text-marca-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                </div>
+                <p class="text-marca-800 font-display font-semibold text-lg">Selecione uma conversa</p>
+                <p class="text-gray-500 text-sm mt-1">Escolha um atendimento na lista para começar</p>
+              </div>
+            </div>
+            <div id="aw-chat-ativo" class="hidden flex-1 flex-col"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- TELAS -->
     </main>
 
