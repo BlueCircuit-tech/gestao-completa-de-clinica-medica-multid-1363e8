@@ -3251,6 +3251,344 @@
   </script>
 </section>
 
+    <section data-tela="integracao-whatsapp" class="hidden">
+  <div class="space-y-5 pb-24">
+
+    <!-- Cabeçalho da tela -->
+    <header class="px-1">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-marca-600 font-semibold">Atendimento</p>
+          <h1 class="font-display text-2xl text-marca-900 leading-tight">Integração WhatsApp</h1>
+          <p class="text-sm text-slate-500 mt-1">Conversas unificadas com pacientes, agendamentos e cobranças em tempo real.</p>
+        </div>
+        <button onclick="integracao_whatsapp_novoTemplate()" class="btn bg-marca-600 text-white hover:bg-marca-700 px-3 py-2 rounded-xl flex items-center gap-1.5 text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Template
+        </button>
+      </div>
+    </header>
+
+    <!-- Cartões de indicadores -->
+    <div class="grid grid-cols-2 gap-3">
+      <div class="card p-4">
+        <div class="flex items-center justify-between">
+          <div class="w-9 h-9 rounded-lg bg-marca-100 text-marca-700 flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <span class="badge bg-emerald-50 text-emerald-700">+12%</span>
+        </div>
+        <p class="text-2xl font-display text-slate-900 mt-3" id="iwStatConversas">47</p>
+        <p class="text-xs text-slate-500">Conversas ativas</p>
+      </div>
+
+      <div class="card p-4">
+        <div class="flex items-center justify-between">
+          <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <span class="badge bg-amber-100 text-amber-700" id="iwBadgeNaoLidas">8</span>
+        </div>
+        <p class="text-2xl font-display text-slate-900 mt-3" id="iwStatNaoLidas">8</p>
+        <p class="text-xs text-slate-500">Não lidas hoje</p>
+      </div>
+
+      <div class="card p-4">
+        <div class="flex items-center justify-between">
+          <div class="w-9 h-9 rounded-lg bg-sky-blue-100 text-sky-700 flex items-center justify-center" style="background:#DBEAFE;color:#0369A1">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <span class="badge bg-emerald-50 text-emerald-700">+5%</span>
+        </div>
+        <p class="text-2xl font-display text-slate-900 mt-3" id="iwStatEnviadas">132</p>
+        <p class="text-xs text-slate-500">Mensagens enviadas</p>
+      </div>
+
+      <div class="card p-4">
+        <div class="flex items-center justify-between">
+          <div class="w-9 h-9 rounded-lg bg-marca-100 text-marca-700 flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+          </div>
+          <span class="badge bg-marca-50 text-marca-700">14 ativos</span>
+        </div>
+        <p class="text-2xl font-display text-slate-900 mt-3">14</p>
+        <p class="text-xs text-slate-500">Templates prontos</p>
+      </div>
+    </div>
+
+    <!-- Gráfico de movimento -->
+    <div class="card p-4">
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <h3 class="font-display text-slate-900 text-base">Movimento de mensagens</h3>
+          <p class="text-xs text-slate-500">Últimos 7 dias • recebidas vs enviadas</p>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-slate-500">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-marca-500"></span>Recebidas</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-slate-300"></span>Enviadas</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 320 120" class="w-full h-28">
+        <g stroke="#E2E8F0" stroke-width="1">
+          <line x1="0" y1="30" x2="320" y2="30"/>
+          <line x1="0" y1="60" x2="320" y2="60"/>
+          <line x1="0" y1="90" x2="320" y2="90"/>
+        </g>
+        <g>
+          <rect x="10"  y="55" width="18" height="55" rx="3" fill="#22C55E"/>
+          <rect x="55"  y="40" width="18" height="70" rx="3" fill="#22C55E"/>
+          <rect x="100" y="65" width="18" height="45" rx="3" fill="#22C55E"/>
+          <rect x="145" y="25" width="18" height="85" rx="3" fill="#22C55E"/>
+          <rect x="190" y="50" width="18" height="60" rx="3" fill="#22C55E"/>
+          <rect x="235" y="35" width="18" height="75" rx="3" fill="#22C55E"/>
+          <rect x="280" y="20" width="18" height="90" rx="3" fill="#22C55E"/>
+        </g>
+        <g opacity="0.55">
+          <rect x="30"  y="70" width="14" height="40" rx="3" fill="#CBD5E1"/>
+          <rect x="75"  y="60" width="14" height="50" rx="3" fill="#CBD5E1"/>
+          <rect x="120" y="78" width="14" height="32" rx="3" fill="#CBD5E1"/>
+          <rect x="165" y="50" width="14" height="60" rx="3" fill="#CBD5E1"/>
+          <rect x="210" y="68" width="14" height="42" rx="3" fill="#CBD5E1"/>
+          <rect x="255" y="58" width="14" height="52" rx="3" fill="#CBD5E1"/>
+          <rect x="300" y="48" width="14" height="62" rx="3" fill="#CBD5E1"/>
+        </g>
+        <g font-size="9" fill="#64748B" font-family="ui-sans-serif, system-ui">
+          <text x="14"  y="115">Seg</text>
+          <text x="59"  y="115">Ter</text>
+          <text x="104" y="115">Qua</text>
+          <text x="149" y="115">Qui</text>
+          <text x="194" y="115">Sex</text>
+          <text x="239" y="115">Sáb</text>
+          <text x="284" y="115">Dom</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Busca + filtros -->
+    <div class="space-y-3">
+      <div class="relative">
+        <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="iwBusca" oninput="integracao_whatsapp_filtrar()" type="text" placeholder="Buscar por paciente ou conteúdo da mensagem…" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-marca-500 focus:ring-2 focus:ring-marca-100"/>
+      </div>
+      <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" id="iwFiltros">
+        <button data-filtro="todas" onclick="integracao_whatsapp_setFiltro('todas')" class="chip whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold bg-marca-600 text-white">Todas</button>
+        <button data-filtro="nao-lidas" onclick="integracao_whatsapp_setFiltro('nao-lidas')" class="chip whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200">Não lidas</button>
+        <button data-filtro="agendamento" onclick="integracao_whatsapp_setFiltro('agendamento')" class="chip whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200">Agendamento</button>
+        <button data-filtro="cobranca" onclick="integracao_whatsapp_setFiltro('cobranca')" class="chip whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200">Cobrança</button>
+        <button data-filtro="exames" onclick="integracao_whatsapp_setFiltro('exames')" class="chip whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200">Exames</button>
+      </div>
+    </div>
+
+    <!-- Lista de conversas -->
+    <div class="card p-2 divide-y divide-slate-100" id="iwLista">
+      <!-- preenchido por JS -->
+    </div>
+
+    <!-- Templates rápidos -->
+    <div class="card p-4">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="font-display text-slate-900 text-base">Templates rápidos</h3>
+          <p class="text-xs text-slate-500">Toque para abrir a conversa já com o texto preenchido</p>
+        </div>
+        <button onclick="integracao_whatsapp_gerenciarTemplates()" class="text-xs font-semibold text-marca-700 hover:text-marca-900">Gerenciar</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2" id="iwTemplates"></div>
+    </div>
+
+    <!-- Status da conexão -->
+    <div class="card p-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <p class="font-semibold text-slate-900 text-sm">WhatsApp Business Conectado</p>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+          <p class="text-xs text-slate-500">Número (11) 4042-1855 • labmedfacilitiesservices</p>
+        </div>
+        <button onclick="integracao_whatsapp_reconectar()" class="text-xs font-semibold text-marca-700 hover:text-marca-900">Reconectar</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const conversas = [
+    { id:1, nome:"Maria Aparecida Silva",   tel:"(11) 98421-3052", iniciais:"MA", cor:"#14532D", ultima:"Confirmou presença para amanhã às 14h, obrigada!",         hora:"09:42",  naoLidas:2, tipo:"agendamento", status:"online",  contexto:"Cardiologia • Unidade Paulista" },
+    { id:2, nome:"João Pedro Oliveira",     tel:"(11) 97283-1147", iniciais:"JO", cor:"#0F766E", ultima:"Manda o resultado do exame de sangue?",                    hora:"09:18",  naoLidas:1, tipo:"exames",      status:"online",  contexto:"Laboratorial • Unidade Tatuapé" },
+    { id:3, nome:"Camila Rocha Ferreira",   tel:"(11) 99810-4422", iniciais:"CR", cor:"#B45309", ultima:"Pode enviar o link do pagamento da consulta?",           hora:"ontem",  naoLidas:0, tipo:"cobranca",    status:"visto",   contexto:"Dermatologia • Centro de Custo CD-04" },
+    { id:4, nome:"Roberto Mendes Junior",   tel:"(11) 96345-7780", iniciais:"RM", cor:"#1D4ED8", ultima:"Vou precisar remarcar, tenho viagem na sexta.",          hora:"ontem",  naoLidas:0, tipo:"agendamento", status:"visto",   contexto:"Ortopedia • Unidade Pinheiros" },
+    { id:5, nome:"Patrícia Helena Costa",   tel:"(11) 98172-9034", iniciais:"PH", cor:"#9D174D", ultima:"Recebi o laudo, vou levar para o cardiologista.",        hora:"terça",   naoLidas:0, tipo:"exames",      status:"visto",   contexto:"Cardiologia • Centro de Custo CD-01" },
+    { id:6, nome:"Lucas Gabriel Almeida",   tel:"(11) 95562-1148", iniciais:"LG", cor:"#0369A1", ultima:"Bom dia! Gostaria de marcar uma consulta.",               hora:"terça",   naoLidas:3, tipo:"agendamento", status:"online",  contexto:"Pediatria • Unidade Santo Amaro" },
+    { id:7, nome:"Fernanda Siqueira Lima",  tel:"(11) 94410-8821", iniciais:"FS", cor:"#7C2D12", ultima:"Segue em anexo o pedido médico do Dr. Augusto.",          hora:"segunda", naoLidas:0, tipo:"exames",      status:"visto",   contexto:"Ginecologia • Centro de Custo CD-07" },
+    { id:8, nome:"Eduardo Tavares Borges",  tel:"(11) 93201-5574", iniciais:"ET", cor:"#581C87", ultima:"O pagamento de R$ 248,00 já foi compensado.",             hora:"segunda", naoLidas:1, tipo:"cobranca",    status:"online",  contexto:"Clínica Médica • Centro de Custo CD-02" },
+    { id:9, nome:"Sofia Bertolino Marques", tel:"(11) 92015-4463", iniciais:"SB", cor:"#065F46", ultima:"Obrigada pelo atendimento, fui muito bem recebida!",       hora:"domingo", naoLidas:0, tipo:"agendamento", status:"visto",   contexto:"Endocrinologia • Unidade Vila Mariana" }
+  ];
+
+  const templates = [
+    { id:"t1", titulo:"Confirmação de agendamento", texto:"Olá, {nome}! Confirmando sua consulta em {data} às {hora} na unidade {unidade}. Responda *SIM* para confirmar ou *NÃO* para reagendar. — LabMed Facilities" },
+    { id:"t2", titulo:"Resultado de exame",        texto:"{nome}, seu exame está disponível no portal. Acesse: labmedfacilitiesservices.com.br/resultados com seu CPF. Em caso de dúvidas, estamos à disposição." },
+    { id:"t3", titulo:"Lembrete 24h antes",         texto:"Lembrete: amanhã, {data} às {hora}, você tem {tipo} agendada(o). Em caso de imprevistos, avise com pelo menos 4h de antecedência. LabMed Facilities" },
+    { id:"t4", titulo:"Cobrança amigável",          texto:"Oi, {nome}! Identificamos o pagamento de {valor} em aberto. Para pagar com Pix ou cartão, use o link: labmedfacilitiesservices.com.br/pagar/{id} — LabMed Facilities" }
+  ];
+
+  let filtroAtual = "todas";
+  let conversaAberta = null;
+
+  function corAvatar(){ return ["#14532D","#0F766E","#B45309","#1D4ED8","#9D174D","#0369A1","#7C2D12","#581C87","#065F46"]; }
+  function totalNaoLidas(){ return conversas.reduce((s,c)=>s+c.naoLidas,0); }
+
+  function render(){
+    const busca = (document.getElementById('iwBusca').value || "").toLowerCase().trim();
+    const lista = document.getElementById('iwLista');
+    const filtradas = conversas.filter(c=>{
+      const bateBusca = !busca || c.nome.toLowerCase().includes(busca) || c.ultima.toLowerCase().includes(busca);
+      const bateFiltro = filtroAtual==="todas"
+        || (filtroAtual==="nao-lidas" && c.naoLidas>0)
+        || c.tipo===filtroAtual;
+      return bateBusca && bateFiltro;
+    });
+
+    if(filtradas.length===0){
+      lista.innerHTML = `
+        <div class="py-10 text-center">
+          <div class="w-14 h-14 mx-auto rounded-full bg-marca-50 flex items-center justify-center mb-3">
+            <svg class="w-7 h-7 text-marca-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <p class="text-sm font-semibold text-slate-700">Nenhuma conversa encontrada</p>
+          <p class="text-xs text-slate-500 mt-1">Ajuste a busca ou troque o filtro.</p>
+        </div>`;
+    } else {
+      lista.innerHTML = filtradas.map(c=>`
+        <button onclick="integracao_whatsapp_abrir(${c.id})" class="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-marca-50/60 active:scale-[0.99] transition">
+          <div class="relative shrink-0">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background:${c.cor}">${c.iniciais}</div>
+            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${c.status==='online'?'bg-emerald-500':'bg-slate-300'}"></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2">
+              <p class="font-semibold text-slate-900 text-sm truncate">${c.nome}</p>
+              <span class="text-[11px] text-slate-500 shrink-0">${c.hora}</span>
+            </div>
+            <p class="text-xs text-slate-500 truncate mt-0.5">${c.ultima}</p>
+            <div class="flex items-center gap-2 mt-1.5">
+              <span class="badge ${c.tipo==='agendamento'?'bg-sky-100 text-sky-700':c.tipo==='cobranca'?'bg-amber-100 text-amber-700':'bg-marca-100 text-marca-700'} text-[10px] py-0.5 px-2">${c.tipo}</span>
+              <span class="text-[11px] text-slate-400 truncate">${c.contexto}</span>
+            </div>
+          </div>
+          ${c.naoLidas>0?`<span class="shrink-0 min-w-[20px] h-5 px-1.5 rounded-full bg-marca-600 text-white text-[10px] font-bold flex items-center justify-center">${c.naoLidas}</span>`:''}
+        </button>
+      `).join('');
+    }
+
+    document.getElementById('iwStatConversas').textContent = conversas.length;
+    document.getElementById('iwStatNaoLidas').textContent = totalNaoLidas();
+    document.getElementById('iwBadgeNaoLidas').textContent = totalNaoLidas();
+  }
+
+  function renderTemplates(){
+    const el = document.getElementById('iwTemplates');
+    el.innerHTML = templates.map(t=>`
+      <button onclick="integracao_whatsapp_usarTemplate('${t.id}')" class="text-left p-3 rounded-xl border border-slate-200 hover:border-marca-300 hover:bg-marca-50/40 transition">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-6 h-6 rounded-md bg-marca-100 text-marca-700 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </span>
+          <p class="text-xs font-semibold text-slate-800">${t.titulo}</p>
+        </div>
+        <p class="text-[11px] text-slate-500 line-clamp-2">${t.texto}</p>
+      </button>
+    `).join('');
+  }
+
+  window.integracao_whatsapp_filtrar = function(){ render(); };
+  window.integracao_whatsapp_setFiltro = function(f){
+    filtroAtual = f;
+    document.querySelectorAll('#iwFiltros .chip').forEach(b=>{
+      const ativo = b.dataset.filtro===f;
+      b.classList.toggle('bg-marca-600', ativo);
+      b.classList.toggle('text-white', ativo);
+      b.classList.toggle('bg-white', !ativo);
+      b.classList.toggle('text-slate-600', !ativo);
+      b.classList.toggle('border', !ativo);
+      b.classList.toggle('border-slate-200', !ativo);
+    });
+    render();
+  };
+
+  window.integracao_whatsapp_abrir = function(id){
+    const c = conversas.find(x=>x.id===id);
+    if(!c) return;
+    conversaAberta = c;
+    if(c.naoLidas>0){
+      c.naoLidas = 0;
+      toast(`Conversa com ${c.nome.split(' ')[0]} marcada como lida`, 'ok');
+    }
+
+    const mensagens = [
+      { de:"paciente", t:"08:51", txt:"Bom dia! Gostaria de confirmar minha consulta de amanhã." },
+      { de:"clinica",  t:"08:55", txt:`Olá, ${c.nome.split(' ')[0]}! Sua consulta está confirmada para amanhã, ${dataBR(new Date(Date.now()+86400000).toISOString())} às 14h00, na unidade ${c.contexto.split('•')[1]?.trim() || 'Paulista'}.` },
+      { de:"paciente", t:"09:02", txt:"Perfeito! Posso levar os exames anteriores?" },
+      { de:"clinica",  t:"09:04", txt:"Sim, por favor traga todos os exames relacionados. Já temos seu prontuário atualizado." },
+      { de:"paciente", t:"09:42", txt:c.ultima },
+      c.tipo==="cobranca"?{ de:"clinica", t:"09:46", txt:"Vou te enviar o link de pagamento agora." }:null
+    ].filter(Boolean);
+
+    abrirModal(`
+      <div class="space-y-3">
+        <div class="flex items-center gap-3 p-3 -m-4 mb-2 rounded-t-2xl" style="background:${c.cor}">
+          <div class="w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center font-bold">${c.iniciais}</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-white truncate">${c.nome}</p>
+            <p class="text-[11px] text-white/80 truncate">${c.tel} • ${c.contexto}</p>
+          </div>
+          <span class="badge bg-white/20 text-white text-[10px]">${c.status==='online'?'online':'visto por último há 2h'}</span>
+        </div>
+
+        <div class="space-y-2 max-h-72 overflow-y-auto pr-1">
+          ${mensagens.map(m=>`
+            <div class="flex ${m.de==='clinica'?'justify-end':'justify-start'}">
+              <div class="max-w-[80%] ${m.de==='clinica'?'bg-marca-600 text-white':'bg-slate-100 text-slate-800'} px-3 py-2 rounded-2xl ${m.de==='clinica'?'rounded-br-sm':'rounded-bl-sm'}">
+                <p class="text-sm">${m.txt}</p>
+                <p class="text-[10px] mt-1 ${m.de==='clinica'?'text-white/70':'text-slate-500'} text-right">${m.t}</p>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 pt-2">
+          <button onclick="integracao_whatsapp_confirmarConsulta(${c.id})" class="flex flex-col items-center gap-1 py-2 rounded-xl bg-marca-50 text-marca-700 hover:bg-marca-100 active:scale-95 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-[10px] font-semibold">Confirmar</span>
+          </button>
+          <button onclick="integracao_whatsapp_enviarLink(${c.id})" class="flex flex-col items-center gap-1 py-2 rounded-xl bg-amber-50 text-amber-700 hover:bg-amber-100 active:scale-95 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span class="text-[10px] font-semibold">Link Pgto</span>
+          </button>
+          <button onclick="integracao_whatsapp_solicitarRetorno(${c.id})" class="flex flex-col items-center gap-1 py-2 rounded-xl bg-sky-100 text-sky-700 hover:bg-sky-200 active:scale-95 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <span class="text-[10px] font-semibold">Retorno</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <input id="iwMsg" type="text" placeholder="Digite uma mensagem…" class="flex-1 px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-marca-500 focus:ring-2 focus:ring-marca-100"/>
+          <button onclick="integracao_whatsapp_enviarMensagem(${c.id})" class="w-10 h-10 rounded-xl bg-marca-600 text-white flex items-center justify-center hover:bg-marca-700 active:scale-95 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    `, c.nome);
+  };
+
+  window.integracao_whatsapp_enviarMensagem = function(id){
+    const input = document.getElementById('iwMsg');
+    const txt = (input?.value || "").trim();
+    if(!txt){ toast('Digite uma mensagem antes de enviar', 'erro'); return
+
     <!-- TELAS -->
     </main>
 
