@@ -2138,6 +2138,540 @@
       </script>
     </section>
 
+    <section data-tela="financeiro-e-repasses" class="hidden">
+      <!-- Cabeçalho da tela -->
+      <div class="px-5 pt-6 pb-2">
+        <h1 class="font-display text-2xl font-bold text-marca-900 tracking-tight">Financeiro e Repasses</h1>
+        <p class="text-gray-500 text-sm mt-0.5">Controle de contas, repasses e comissões por centro de custo</p>
+      </div>
+
+      <!-- Cards de indicadores -->
+      <div class="px-5 mt-4 grid grid-cols-2 gap-3" id="financeiro-indicadores">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </div>
+            <span class="text-xs text-gray-500 font-medium">Contas a Receber</span>
+          </div>
+          <p class="font-display font-bold text-lg text-marca-900" id="ind-receber">R$ 45.200</p>
+          <p class="text-xs text-green-600 mt-0.5 font-medium">↑ 12% este mês</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </div>
+            <span class="text-xs text-gray-500 font-medium">Contas a Pagar</span>
+          </div>
+          <p class="font-display font-bold text-lg text-marca-900" id="ind-pagar">R$ 22.800</p>
+          <p class="text-xs text-red-500 mt-0.5 font-medium">↑ 3% este mês</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-yellow-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <span class="text-xs text-gray-500 font-medium">Repasses Pendentes</span>
+          </div>
+          <p class="font-display font-bold text-lg text-marca-900" id="ind-repasses">8</p>
+          <p class="text-xs text-yellow-600 mt-0.5 font-medium">2 vencendo em 3 dias</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg>
+            </div>
+            <span class="text-xs text-gray-500 font-medium">Saldo Consolidado</span>
+          </div>
+          <p class="font-display font-bold text-lg text-marca-900" id="ind-saldo">R$ 22.400</p>
+          <p class="text-xs text-green-600 mt-0.5 font-medium">Lucratividade: 33%</p>
+        </div>
+      </div>
+
+      <!-- Gráfico de fluxo financeiro -->
+      <div class="px-5 mt-4">
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display font-semibold text-sm text-marca-900">Fluxo Financeiro — Últimos 6 Meses</h3>
+            <div class="flex gap-3 text-xs">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-marca-600"></span>Receitas</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>Despesas</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 300 140" class="w-full" style="height:140px">
+            <line x1="30" y1="10" x2="30" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+            <line x1="30" y1="120" x2="290" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+            <text x="25" y="14" text-anchor="end" font-size="7" fill="#9CA3AF">50k</text>
+            <text x="25" y="48" text-anchor="end" font-size="7" fill="#9CA3AF">40k</text>
+            <text x="25" y="82" text-anchor="end" font-size="7" fill="#9CA3AF">30k</text>
+            <text x="25" y="116" text-anchor="end" font-size="7" fill="#9CA3AF">20k</text>
+            <rect x="40" y="50" width="18" height="70" rx="2" fill="#14532D" opacity="0.8"/>
+            <rect x="40" y="80" width="18" height="40" rx="2" fill="#F87171" opacity="0.6"/>
+            <rect x="88" y="40" width="18" height="80" rx="2" fill="#14532D" opacity="0.8"/>
+            <rect x="88" y="75" width="18" height="45" rx="2" fill="#F87171" opacity="0.6"/>
+            <rect x="136" y="35" width="18" height="85" rx="2" fill="#14532D" opacity="0.8"/>
+            <rect x="136" y="70" width="18" height="50" rx="2" fill="#F87171" opacity="0.6"/>
+            <rect x="184" y="30" width="18" height="90" rx="2" fill="#14532D" opacity="0.8"/>
+            <rect x="184" y="68" width="18" height="52" rx="2" fill="#F87171" opacity="0.6"/>
+            <rect x="232" y="25" width="18" height="95" rx="2" fill="#22C55E" opacity="0.9"/>
+            <rect x="232" y="62" width="18" height="58" rx="2" fill="#F87171" opacity="0.6"/>
+            <text x="49" y="134" text-anchor="middle" font-size="7" fill="#9CA3AF">Jan</text>
+            <text x="97" y="134" text-anchor="middle" font-size="7" fill="#9CA3AF">Fev</text>
+            <text x="145" y="134" text-anchor="middle" font-size="7" fill="#9CA3AF">Mar</text>
+            <text x="193" y="134" text-anchor="middle" font-size="7" fill="#9CA3AF">Abr</text>
+            <text x="241" y="134" text-anchor="middle" font-size="7" fill="#9CA3AF">Mai</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="px-5 mt-4">
+        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" style="-webkit-overflow-scrolling:touch">
+          <button onclick="financeiro_e_repasses_setFiltro('centroCusto','todos')" id="filtro-cc-todos" class="filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-marca-600 text-white transition-all duration-200">Todos os Centros</button>
+          <button onclick="financeiro_e_repasses_setFiltro('centroCusto','clinica-centro')" id="filtro-cc-clinica-centro" class="filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Clínica Centro</button>
+          <button onclick="financeiro_e_repasses_setFiltro('centroCusto','laboratorio')" id="filtro-cc-laboratorio" class="filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Laboratório</button>
+          <button onclick="financeiro_e_repasses_setFiltro('centroCusto','exames-imagem')" id="filtro-cc-exames-imagem" class="filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Exames de Imagem</button>
+          <button onclick="financeiro_e_repasses_setFiltro('centroCusto','farmacia')" id="filtro-cc-farmacia" class="filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Farmácia</button>
+        </div>
+        <div class="flex gap-2 mt-2 overflow-x-auto pb-2 scrollbar-hide" style="-webkit-overflow-scrolling:touch">
+          <button onclick="financeiro_e_repasses_setFiltro('status','todos')" id="filtro-st-todos" class="filtro-st-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-marca-600 text-white transition-all duration-200">Todos</button>
+          <button onclick="financeiro_e_repasses_setFiltro('status','pago')" id="filtro-st-pago" class="filtro-st-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Pago</button>
+          <button onclick="financeiro_e_repasses_setFiltro('status','pendente')" id="filtro-st-pendente" class="filtro-st-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Pendente</button>
+          <button onclick="financeiro_e_repasses_setFiltro('status','atrasado')" id="filtro-st-atrasado" class="filtro-st-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200">Atrasado</button>
+        </div>
+      </div>
+
+      <!-- Busca + ação -->
+      <div class="px-5 mt-3 flex items-center gap-3">
+        <div class="flex-1 relative">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="financeiro-busca" placeholder="Buscar paciente ou descrição..." class="w-full pl-9 pr-4 py-2.5 bg-white rounded-xl border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-marca-500 focus:ring-1 focus:ring-marca-500 transition-all" oninput="financeiro_e_repasses_buscar(this.value)">
+        </div>
+        <button onclick="financeiro_e_repasses_novaTransacao()" class="shrink-0 w-10 h-10 bg-marca-600 hover:bg-marca-700 active:scale-95 rounded-xl flex items-center justify-center shadow-md shadow-marca-600/20 transition-all duration-200">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button onclick="financeiro_e_repasses_exportarExcel()" class="shrink-0 w-10 h-10 bg-white hover:bg-gray-50 active:scale-95 rounded-xl flex items-center justify-center border border-gray-200 shadow-sm transition-all duration-200" title="Exportar Excel">
+          <svg class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+        </button>
+      </div>
+
+      <!-- Lista de transações -->
+      <div class="px-5 mt-3 pb-28">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-gray-500 font-medium" id="financeiro-contador">10 transações</span>
+          <button onclick="financeiro_e_repasses_abrirRepasses()" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Ver Repasses (8)</button>
+        </div>
+        <div id="financeiro-lista-transacoes" class="space-y-2.5"></div>
+        <div id="financeiro-vazio" class="hidden text-center py-12">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-3">
+            <svg class="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <p class="text-sm text-gray-500">Nenhuma transação encontrada</p>
+          <p class="text-xs text-gray-400 mt-1">Tente ajustar os filtros</p>
+        </div>
+      </div>
+
+      <!-- Modal: Detalhes da transação -->
+      <div id="modal-transacao" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-[430px] p-6 pb-10 max-h-[85vh] overflow-y-auto">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-display font-bold text-lg text-marca-900">Detalhes da Transação</h3>
+            <button onclick="fecharModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors active:scale-95">
+              <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div id="modal-transacao-conteudo"></div>
+        </div>
+      </div>
+
+      <!-- Modal: Novo Repasse -->
+      <div id="modal-repasse" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-[430px] p-6 pb-10 max-h-[85vh] overflow-y-auto">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-display font-bold text-lg text-marca-900">Novo Repasse</h3>
+            <button onclick="fecharModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors active:scale-95">
+              <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div id="modal-repasse-conteudo"></div>
+        </div>
+      </div>
+
+      <!-- Modal: Lista de Repasses -->
+      <div id="modal-repasses" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-[430px] p-6 pb-10 max-h-[85vh] overflow-y-auto">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-display font-bold text-lg text-marca-900">Repasses Pendentes</h3>
+            <button onclick="fecharModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors active:scale-95">
+              <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div id="modal-repasses-conteudo"></div>
+        </div>
+      </div>
+
+      <!-- Modal: Receber Pagamento -->
+      <div id="modal-receber" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+        <div class="bg-white rounded-t-3xl w-full max-w-[430px] p-6 pb-10 max-h-[85vh] overflow-y-auto">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-display font-bold text-lg text-marca-900">Receber Pagamento</h3>
+            <button onclick="fecharModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors active:scale-95">
+              <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div id="modal-receber-conteudo"></div>
+        </div>
+      </div>
+
+      <script>
+      // ===== Dados mock =====
+      const financeiro_e_repasses_transacoes = [
+        {id:1, tipo:'receita', centro:'clinica-centro', profissional:'Dra. Ana Beatriz Silva', servico:'Consulta Clínica Geral', paciente:'Maria Oliveira', valor:320.00, forma:'pix', status:'pago', data:'2025-01-15', vencimento:'2025-01-15', comprovante:'PIX-78432'},
+        {id:2, tipo:'receita', centro:'laboratorio', profissional:'LabMed Services', servico:'Exame Hemograma Completo', paciente:'João Pedro Costa', valor:85.00, forma:'cartao-debito', status:'pago', data:'2025-01-15', vencimento:'2025-01-15', comprovante:'TED-99214'},
+        {id:3, tipo:'receita', centro:'exames-imagem', profissional:'Dr. Ricardo Mendes', servico:'Ressonância Magnética', paciente:'Fernanda Alves', valor:1200.00, forma:'cartao-credito', status:'pendente', data:'2025-01-16', vencimento:'2025-01-20', comprovante:'CC-3x-5512'},
+        {id:4, tipo:'receita', centro:'clinica-centro', profissional:'Dr. Carlos Eduardo', servico:'Consulta Ortopédica', paciente:'Antonio Ferreira', valor:450.00, forma:'dinheiro', status:'pago', data:'2025-01-14', vencimento:'2025-01-14', comprovante:'REC-001'},
+        {id:5, tipo:'despesa', centro:'laboratorio', profissional:'Fornecedor MedLab', servico:'Compra de Reagentes', paciente:'', valor:3500.00, forma:'boleto', status:'pendente', data:'2025-01-16', vencimento:'2025-01-25', comprovante:'BOL-3321'},
+        {id:6, tipo:'receita', centro:'farmacia', profissional:'Farmácia Unidade 2', servico:'Venda de Medicamentos', paciente:'Lucia Santos', valor:178.90, forma:'pix', status:'pago', data:'2025-01-15', vencimento:'2025-01-15', comprovante:'PIX-78456'},
+        {id:7, tipo:'receita', centro:'exames-imagem', profissional:'Dr. Ricardo Mendes', servico:'Ultrassom Abdominal', paciente:'Pedro Henrique Lima', valor:350.00, forma:'cartao-credito', status:'atrasado', data:'2025-01-10', vencimento:'2025-01-13', comprovante:'CC-1x-7781'},
+        {id:8, tipo:'despesa', centro:'clinica-centro', profissional:'Fornecedor Hospitalar', servico:'Manutenção Equipamentos', paciente:'', valor:890.00, forma:'boleto', status:'pago', data:'2025-01-14', vencimento:'2025-01-14', comprovante:'BOL-3310'},
+        {id:9, tipo:'receita', centro:'laboratorio', profissional:'LabMed Services', servico:'Exame de Urina + Cultura', paciente:'Sandra Pereira', valor:120.00, forma:'pix', status:'pendente', data:'2025-01-16', vencimento:'2025-01-18', comprovante:''},
+        {id:10, tipo:'receita', centro:'clinica-centro', profissional:'Dra. Ana Beatriz Silva', servico:'Retorno Cardiológico', paciente:'Roberto Gomes', valor:280.00, forma:'cartao-credito', status:'pago', data:'2025-01-13', vencimento:'2025-01-13', comprovante:'CC-1x-9902'}
+      ];
+
+      const financeiro_e_repasses_repasses = [
+        {id:1, profissional:'Dr. Ricardo Mendes', centro:'Exames de Imagem', valorBase:5500.00, percentual:70, comissao:3850.00, status:'pendente', dataVencimento:'2025-01-20', pago:false},
+        {id:2, profissional:'Dra. Ana Beatriz Silva', centro:'Clínica Centro', valorBase:8200.00, percentual:65, comissao:5330.00, status:'pendente', dataVencimento:'2025-01-22', pago:false},
+        {id:3, profissional:'Fornecedor MedLab', centro:'Laboratório', valorBase:3500.00, percentual:100, comissao:3500.00, status:'pendente', dataVencimento:'2025-01-25', pago:false},
+        {id:4, profissional:'Dr. Carlos Eduardo', centro:'Clínica Centro', valorBase:4300.00, percentual:60, comissao:2580.00, status:'pago', dataVencimento:'2025-01-10', pago:true, dataPagamento:'2025-01-10'},
+        {id:5, profissional:'Farmácia Unidade 2', centro:'Farmácia', valorBase:2100.00, percentual:75, comissao:1575.00, status:'pendente', dataVencimento:'2025-01-28', pago:false},
+        {id:6, profissional:'Dr. Ricardo Mendes', centro:'Exames de Imagem', valorBase:3800.00, percentual:70, comissao:2660.00, status:'pendente', dataVencimento:'2025-01-30', pago:false},
+        {id:7, profissional:'Dra. Ana Beatriz Silva', centro:'Clínica Centro', valorBase:6200.00, percentual:65, comissao:4030.00, status:'atrasado', dataVencimento:'2025-01-08', pago:false},
+        {id:8, profissional:'Fornecedor Hospitalar', centro:'Clínica Centro', valorBase:890.00, percentual:100, comissao:890.00, status:'pago', dataVencimento:'2025-01-14', pago:true, dataPagamento:'2025-01-14'}
+      ];
+
+      const financeiro_e_repasses_centros = {
+        'clinica-centro': 'Clínica Centro','laboratorio': 'Laboratório',
+        'exames-imagem': 'Exames de Imagem','farmacia': 'Farmácia'
+      };
+      const financeiro_e_repasses_formas = {
+        'pix': 'Pix','cartao-credito': 'Cartão de Crédito',
+        'cartao-debito': 'Cartão de Débito','boleto': 'Boleto','dinheiro': 'Dinheiro'
+      };
+      const financeiro_e_repasses_statusCfg = {
+        'pago': {label:'Pago',cls:'bg-green-100 text-green-700'},
+        'pendente': {label:'Pendente',cls:'bg-yellow-100 text-yellow-700'},
+        'atrasado': {label:'Atrasado',cls:'bg-red-100 text-red-700'}
+      };
+      const financeiro_e_repasses_filtros = {centroCusto:'todos',status:'todos',busca:''};
+      let financeiro_e_repasses_transacaoSelecionada = null;
+      let financeiro_e_repasses_repasseSelecionado = null;
+
+      // ===== Funções =====
+      function financeiro_e_repasses_setFiltro(tipo, valor) {
+        financeiro_e_repasses_filtros[tipo] = valor;
+        if (tipo === 'centroCusto') {
+          document.querySelectorAll('.filtro-btn').forEach(b => {
+            b.className = 'filtro-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ' + (b.id === 'filtro-cc-' + valor ? 'bg-marca-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200');
+          });
+        }
+        if (tipo === 'status') {
+          document.querySelectorAll('.filtro-st-btn').forEach(b => {
+            b.className = 'filtro-st-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ' + (b.id === 'filtro-st-' + valor ? 'bg-marca-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200');
+          });
+        }
+        financeiro_e_repasses_renderizar();
+      }
+
+      function financeiro_e_repasses_buscar(valor) {
+        financeiro_e_repasses_filtros.busca = valor.toLowerCase().trim();
+        financeiro_e_repasses_renderizar();
+      }
+
+      function financeiro_e_repasses_renderizar() {
+        const {centroCusto,status,busca} = financeiro_e_repasses_filtros;
+        const filtradas = financeiro_e_repasses_transacoes.filter(t => {
+          if (centroCusto !== 'todos' && t.centro !== centroCusto) return false;
+          if (status !== 'todos' && t.status !== status) return false;
+          if (busca) {
+            const termo = (t.paciente + ' ' + t.profissional + ' ' + t.servico).toLowerCase();
+            if (!termo.includes(busca)) return false;
+          }
+          return true;
+        });
+        document.getElementById('financeiro-contador').textContent = filtradas.length + ' transação' + (filtradas.length !== 1 ? 'ões' : '');
+        const lista = document.getElementById('financeiro-lista-transacoes');
+        const vazio = document.getElementById('financeiro-vazio');
+        if (filtradas.length === 0) {
+          lista.innerHTML = ''; vazio.classList.remove('hidden');
+        } else {
+          vazio.classList.add('hidden');
+          lista.innerHTML = filtradas.map(t => {
+            const sc = financeiro_e_repasses_statusCfg[t.status];
+            const ic = t.tipo === 'receita' ? 'receita' : 'despesa';
+            const ini = (t.paciente || t.profissional).split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+            const corAvatar = t.tipo === 'receita' ? 'bg-green-600' : 'bg-red-600';
+            const sinal = t.tipo === 'receita' ? '+' : '-';
+            const corValor = t.tipo === 'receita' ? 'text-green-600' : 'text-red-600';
+            return '<div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 active:scale-[0.98] transition-all duration-150 cursor-pointer" onclick="financeiro_e_repasses_abrirTransacao(' + t.id + ')">' +
+              '<div class="flex items-center gap-3">' +
+                '<div class="w-10 h-10 rounded-full ' + corAvatar + ' flex items-center justify-center text-white text-sm font-bold shrink-0">' + ini + '</div>' +
+                '<div class="flex-1 min-w-0">' +
+                  '<p class="text-sm font-semibold text-gray-800 truncate">' + (t.paciente || t.profissional) + '</p>' +
+                  '<p class="text-xs text-gray-500 truncate">' + t.servico + '</p>' +
+                  '<div class="flex items-center gap-2 mt-1">' +
+                    '<span class="text-[10px] text-gray-400">' + financeiro_e_repasses_centros[t.centro] + '</span>' +
+                    '<span class="text-[10px] text-gray-300">|</span>' +
+                    '<span class="text-[10px] text-gray-400">' + financeiro_e_repasses_formas[t.forma] + '</span>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="text-right shrink-0">' +
+                  '<p class="text-sm font-bold ' + corValor + '">' + sinal + ' ' + brl(t.valor) + '</p>' +
+                  '<span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ' + sc.cls + '">' + sc.label + '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+
+      function financeiro_e_repasses_abrirTransacao(id) {
+        const t = financeiro_e_repasses_transacoes.find(x => x.id === id);
+        if (!t) return;
+        financeiro_e_repasses_transacaoSelecionada = t;
+        const sc = financeiro_e_repasses_statusCfg[t.status];
+        const ini = (t.paciente || t.profissional).split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const corAvatar = t.tipo === 'receita' ? 'bg-green-600' : 'bg-red-600';
+        const ic = t.tipo === 'receita' ? icReceita : icDespesa;
+        document.getElementById('modal-transacao-conteudo').innerHTML =
+          '<div class="flex items-center gap-3 mb-5">' +
+            '<div class="w-12 h-12 rounded-full ' + corAvatar + ' flex items-center justify-center text-white font-bold text-lg">' + ini + '</div>' +
+            '<div><p class="font-semibold text-gray-900">' + (t.paciente || t.profissional) + '</p><p class="text-sm text-gray-500">' + t.servico + '</p></div>' +
+          '</div>' +
+          '<div class="flex items-center gap-3 mb-5">' + ic + '<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold ' + sc.cls + '">' + sc.label + '</span></div>' +
+          '<div class="bg-gray-50 rounded-2xl p-4 mb-5 space-y-3">' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Valor</span><span class="text-sm font-semibold ' + (t.tipo==='receita'?'text-green-600':'text-red-600') + '">' + brl(t.valor) + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Tipo</span><span class="text-sm font-medium capitalize">' + t.tipo + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Centro de Custo</span><span class="text-sm font-medium">' + financeiro_e_repasses_centros[t.centro] + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Forma de Pagamento</span><span class="text-sm font-medium">' + financeiro_e_repasses_formas[t.forma] + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Profissional</span><span class="text-sm font-medium">' + t.profissional + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Data</span><span class="text-sm font-medium">' + dataBR(t.data) + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Vencimento</span><span class="text-sm font-medium">' + dataBR(t.vencimento) + '</span></div>' +
+            (t.comprovante ? '<div class="flex justify-between"><span class="text-sm text-gray-500">Comprovante</span><span class="text-sm font-mono font-medium text-marca-700">' + t.comprovante + '</span></div>' : '') +
+          '</div>' +
+          '<div class="flex gap-2">' +
+            (t.status !== 'pago' ? '<button onclick="financeiro_e_repasses_acoesTransacao(' + t.id + ',\'pagar\')" class="flex-1 py-3 bg-marca-600 hover:bg-marca-700 active:scale-95 text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-marca-600/20">Receber Pagamento</button>' : '') +
+            '<button onclick="financeiro_e_repasses_acoesTransacao(' + t.id + ',\'excluir\')" class="shrink-0 py-3 px-5 bg-red-50 hover:bg-red-100 active:scale-95 text-red-600 rounded-xl font-semibold text-sm transition-all duration-200 border border-red-200">Excluir</button>' +
+          '</div>';
+        document.getElementById('modal-transacao').classList.remove('hidden');
+      }
+
+      function financeiro_e_repasses_acoesTransacao(id, acao) {
+        if (acao === 'pagar') {
+          const t = financeiro_e_repasses_transacoes.find(x => x.id === id);
+          if (!t) return;
+          abrirModal(
+            '<p class="text-sm text-gray-600 mb-4">Registrar pagamento de <strong>' + brl(t.valor) + '</strong> para <strong>' + (t.paciente||t.profissional) + '</strong>?</p>' +
+            '<div class="mb-4"><label class="block text-xs text-gray-500 mb-1 font-medium">Forma de Pagamento</label>' +
+              '<select id="sel-forma-pgto" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-marca-500 focus:ring-1 focus:ring-marca-500" onchange="financeiro_e_repasses_calcJuros()">' +
+                '<option value="pix">Pix</option><option value="cartao-debito">Cartão de Débito</option>' +
+                '<option value="cartao-credito-1" data-juros="0">Cartão de Crédito (1x)</option>' +
+                '<option value="cartao-credito-2" data-juros="2.5">Cartão de Crédito (2x)</option>' +
+                '<option value="cartao-credito-3" data-juros="4.5">Cartão de Crédito (3x)</option>' +
+                '<option value="cartao-credito-6" data-juros="8.99">Cartão de Crédito (6x)</option>' +
+                '<option value="boleto">Boleto</option>' +
+              '</select></div>' +
+            '<div id="juros-info" class="hidden bg-yellow-50 rounded-xl p-3 mb-4 border border-yellow-200">' +
+              '<p class="text-xs text-yellow-700">Taxa da operadora: <span id="juros-valor">0%</span></p>' +
+              '<p class="text-xs text-yellow-700 mt-0.5">Juros: <span id="juros-total">R$ 0,00</span></p>' +
+              '<p class="text-sm font-bold text-yellow-800 mt-1">Total: <span id="juros-final">R$ 0,00</span></p>' +
+            '</div>' +
+            '<div class="flex gap-2"><button onclick="financeiro_e_repasses_confirmarPagamento(' + t.id + ')" class="flex-1 py-3 bg-marca-600 hover:bg-marca-700 text-white rounded-xl font-semibold text-sm transition-colors">Confirmar</button><button onclick="fecharModal()" class="shrink-0 py-3 px-5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">Cancelar</button></div>',
+            'Confirmar Recebimento'
+          );
+        } else if (acao === 'excluir') {
+          abrirModal(
+            '<p class="text-sm text-gray-600 mb-5">Deseja excluir esta transação? Esta ação não pode ser desfeita.</p>' +
+            '<div class="flex gap-2"><button onclick="financeiro_e_repasses_confirmarExclusao(' + id + ')" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold text-sm transition-colors">Excluir</button><button onclick="fecharModal()" class="shrink-0 py-3 px-5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">Cancelar</button></div>',
+            'Excluir Transação'
+          );
+        }
+      }
+
+      function financeiro_e_repasses_calcJuros() {
+        const sel = document.getElementById('sel-forma-pgto');
+        const opt = sel.options[sel.selectedIndex];
+        const juros = parseFloat(opt.dataset.juros) || 0;
+        const info = document.getElementById('juros-info');
+        if (juros > 0 && financeiro_e_repasses_transacaoSelecionada) {
+          info.classList.remove('hidden');
+          const vt = financeiro_e_repasses_transacaoSelecionada.valor;
+          const j = vt * (juros/100);
+          document.getElementById('juros-valor').textContent = juros.toFixed(2) + '%';
+          document.getElementById('juros-total').textContent = brl(j);
+          document.getElementById('juros-final').textContent = brl(vt + j);
+        } else { info.classList.add('hidden'); }
+      }
+
+      function financeiro_e_repasses_confirmarPagamento(id) {
+        const t = financeiro_e_repasses_transacoes.find(x => x.id === id);
+        if (t) { t.status = 'pago'; t.forma = document.getElementById('sel-forma-pgto').value; }
+        fecharModal();
+        document.getElementById('modal-transacao').classList.add('hidden');
+        financeiro_e_repasses_renderizar();
+        financeiro_e_repasses_atualizarContadores();
+        toast('Pagamento de ' + brl(t.valor) + ' registrado com sucesso!', 'ok');
+      }
+
+      function financeiro_e_repasses_confirmarExclusao(id) {
+        const idx = financeiro_e_repasses_transacoes.findIndex(x => x.id === id);
+        if (idx >= 0) { financeiro_e_repasses_transacoes.splice(idx, 1); }
+        fecharModal();
+        document.getElementById('modal-transacao').classList.add('hidden');
+        financeiro_e_repasses_renderizar();
+        financeiro_e_repasses_atualizarContadores();
+        toast('Transação excluída.', 'info');
+      }
+
+      function financeiro_e_repasses_novaTransacao() {
+        mostrarTela('centro-de-custos');
+      }
+
+      function financeiro_e_repasses_exportarExcel() {
+        const filtradas = financeiro_e_repasses_filtros.busca || financeiro_e_repasses_filtros.centroCusto !== 'todos' || financeiro_e_repasses_filtros.status !== 'todos'
+          ? financeiro_e_repasses_transacoes.filter(t => {
+              const {centroCusto,status,busca} = financeiro_e_repasses_filtros;
+              if (centroCusto !== 'todos' && t.centro !== centroCusto) return false;
+              if (status !== 'todos' && t.status !== status) return false;
+              if (busca) { const tm = (t.paciente+' '+t.profissional+' '+t.servico).toLowerCase(); if (!tm.includes(busca)) return false; }
+              return true;
+            }) : financeiro_e_repasses_transacoes;
+        let csv = 'ID,Tipo,Centro de Custo,Profissional,Serviço,Paciente,Valor,Forma,Status,Data,Vencimento,Comprovante\n';
+        filtradas.forEach(t => {
+          csv += [t.id,t.tipo,financeiro_e_repasses_centros[t.centro],'"'+t.profissional+'"','"'+t.servico+'"','"'+t.paciente+'"',t.valor.toFixed(2),financeiro_e_repasses_formas[t.forma],t.status,t.data,t.vencimento,t.comprovante].join(',') + '\n';
+        });
+        const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8;'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'financeiro_' + new Date().toISOString().slice(0,10) + '.csv'; a.click();
+        URL.revokeObjectURL(url);
+        toast(filtradas.length + ' registros exportados em CSV.', 'ok');
+      }
+
+      function financeiro_e_repasses_abrirRepasses() {
+        const html = financeiro_e_repasses_repasses.map(r => {
+          const ini = r.profissional.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+          const st = r.status === 'pago' ? {l:'Pago',c:'bg-green-100 text-green-700'} : r.status === 'atrasado' ? {l:'Atrasado',c:'bg-red-100 text-red-700'} : {l:'Pendente',c:'bg-yellow-100 text-yellow-700'};
+          return '<div class="bg-gray-50 rounded-2xl p-4 mb-3">' +
+            '<div class="flex items-center gap-3 mb-3">' +
+              '<div class="w-10 h-10 rounded-full bg-marca-100 flex items-center justify-center text-marca-700 text-sm font-bold">' + ini + '</div>' +
+              '<div class="flex-1 min-w-0"><p class="text-sm font-semibold text-gray-800 truncate">' + r.profissional + '</p><p class="text-xs text-gray-500">' + r.centro + '</p></div>' +
+              '<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ' + st.c + '">' + st.l + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 gap-2 text-xs mb-3">' +
+              '<div><span class="text-gray-400">Valor Base:</span><p class="font-semibold text-gray-700">' + brl(r.valorBase) + '</p></div>' +
+              '<div><span class="text-gray-400">Comissão (' + r.percentual + '%):</span><p class="font-semibold text-marca-700">' + brl(r.comissao) + '</p></div>' +
+              '<div><span class="text-gray-400">Vencimento:</span><p class="font-semibold text-gray-700">' + dataBR(r.dataVencimento) + '</p></div>' +
+              (r.dataPagamento ? '<div><span class="text-gray-400">Pago em:</span><p class="font-semibold text-green-600">' + dataBR(r.dataPagamento) + '</p></div>' : '<div></div>') +
+            '</div>' +
+            (r.status !== 'pago' ? '<button onclick="financeiro_e_repasses_abrirRepasseForm(' + r.id + ')" class="w-full py-2.5 bg-marca-600 hover:bg-marca-700 active:scale-95 text-white rounded-xl text-sm font-semibold transition-all duration-200 shadow-md shadow-marca-600/20">Registrar Repasse</button>' : '<div class="bg-green-50 rounded-xl p-2.5 text-center"><span class="text-xs text-green-700 font-medium">✓ Repasse efetuado em ' + dataBR(r.dataPagamento) + '</span></div>') +
+          '</div>';
+        }).join('');
+        document.getElementById('modal-repasses-conteudo').innerHTML = html;
+        document.getElementById('modal-repasses').classList.remove('hidden');
+      }
+
+      function financeiro_e_repasses_abrirRepasseForm(id) {
+        const r = financeiro_e_repasses_repasses.find(x => x.id === id);
+        if (!r) return;
+        financeiro_e_repasses_repasseSelecionado = r;
+        const ini = r.profissional.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const jurosPix = r.valorBase * 0.005;
+        const jurosCc3x = r.valorBase * 0.045;
+        document.getElementById('modal-repasse-conteudo').innerHTML =
+          '<div class="flex items-center gap-3 mb-5">' +
+            '<div class="w-12 h-12 rounded-full bg-marca-100 flex items-center justify-center text-marca-700 font-bold text-lg">' + ini + '</div>' +
+            '<div><p class="font-semibold text-gray-900">' + r.profissional + '</p><p class="text-sm text-gray-500">' + r.centro + '</p></div>' +
+          '</div>' +
+          '<div class="bg-gray-50 rounded-2xl p-4 mb-5 space-y-2">' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Valor Base</span><span class="text-sm font-semibold">' + brl(r.valorBase) + '</span></div>' +
+            '<div class="flex justify-between"><span class="text-sm text-gray-500">Comissão (' + r.percentual + '%)</span><span class="text-sm font-semibold text-marca-700">' + brl(r.comissao) + '</span></div>' +
+          '</div>' +
+          '<div class="mb-4"><label class="block text-xs text-gray-500 mb-1.5 font-medium">Forma de Repasse</label>' +
+            '<select id="sel-forma-repasse" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-marca-500 focus:ring-1 focus:ring-marca-500" onchange="financeiro_e_repasses_calcRepasse()">' +
+              '<option value="pix">Pix</option><option value="ted">TED</option><option value="boleto">Boleto</option>' +
+            '</select></div>' +
+          '<div id="repasse-juros" class="hidden bg-yellow-50 rounded-xl p-3 mb-5 border border-yellow-200">' +
+            '<p class="text-xs text-yellow-700">Taxa: <span id="repasse-juros-valor">R$ 0,00</span></p>' +
+            '<p class="text-sm font-bold text-yellow-800 mt-1">Líquido a receber: <span id="repasse-liquido">R$ 0,00</span></p>' +
+          '</div>' +
+          '<button onclick="financeiro_e_repasses_confirmarRepasse(' + r.id + ')" class="w-full py-3.5 bg-marca-600 hover:bg-marca-700 active:scale-95 text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-marca-600/20">Confirmar Repasse</button>';
+        document.getElementById('modal-repasses').classList.add('hidden');
+        document.getElementById('modal-repasse').classList.remove('hidden');
+      }
+
+      function financeiro_e_repasses_calcRepasse() {
+        const r = financeiro_e_repasses_repasseSelecionado;
+        if (!r) return;
+        const sel = document.getElementById('sel-forma-repasse').value;
+        const info = document.getElementById('repasse-juros');
+        let taxa = 0;
+        if (sel === 'pix') taxa = r.comissao * 0.005;
+        else if (sel === 'ted') taxa = r.comissao * 0.01;
+        else if (sel === 'boleto') taxa = r.comissao * 0.02;
+        if (taxa > 0) {
+          info.classList.remove('hidden');
+          document.getElementById('repasse-juros-valor').textContent = brl(taxa);
+          document.getElementById('repasse-liquido').textContent = brl(r.comissao - taxa);
+        } else {
+          info.classList.add('hidden');
+        }
+      }
+
+      function financeiro_e_repasses_confirmarRepasse(id) {
+        const r = financeiro_e_repasses_repasses.find(x => x.id === id);
+        if (r) {
+          r.status = 'pago'; r.pago = true;
+          r.dataPagamento = new Date().toISOString().slice(0,10);
+        }
+        fecharModal();
+        document.getElementById('modal-repasse').classList.add('hidden');
+        financeiro_e_repasses_atualizarRepasses();
+        toast('Repasse de ' + brl(r.comissao) + ' registrado para ' + r.profissional + '!', 'ok');
+      }
+
+      function financeiro_e_repasses_atualizarContadores() {
+        const rc = financeiro_e_repasses_transacoes.filter(t => t.tipo === 'receita' && t.status === 'pago').reduce((s,t) => s+t.valor, 0);
+        const dp = financeiro_e_repasses_transacoes.filter(t => t.tipo === 'despesa').reduce((s,t) => s+t.valor, 0);
+        const rp = financeiro_e_repasses_repasses.filter(r => !r.pago).length;
+        const sl = rc - dp;
+        financeiro_e_repasses_animarContador('ind-receber', rc);
+        financeiro_e_repasses_animarContador('ind-pagar', dp);
+        financeiro_e_repasses_animarContador('ind-repasses', rp, true);
+        financeiro_e_repasses_animarContador('ind-saldo', sl);
+      }
+
+      function financeiro_e_repasses_animarContador(elId, valorFinal, isInt) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        const texto = (isInt ? Math.round(valorFinal) : valorFinal);
+        if (isInt) el.textContent = texto;
+        else el.textContent = 'R$ ' + texto.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+      }
+
+      function financeiro_e_repasses_atualizarRepasses() {
+        const pendentes = financeiro_e_repasses_repasses.filter(r => !r.pago).length;
+        const el = document.getElementById('ind-repasses');
+        if (el) { el.textContent = pendentes; el.style.color = pendentes > 0 ? '#14532D' : '#22C55E'; }
+      }
+
+      // ===== Inicialização =====
+      setTimeout(function() {
+        financeiro_e_repasses_renderizar();
+        financeiro_e_repasses_atualizarContadores();
+      }, 200);
+      </script>
+    </section>
+
     <!-- TELAS -->
     </main>
 
