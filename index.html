@@ -204,7 +204,361 @@
 
     <!-- ===== TELAS ===== -->
     <main>
-      <!-- TELAS -->
+      <section data-tela="painel-principal" class="hidden">
+  <div class="px-4 py-4 space-y-5 pb-24">
+
+    <!-- Saudação -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-marca-600 text-white flex items-center justify-center font-display font-bold text-lg shadow-md ring-2 ring-marca-200">CC</div>
+        <div>
+          <p class="text-sm text-marca-600 font-body font-medium">Bom dia,</p>
+          <h1 class="font-display font-bold text-lg text-marca-900 leading-tight">Dra. Carolina</h1>
+        </div>
+      </div>
+      <button onclick="painel_principal_abrirNotificacoes()" class="relative w-11 h-11 rounded-full bg-white border border-marca-100 flex items-center justify-center shadow-sm active:scale-90 transition-all hover:shadow-md">
+        <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+        <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow">5</span>
+      </button>
+    </div>
+
+    <!-- Cards de indicadores -->
+    <div class="grid grid-cols-2 gap-3">
+      <button onclick="abrirModal(painel_principal_detalheAgendamentos(), 'Agendamentos de Hoje')" class="card bg-white rounded-2xl p-4 text-left active:scale-95 transition-transform shadow-sm border border-marca-50">
+        <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center mb-2.5">
+          <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        </div>
+        <p class="text-xs text-gray-500 font-body mb-0.5">Agendamentos</p>
+        <p class="text-2xl font-display font-bold text-marca-900">12</p>
+        <p class="text-[11px] text-green-600 font-medium mt-1">↑ 3 vs. ontem</p>
+      </button>
+      <button onclick="abrirModal(painel_principal_detalhePacientes(), 'Pacientes Ativos')" class="card bg-white rounded-2xl p-4 text-left active:scale-95 transition-transform shadow-sm border border-marca-50">
+        <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center mb-2.5">
+          <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+        </div>
+        <p class="text-xs text-gray-500 font-body mb-0.5">Pacientes Ativos</p>
+        <p class="text-2xl font-display font-bold text-marca-900">248</p>
+        <p class="text-[11px] text-green-600 font-medium mt-1">↑ 12 este mês</p>
+      </button>
+      <button onclick="mostrarTela('financeiro-e-repasses')" class="card bg-white rounded-2xl p-4 text-left active:scale-95 transition-transform shadow-sm border border-marca-50">
+        <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-2.5">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <p class="text-xs text-gray-500 font-body mb-0.5">Faturamento Mensal</p>
+        <p class="text-2xl font-display font-bold text-marca-900">78.450</p>
+        <p class="text-[11px] text-green-600 font-medium mt-1">↑ 8.2% vs. mês ant.</p>
+      </button>
+      <button onclick="abrirModal(painel_principal_detalheEstoque(), 'Itens em Alerta de Estoque')" class="card bg-white rounded-2xl p-4 text-left active:scale-95 transition-transform shadow-sm border border-marca-50">
+        <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center mb-2.5">
+          <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+        </div>
+        <p class="text-xs text-gray-500 font-body mb-0.5">Estoque em Alerta</p>
+        <p class="text-2xl font-display font-bold text-marca-900">3</p>
+        <p class="text-[11px] text-red-500 font-medium mt-1">Itens abaixo do mínimo</p>
+      </button>
+    </div>
+
+    <!-- Gráfico de faturamento semanal -->
+    <div class="card bg-white rounded-2xl p-4 shadow-sm border border-marca-50">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="font-display font-bold text-base text-marca-900">Faturamento Semanal</h2>
+          <p class="text-xs text-gray-400 font-body">Últimos 7 dias</p>
+        </div>
+        <span class="badge bg-green-50 text-green-700 text-xs px-2.5 py-1 rounded-full font-medium">+12%</span>
+      </div>
+      <div class="flex items-end justify-between gap-1.5 h-32">
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-100 rounded-t-md" style="height:40%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Seg</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-200 rounded-t-md" style="height:55%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Ter</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-300 rounded-t-md" style="height:45%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Qua</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-400 rounded-t-md" style="height:70%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Qui</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-500 rounded-t-md" style="height:60%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Sex</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-400 rounded-t-md" style="height:50%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Sáb</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-full bg-marca-600 rounded-t-md" style="height:35%"></div>
+          <span class="text-[10px] text-gray-400 font-body">Dom</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+        <div><p class="text-[11px] text-gray-400">Total semana</p><p class="font-display font-bold text-sm text-marca-900">R$ 18.420,00</p></div>
+        <div class="text-right"><p class="text-[11px] text-gray-400">Meta mensal</p><p class="font-display font-bold text-sm text-marca-900">R$ 80.000</p></div>
+      </div>
+    </div>
+
+    <!-- Próximas consultas -->
+    <div>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-display font-bold text-base text-marca-900">Próximas Consultas</h2>
+        <button onclick="mostrarTela('agenda-multiprofissional')" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Ver todas →</button>
+      </div>
+      <div class="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide" style="scrollbar-width:none;">
+
+        <button onclick="painel_principal_detalheConsulta('Ana Beatriz Souza', 'Consulta Cardiológica', '08:00', 'Dr. Ricardo Mendes', 'Confirmado')" class="snap-start card bg-white rounded-2xl p-4 min-w-[220px] text-left active:scale-95 transition-all shadow-sm border border-marca-50 flex-1">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-display font-bold text-xs">AS</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-bold text-sm text-marca-900 truncate">Ana Beatriz Souza</p>
+              <p class="text-[11px] text-gray-400 truncate">Cartão Bradesco Saúde</p>
+            </div>
+            <span class="badge bg-green-50 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap">Confirmado</span>
+          </div>
+          <p class="text-xs text-gray-500 font-body mb-1">🫀 Consulta Cardiológica</p>
+          <div class="flex items-center gap-1 text-xs text-gray-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>08:00 · Dr. Ricardo Mendes</div>
+        </button>
+
+        <button onclick="painel_principal_detalheConsulta('Carlos Eduardo Lima', 'Exame de Sangue', '08:30', 'Lab. Central', 'Aguardando')" class="snap-start card bg-white rounded-2xl p-4 min-w-[220px] text-left active:scale-95 transition-all shadow-sm border border-marca-50 flex-1">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-display font-bold text-xs">CL</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-bold text-sm text-marca-900 truncate">Carlos Eduardo Lima</p>
+              <p class="text-[11px] text-gray-400 truncate">Particular</p>
+            </div>
+            <span class="badge bg-yellow-50 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap">Aguardando</span>
+          </div>
+          <p class="text-xs text-gray-500 font-body mb-1">🧪 Exame de Sangue</p>
+          <div class="flex items-center gap-1 text-xs text-gray-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>08:30 · Lab. Central</div>
+        </button>
+
+        <button onclick="painel_principal_detalheConsulta('Fernanda Oliveira', 'Consulta Dermatológica', '09:15', 'Dra. Patrícia Alves', 'Confirmado')" class="snap-start card bg-white rounded-2xl p-4 min-w-[220px] text-left active:scale-95 transition-all shadow-sm border border-marca-50 flex-1">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-display font-bold text-xs">FO</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-bold text-sm text-marca-900 truncate">Fernanda Oliveira</p>
+              <p class="text-[11px] text-gray-400 truncate">Unimed</p>
+            </div>
+            <span class="badge bg-green-50 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap">Confirmado</span>
+          </div>
+          <p class="text-xs text-gray-500 font-body mb-1">💆 Consulta Dermatológica</p>
+          <div class="flex items-center gap-1 text-xs text-gray-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>09:15 · Dra. Patrícia Alves</div>
+        </button>
+
+        <button onclick="painel_principal_detalheConsulta('Roberto Campos Jr.', 'Retorno Ortopédico', '10:00', 'Dr. André Santos', 'Pendente')" class="snap-start card bg-white rounded-2xl p-4 min-w-[220px] text-left active:scale-95 transition-all shadow-sm border border-marca-50 flex-1">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-display font-bold text-xs">RC</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-bold text-sm text-marca-900 truncate">Roberto Campos Jr.</p>
+              <p class="text-[11px] text-gray-400 truncate">SulAmérica</p>
+            </div>
+            <span class="badge bg-yellow-50 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap">Pendente</span>
+          </div>
+          <p class="text-xs text-gray-500 font-body mb-1">🦴 Retorno Ortopédico</p>
+          <div class="flex items-center gap-1 text-xs text-gray-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>10:00 · Dr. André Santos</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Ações rápidas -->
+    <div>
+      <h2 class="font-display font-bold text-base text-marca-900 mb-3">Ações Rápidas</h2>
+      <div class="grid grid-cols-4 gap-2.5">
+        <button onclick="mostrarTela('cadastro-de-pacientes')" class="card flex flex-col items-center gap-2 p-3 rounded-2xl bg-white shadow-sm border border-marca-50 active:scale-95 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM3 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 019.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg></div>
+          <span class="text-[11px] text-marca-800 font-medium text-center leading-tight">Novo Paciente</span>
+        </button>
+        <button onclick="mostrarTela('agenda-multiprofissional')" class="card flex flex-col items-center gap-2 p-3 rounded-2xl bg-white shadow-sm border border-marca-50 active:scale-95 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></div>
+          <span class="text-[11px] text-marca-800 font-medium text-center leading-tight">Agendar</span>
+        </button>
+        <button onclick="mostrarTela('pagamentos-e-links')" class="card flex flex-col items-center gap-2 p-3 rounded-2xl bg-white shadow-sm border border-marca-50 active:scale-95 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3 2.25h2.25m-10.125-9.75h16.5a1.125 1.125 0 011.125 1.125v12.75a1.125 1.125 0 01-1.125 1.125H4.125A1.125 1.125 0 013 20.625V9.375A1.125 1.125 0 014.125 8.25z"/></svg></div>
+          <span class="text-[11px] text-marca-800 font-medium text-center leading-tight">Pagamentos</span>
+        </button>
+        <button onclick="mostrarTela('relatorios-gerenciais')" class="card flex flex-col items-center gap-2 p-3 rounded-2xl bg-white shadow-sm border border-marca-50 active:scale-95 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center"><svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+          <span class="text-[11px] text-marca-800 font-medium text-center leading-tight">Relatórios</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Últimos atendimentos -->
+    <div>
+      <h2 class="font-display font-bold text-base text-marca-900 mb-3">Últimos Atendimentos</h2>
+      <div class="card bg-white rounded-2xl shadow-sm border border-marca-50 divide-y divide-gray-50">
+        <button onclick="mostrarTela('prontuario-digital')" class="w-full flex items-center gap-3 p-3.5 text-left active:bg-gray-50 transition-colors">
+          <div class="w-10 h-10 rounded-full bg-marca-100 text-marca-700 flex items-center justify-center font-display font-bold text-xs shrink-0">JS</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-display font-bold text-sm text-marca-900">João Pedro Silva</p>
+            <p class="text-xs text-gray-400">Consulta Pediátrica · Dr. Lucas Ferreira</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs text-gray-400">Hoje</p>
+            <span class="badge bg-green-50 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium">Concluído</span>
+          </div>
+        </button>
+        <button onclick="mostrarTela('prontuario-digital')" class="w-full flex items-center gap-3 p-3.5 text-left active:bg-gray-50 transition-colors">
+          <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-display font-bold text-xs shrink-0">MR</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-display font-bold text-sm text-marca-900">Mariana Ribeiro</p>
+            <p class="text-xs text-gray-400">Exame ECG · Dra. Ana Beatriz Costa</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs text-gray-400">Hoje</p>
+            <span class="badge bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded-full font-medium">Laudo Pendente</span>
+          </div>
+        </button>
+        <button onclick="mostrarTela('prontuario-digital')" class="w-full flex items-center gap-3 p-3.5 text-left active:bg-gray-50 transition-colors">
+          <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-display font-bold text-xs shrink-0">PA</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-display font-bold text-sm text-marca-900">Pedro Henrique Almeida</p>
+            <p class="text-xs text-gray-400">Tomografia · Dr. Carlos Eduardo</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs text-gray-400">Hoje</p>
+            <span class="badge bg-green-50 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium">Concluído</span>
+          </div>
+        </button>
+        <button onclick="mostrarTela('prontuario-digital')" class="w-full flex items-center gap-3 p-3.5 text-left active:bg-gray-50 transition-colors">
+          <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-display font-bold text-xs shrink-0">LT</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-display font-bold text-sm text-marca-900">Laura Tavares</p>
+            <p class="text-xs text-gray-400">Consulta Ginecológica · Dra. Camila Rocha</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs text-gray-400">Ontem</p>
+            <span class="badge bg-green-50 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium">Concluído</span>
+          </div>
+        </button>
+        <button onclick="mostrarTela('prontuario-digital')" class="w-full flex items-center gap-3 p-3.5 text-left active:bg-gray-50 transition-colors">
+          <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-display font-bold text-xs shrink-0">GF</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-display font-bold text-sm text-marca-900">Gabriel Ferreira</p>
+            <p class="text-xs text-gray-400">Exame Laboratorial · Lab. Centro</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs text-gray-400">Ontem</p>
+            <span class="badge bg-yellow-50 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full font-medium">Aguardando</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function painel_principal_abrirNotificacoes() {
+      const html = `<div class="space-y-3">
+        <div class="flex items-start gap-3 p-3 bg-marca-50 rounded-xl"><div class="w-8 h-8 rounded-full bg-marca-100 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-marca-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg></div><div><p class="text-sm font-medium text-marca-900">Novo agendamento confirmado</p><p class="text-xs text-gray-500">Ana Beatriz confirmou consulta para hoje às 08:00</p><p class="text-[11px] text-gray-400 mt-0.5">há 5 minutos</p></div></div>
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div><div><p class="text-sm font-medium text-marca-900">Paciente cancelou consulta</p><p class="text-xs text-gray-500">Roberto Campos cancelou retorno ortopédico</p><p class="text-[11px] text-gray-400 mt-0.5">há 32 minutos</p></div></div>
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><p class="text-sm font-medium text-marca-900">Pagamento recebido</p><p class="text-xs text-gray-500">R$ 450,00 · Consulta com Dra. Patrícia</p><p class="text-[11px] text-gray-400 mt-0.5">há 1 hora</p></div></div>
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-3.86 8.25-8.625 8.25S3.75 16.556 3.75 12"/></svg></div><div><p class="text-sm font-medium text-marca-900">Estoque em alerta</p><p class="text-xs text-gray-500">3 itens abaixo do nível mínimo de estoque</p><p class="text-[11px] text-gray-400 mt-0.5">há 2 horas</p></div></div>
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0"><svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.26-4.26a.75.75 0 011.06 0l4.26 4.26v-7.94a48.42 48.42 0 003.293-.369c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.318z"/></svg></div><div><p class="text-sm font-medium text-marca-900">Nova mensagem WhatsApp</p><p class="text-xs text-gray-500">Paciente enviou foto de receita médica</p><p class="text-[11px] text-gray-400 mt-0.5">há 3 horas</p></div></div>
+      </div>`;
+      abrirModal(html, 'Notificações (5 não lidas)');
+      toast('Notificações carregadas', 'info');
+    }
+    function painel_principal_detalheAgendamentos() {
+      const itens = [
+        {h:'08:00',p:'Ana Beatriz Souza',pr:'Cardiológica',m:'Dr. Ricardo Mendes',s:'Confirmado'},
+        {h:'08:30',p:'Carlos Eduardo Lima',pr:'Exame Sangue',m:'Lab. Central',s:'Aguardando'},
+        {h:'09:15',p:'Fernanda Oliveira',pr:'Dermatológica',m:'Dra. Patrícia Alves',s:'Confirmado'},
+        {h:'10:00',p:'Roberto Campos Jr.',pr:'Ortopédico',m:'Dr. André Santos',s:'Pendente'},
+        {h:'10:30',p:'Juliana Mendes',pr:'Neurológica',m:'Dr. Fernando Lima',s:'Confirmado'},
+        {h:'11:00',p:'Ricardo Santos',pr:'Check-up',m:'Dra. Carolina',s:'Confirmado'},
+        {h:'11:30',p:'Patrícia Gomes',pr:'Ginecológica',m:'Dra. Camila Rocha',s:'Confirmado'},
+        {h:'13:00',p:'Marcos Vinícius',pr:'Oftalmológica',m:'Dr. André Lima',s:'Pendente'},
+        {h:'13:30',p:'Luciana Ferreira',pr:'Endocrinológica',m:'Dra. Ana Costa',s:'Confirmado'},
+        {h:'14:00',p:'Thiago Rocha',pr:'Urológica',m:'Dr. Carlos Eduardo',s:'Confirmado'},
+        {h:'14:30',p:'Isabela Nunes',pr:'Nutricional',m:'Dra. Fernanda Luz',s:'Aguardando'},
+        {h:'15:00',p:'Felipe Andrade',pr:'Psicológica',m:'Dr. Paulo Henrique',s:'Confirmado'}
+      ];
+      let s = '<div class="space-y-2 max-h-96 overflow-y-auto">';
+      itens.forEach(i => {
+        const bc = i.s==='Confirmado'?'bg-green-50 text-green-700':i.s==='Aguardando'?'bg-yellow-50 text-yellow-700':'bg-red-50 text-red-700';
+        s += `<div class="flex items-center gap-3 p-2.5 bg-gray-50 rounded-xl">
+          <span class="text-sm font-display font-bold text-marca-700 w-12 shrink-0">${i.h}</span>
+          <div class="flex-1 min-w-0"><p class="text-sm font-medium text-marca-900 truncate">${i.p}</p><p class="text-xs text-gray-400">${i.pr} · ${i.m}</p></div>
+          <span class="badge ${bc} text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0">${i.s}</span>
+        </div>`;
+      });
+      s += '</div>';
+      return s;
+    }
+    function painel_principal_detalhePacientes() {
+      const itens = [
+        {n:'Ana Beatriz Souza',c:'Cardiologia',u:'Unidade Centro',a:'15/01/2025'},
+        {n:'Carlos Eduardo Lima',c:'Laboratorial',u:'Unidade Sul',a:'18/01/2025'},
+        {n:'Fernanda Oliveira',c:'Dermatologia',u:'Unidade Centro',a:'20/01/2025'},
+        {n:'Roberto Campos Jr.',c:'Ortopedia',u:'Unidade Norte',a:'22/01/2025'},
+        {n:'Juliana Mendes',c:'Neurologia',u:'Unidade Centro',a:'24/01/2025'},
+        {n:'Ricardo Santos',c:'Clínico Geral',u:'Unidade Sul',a:'25/01/2025'},
+        {n:'Patrícia Gomes',c:'Ginecologia',u:'Unidade Centro',a:'27/01/2025'},
+        {n:'Marcos Vinícius',c:'Oftalmologia',u:'Unidade Norte',a:'28/01/2025'}
+      ];
+      let s = '<div class="space-y-2 max-h-96 overflow-y-auto">';
+      itens.forEach(i => {
+        s += `<div class="flex items-center gap-3 p-2.5 bg-gray-50 rounded-xl">
+          <div class="w-8 h-8 rounded-full bg-marca-100 text-marca-700 flex items-center justify-center font-display font-bold text-[10px] shrink-0">${i.n.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+          <div class="flex-1 min-w-0"><p class="text-sm font-medium text-marca-900 truncate">${i.n}</p><p class="text-xs text-gray-400">${i.c} · ${i.u}</p></div>
+          <span class="text-[11px] text-gray-400 shrink-0">${i.a}</span>
+        </div>`;
+      });
+      s += '</div>';
+      return s;
+    }
+    function painel_principal_detalheEstoque() {
+      const itens = [
+        {n:'Luvas de Procedimento (P)',q:15,m:50,u:'Unidade Centro'},
+        {n:'Seringa 10ml',q:8,m:100,u:'Unidade Norte'},
+        {n:'Gaze Estéril 7,5cm',q:22,m:200,u:'Unidade Sul'}
+      ];
+      let s = '<div class="space-y-3">';
+      s += '<p class="text-xs text-gray-500 font-body">Itens abaixo do nível mínimo de estoque:</p>';
+      itens.forEach(i => {
+        const pct = Math.round((i.q/i.m)*100);
+        s += `<div class="p-3 bg-red-50 rounded-xl border border-red-100">
+          <div class="flex items-center justify-between mb-1.5"><p class="text-sm font-medium text-marca-900">${i.n}</p><span class="text-xs text-red-600 font-medium">${pct}%</span></div>
+          <div class="w-full h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:${pct}%"></div></div>
+          <div class="flex items-center justify-between mt-1.5"><span class="text-[11px] text-gray-500">Atual: ${i.q} · Mínimo: ${i.m}</span><span class="text-[11px] text-gray-400">${i.u}</span></div>
+          <button onclick="fecharModal(); toast('Pedido de reposição enviado', 'ok');" class="mt-2.5 w-full btn bg-red-500 text-white text-xs font-medium py-2 rounded-xl active:scale-95 transition-all">Solicitar Reposição</button>
+        </div>`;
+      });
+      s += '</div>';
+      return s;
+    }
+    function painel_principal_detalheConsulta(paciente, procedimento, horario, profissional, status) {
+      const bs = status==='Confirmado'?'bg-green-50 text-green-700':status==='Aguardando'?'bg-yellow-50 text-yellow-700':'bg-red-50 text-red-700';
+      const ac = status==='Confirmado'?'bg-marca-600 text-white':'bg-marca-100 text-marca-700';
+      const act = status==='Confirmado'?'✓ Confirmada':'Confirmar Agendamento';
+      return `<div class="space-y-4">
+        <div class="flex items-center gap-3 p-4 bg-marca-50 rounded-xl">
+          <div class="w-12 h-12 rounded-full bg-marca-200 text-marca-800 flex items-center justify-center font-display font-bold text-sm">${paciente.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+          <div><p class="font-display font-bold text-marca-900">${paciente}</p><span class="badge ${bs} text-[10px] px-2 py-0.5 rounded-full font-medium mt-1 inline-block">${status}</span></div>
+        </div>
+        <div class="space-y-2.5">
+          <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-sm text-gray-500">Procedimento</span><span class="text-sm font-medium text-marca-900">${procedimento}</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-sm text-gray-500">Horário</span><span class="text-sm font-medium text-marca-900">${horario}</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-sm text-gray-500">Profissional</span><span class="text-sm font-medium text-marca-900">${profissional}</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-sm text-gray-500">Status</span><span class="badge ${bs} text-[10px] px-2 py-0.5 rounded-full font-medium">${status}</span></div>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button onclick="fecharModal(); toast('Ação registrada com sucesso', 'ok');" class="flex-1 btn ${ac} text-sm font-medium py-2.5 rounded-xl active:scale-95 transition-all">${act}</button>
+          <button onclick="fecharModal(); mostrarTela('integracao-whatsapp');" class="flex-1 btn bg-green-500 text-white text-sm font-medium py-2.5 rounded-xl active:scale-95 transition-all">💬 WhatsApp</button>
+        </div>
+        <button onclick="mostrarTela('prontuario-digital'); fecharModal();" class="w-full text-sm text-marca-600 font-medium py-2 hover:text-marca-700 transition-colors">Ver prontuário completo →</button>
+      </div>`;
+    }
+  </script>
+</section>
+
+    <!-- TELAS -->
     </main>
 
     <!-- ===== TOASTS ===== -->
