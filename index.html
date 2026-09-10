@@ -3855,6 +3855,425 @@
       b.classList.toggle('text-slate-600', !ativo);
       b.classList.toggle('border-s
 
+    <section data-tela="pagamentos-e-links" class="hidden">
+  <div class="pb-20">
+    <!-- Header -->
+    <div class="bg-gradient-to-br from-marca-600 to-marca-700 text-white px-4 py-5 -mt-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-xl font-display font-bold">Pagamentos e Links</h1>
+          <p class="text-marca-100 text-sm mt-1">Cobranças, links de pagamento e transações</p>
+        </div>
+        <button onclick="pagamentos_e_links_novaCobranca()" class="bg-white text-marca-700 px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition-transform">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Nova Cobrança
+        </button>
+      </div>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="px-4 -mt-3">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-marca-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs text-gray-500">Recebido (mês)</span>
+          </div>
+          <p class="text-xl font-bold text-gray-800">R$ 47.832,50</p>
+          <p class="text-xs text-green-600 mt-1">↑ 12,3% vs mês anterior</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-marca-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-yellow-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs text-gray-500">Pendente</span>
+          </div>
+          <p class="text-xl font-bold text-gray-800">R$ 8.450,00</p>
+          <p class="text-xs text-marca-600 mt-1">5 cobranças abertas</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-marca-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+            </div>
+            <span class="text-xs text-gray-500">Cancelado</span>
+          </div>
+          <p class="text-xl font-bold text-gray-800">R$ 1.280,00</p>
+          <p class="text-xs text-gray-500 mt-1">3 transações</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-marca-100">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs text-gray-500">Estornado</span>
+          </div>
+          <p class="text-xl font-bold text-gray-800">R$ 890,00</p>
+          <p class="text-xs text-gray-500 mt-1">2 estornos</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="px-4 mt-4">
+      <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <button onclick="pagamentos_e_links_filtro('todas')" class="pagamentos-e-links-filtro active px-3 py-1.5 rounded-full text-sm whitespace-nowrap bg-marca-600 text-white" data-filtro="todas">Todas</button>
+        <button onclick="pagamentos_e_links_filtro('pendente')" class="pagamentos-e-links-filtro px-3 py-1.5 rounded-full text-sm whitespace-nowrap bg-gray-100 text-gray-600" data-filtro="pendente">Aguardando</button>
+        <button onclick="pagamentos_e_links_filtro('pago')" class="pagamentos-e-links-filtro px-3 py-1.5 rounded-full text-sm whitespace-nowrap bg-gray-100 text-gray-600" data-filtro="pago">Pago</button>
+        <button onclick="pagamentos_e_links_filtro('cancelado')" class="pagamentos-e-links-filtro px-3 py-1.5 rounded-full text-sm whitespace-nowrap bg-gray-100 text-gray-600" data-filtro="cancelado">Cancelado</button>
+        <button onclick="pagamentos_e_links_filtro('estornado')" class="pagamentos-e-links-filtro px-3 py-1.5 rounded-full text-sm whitespace-nowrap bg-gray-100 text-gray-600" data-filtro="estornado">Estornado</button>
+      </div>
+    </div>
+
+    <!-- Campo de busca -->
+    <div class="px-4 mt-3">
+      <div class="relative">
+        <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="pagamentos-e-links-busca" oninput="pagamentos_e_links_buscar()" placeholder="Buscar por paciente, código ou link..." class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent">
+      </div>
+    </div>
+
+    <!-- Lista de Transações -->
+    <div class="px-4 mt-4">
+      <div id="pagamentos-e-links-lista" class="space-y-3">
+        <!-- Items gerados via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dados de transações
+    const pagamentos_e_links_transacoes = [
+      { id: 'COB-001', paciente: 'Maria Santos Silva', cpf: '123.456.789-00', valor: 450.00, forma: 'pix', status: 'pago', data: '2025-01-15', hora: '14:32', link: 'pag.link/abc123', centroCusto: 'Clínica Central', descricao: 'Consulta Cardiologia - Dr. Roberto' },
+      { id: 'COB-002', paciente: 'João Pedro Oliveira', cpf: '987.654.321-00', valor: 1250.00, forma: 'cartao', status: 'pago', data: '2025-01-15', hora: '11:20', link: 'pag.link/def456', centroCusto: 'Laboratório', descricao: 'Exames Laboratoriais - Pacote Completo' },
+      { id: 'COB-003', paciente: 'Ana Carolina Mendes', cpf: '456.789.123-00', valor: 280.00, forma: 'boleto', status: 'pendente', data: '2025-01-16', hora: '09:15', link: 'pag.link/ghi789', centroCusto: 'Clínica Central', descricao: 'Consulta Dermatologia - Dra. Paula' },
+      { id: 'COB-004', paciente: 'Carlos Eduardo Souza', cpf: '321.654.987-00', valor: 890.00, forma: 'pix', status: 'pago', data: '2025-01-14', hora: '16:45', link: 'pag.link/jkl012', centroCusto: 'Unidade Norte', descricao: 'Exame de imagem - Tomografia' },
+      { id: 'COB-005', paciente: 'Fernanda Lima Rocha', cpf: '654.321.789-00', valor: 320.00, forma: 'cartao', status: 'pendente', data: '2025-01-16', hora: '10:30', link: 'pag.link/mno345', centroCusto: 'Clínica Central', descricao: 'Consulta Nutricionista' },
+      { id: 'COB-006', paciente: 'Ricardo Almeida Santos', cpf: '789.123.456-00', valor: 2100.00, forma: 'cartao', status: 'cancelado', data: '2025-01-13', hora: '15:00', link: 'pag.link/pqr678', centroCusto: 'Laboratório', descricao: 'Exames Genéticos' },
+      { id: 'COB-007', paciente: 'Juliana Costa Oliveira', cpf: '147.258.369-00', valor: 175.00, forma: 'pix', status: 'estornado', data: '2025-01-12', hora: '13:22', link: 'pag.link/stu901', centroCusto: 'Unidade Sul', descricao: 'Consulta Psicologia' },
+      { id: 'COB-008', paciente: 'Roberto Martins Ferreira', cpf: '258.369.147-00', valor: 560.00, forma: 'boleto', status: 'pago', data: '2025-01-11', hora: '08:50', link: 'pag.link/vwx234', centroCusto: 'Clínica Central', descricao: 'Consulta Ortopedia - Dr. Carlos' },
+    ];
+
+    let pagamentos_e_links_filtroAtual = 'todas';
+    let pagamentos_e_links_buscaAtual = '';
+
+    function pagamentos_e_links_novaCobranca() {
+      const modalContent = `
+        <div class="p-4 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
+            <select id="nova-cobranca-paciente" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+              <option value="">Selecione o paciente...</option>
+              <option value="1">Maria Santos Silva</option>
+              <option value="2">João Pedro Oliveira</option>
+              <option value="3">Ana Carolina Mendes</option>
+              <option value="4">Carlos Eduardo Souza</option>
+              <option value="5">Fernanda Lima Rocha</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Centro de Custo</label>
+            <select id="nova-cobranca-centro" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+              <option value="">Selecione...</option>
+              <option value="central">Clínica Central</option>
+              <option value="norte">Unidade Norte</option>
+              <option value="sul">Unidade Sul</option>
+              <option value="laboratorio">Laboratório</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Descrição do Serviço</label>
+            <input type="text" id="nova-cobranca-descricao" placeholder="Ex: Consulta Cardiologia" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Valor (R$)</label>
+            <input type="text" id="nova-cobranca-valor" placeholder="0,00" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500" onkeyup="this.value = this.value.replace(/[^0-9,]/g, '');">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Forma de Pagamento</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-marca-500 transition-colors">
+                <input type="radio" name="forma" value="pix" class="mr-2 accent-marca-600">
+                <span class="text-sm">Pix</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-marca-500 transition-colors">
+                <input type="radio" name="forma" value="cartao_credito" class="mr-2 accent-marca-600">
+                <span class="text-sm">Cartão Crédito</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-marca-500 transition-colors">
+                <input type="radio" name="forma" value="cartao_debito" class="mr-2 accent-marca-600">
+                <span class="text-sm">Cartão Débito</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-marca-500 transition-colors">
+                <input type="radio" name="forma" value="boleto" class="mr-2 accent-marca-600">
+                <span class="text-sm">Boleto</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Data de Vencimento</label>
+            <input type="date" id="nova-cobranca-vencimento" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+          </div>
+
+          <div id="parcelamento-opcoes" class="hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Parcelas</label>
+            <select class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">
+              <option value="1">1x sem juros</option>
+              <option value="2">2x sem juros</option>
+              <option value="3">3x sem juros</option>
+              <option value="6">6x com juros (2,5%)</option>
+              <option value="9">9x com juros (4,5%)</option>
+              <option value="12">12x com juros (6,5%)</option>
+            </select>
+          </div>
+
+          <button onclick="pagamentos_e_links_gerarLink()" class="w-full bg-marca-600 text-white py-3 rounded-lg font-medium active:scale-95 transition-transform mt-2">
+            Gerar Link de Pagamento
+          </button>
+        </div>
+      `;
+      abrirModal(modalContent, 'Nova Cobrança');
+    }
+
+    function pagamentos_e_links_gerarLink() {
+      const paciente = document.getElementById('nova-cobranca-paciente').value;
+      const valor = document.getElementById('nova-cobranca-valor').value;
+      const descricao = document.getElementById('nova-cobranca-descricao').value;
+
+      if (!paciente || !valor || !descricao) {
+        toast('Preencha todos os campos obrigatórios', 'erro');
+        return;
+      }
+
+      fecharModal();
+      toast('Link de pagamento gerado com sucesso!', 'ok');
+
+      // Simular nova transação na lista
+      pagamentos_e_links_transacoes.unshift({
+        id: 'COB-00' + (Math.floor(Math.random() * 9) + 1),
+        paciente: 'Novo Paciente',
+        cpf: '000.000.000-00',
+        valor: parseFloat(valor.replace(',', '.')),
+        forma: 'pix',
+        status: 'pendente',
+        data: new Date().toISOString().split('T')[0],
+        hora: new Date().toTimeString().substring(0, 5),
+        link: 'pag.link/novo' + Math.floor(Math.random() * 1000),
+        centroCusto: 'Clínica Central',
+        descricao: descricao
+      });
+      pagamentos_e_links_renderizar();
+    }
+
+    function pagamentos_e_links_filtro(status) {
+      pagamentos_e_links_filtroAtual = status;
+
+      // Atualizar visual dos botões
+      document.querySelectorAll('.pagamentos-e-links-filtro').forEach(btn => {
+        if (btn.dataset.filtro === status) {
+          btn.classList.remove('bg-gray-100', 'text-gray-600');
+          btn.classList.add('bg-marca-600', 'text-white');
+        } else {
+          btn.classList.remove('bg-marca-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-600');
+        }
+      });
+
+      pagamentos_e_links_renderizar();
+    }
+
+    function pagamentos_e_links_buscar() {
+      pagamentos_e_links_buscaAtual = document.getElementById('pagamentos-e-links-busca').value.toLowerCase();
+      pagamentos_e_links_renderizar();
+    }
+
+    function pagamentos_e_links_renderizar() {
+      const container = document.getElementById('pagamentos-e-links-lista');
+
+      let transacoesFiltradas = pagamentos_e_links_transacoes.filter(t => {
+        const matchesFiltro = pagamentos_e_links_filtroAtual === 'todas' || t.status === pagamentos_e_links_filtroAtual;
+        const matchesBusca = !pagamentos_e_links_buscaAtual ||
+          t.paciente.toLowerCase().includes(pagamentos_e_links_buscaAtual) ||
+          t.id.toLowerCase().includes(pagamentos_e_links_buscaAtual) ||
+          t.link.toLowerCase().includes(pagamentos_e_links_buscaAtual);
+        return matchesFiltro && matchesBusca;
+      });
+
+      if (transacoesFiltradas.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <p class="text-gray-500 text-sm">Nenhuma transação encontrada</p>
+            <p class="text-gray-400 text-xs mt-1">Tente ajustar os filtros ou busca</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = transacoesFiltradas.map(t => {
+        const statusCores = {
+          pago: 'bg-green-100 text-green-700',
+          pendente: 'bg-yellow-100 text-yellow-700',
+          cancelado: 'bg-red-100 text-red-700',
+          estornado: 'bg-purple-100 text-purple-700'
+        };
+        const statusTextos = {
+          pago: 'Pago',
+          pendente: 'Aguardando',
+          cancelado: 'Cancelado',
+          estornado: 'Estornado'
+        };
+        const formasIcones = {
+          pix: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
+          cartao: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
+          boleto: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>'
+        };
+
+        return `
+          <div onclick="pagamentos_e_links_detalhes('${t.id}')" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 active:scale-[0.98] transition-transform cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-marca-100 flex items-center justify-center text-marca-700 font-bold text-sm">
+                  ${t.paciente.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                </div>
+                <div>
+                  <p class="font-medium text-gray-800 text-sm">${t.paciente}</p>
+                  <p class="text-xs text-gray-500">${t.id} • ${t.centroCusto}</p>
+                </div>
+              </div>
+              <span class="px-2 py-1 rounded-full text-xs font-medium ${statusCores[t.status]}">${statusTextos[t.status]}</span>
+            </div>
+
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4 text-xs text-gray-500">
+                  <span class="flex items-center gap-1">${formasIcones[t.forma] || formasIcones.pix} ${t.forma.toUpperCase()}</span>
+                  <span>${dataBR(t.data)}</span>
+                </div>
+                <p class="font-bold text-gray-800">${brl(t.valor)}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function pagamentos_e_links_detalhes(id) {
+      const transacao = pagamentos_e_links_transacoes.find(t => t.id === id);
+      if (!transacao) return;
+
+      const statusCores = {
+        pago: 'bg-green-100 text-green-700',
+        pendente: 'bg-yellow-100 text-yellow-700',
+        cancelado: 'bg-red-100 text-red-700',
+        estornado: 'bg-purple-100 text-purple-700'
+      };
+      const statusTextos = {
+        pago: 'Pago',
+        pendente: 'Aguardando Pagamento',
+        cancelado: 'Cancelado',
+        estornado: 'Estornado'
+      };
+
+      const modalContent = `
+        <div class="space-y-4">
+          <!-- Status -->
+          <div class="flex justify-center">
+            <span class="px-4 py-2 rounded-full text-sm font-medium ${statusCores[transacao.status]}">${statusTextos[transacao.status]}</span>
+          </div>
+
+          <!-- Valor -->
+          <div class="text-center">
+            <p class="text-3xl font-bold text-gray-800">${brl(transacao.valor)}</p>
+            <p class="text-sm text-gray-500 mt-1">${transacao.descricao}</p>
+          </div>
+
+          <!-- Detalhes -->
+          <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">ID da Transação</span>
+              <span class="font-medium text-gray-800">${transacao.id}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Paciente</span>
+              <span class="font-medium text-gray-800">${transacao.paciente}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">CPF</span>
+              <span class="font-medium text-gray-800">${transacao.cpf}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Centro de Custo</span>
+              <span class="font-medium text-gray-800">${transacao.centroCusto}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Forma de Pagamento</span>
+              <span class="font-medium text-gray-800">${transacao.forma.toUpperCase()}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Data/Hora</span>
+              <span class="font-medium text-gray-800">${dataBR(transacao.data)} às ${transacao.hora}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Link de Pagamento</span>
+              <span class="font-medium text-marca-600">${transacao.link}</span>
+            </div>
+          </div>
+
+          <!-- Ações -->
+          <div class="grid grid-cols-2 gap-2">
+            ${transacao.status === 'pendente' ? `
+              <button onclick="pagamentos_e_links_enviarWhatsapp('${transacao.id}')" class="flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-lg text-sm font-medium active:scale-95 transition-transform">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-3.9-3.905-3.905-10.237 0-14.142l7.147 7.147c3.9 3.905 10.237 3.905 14.142 0l6.163-6.163c3.905-3.905 3.905-10.237 0-14.142l-7.147-7.147c-3.905-3.9-10.237-3.9-14.142 0l-6.163 6.163c-3.904 3.905-3.904 10.236 0 14.142zm6.102-11.664c2.196 0 3.974 1.778 3.974 3.974 0 2.196-1.778 3.974-3.974 3.974-2.196 0-3.974-1.778-3.974-3.974 0-2.196 1.778-3.974 3.974-3.974zm10.193-5.457c1.368 0 2.476 1.108 2.476 2.476 0 1.368-1.108 2.476-2.476 2.476-1.368 0-2.476-1.108-2.476-2.476 0-1.368 1.108-2.476 2.476-2.476z"/></svg>
+                WhatsApp
+              </button>
+              <button onclick="pagamentos_e_links_enviarSMS('${transacao.id}')" class="flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg text-sm font-medium active:scale-95 transition-transform">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                SMS
+              </button>
+            ` : ''}
+            <button onclick="pagamentos_e_links_copiarLink('${transacao.link}')" class="col-span-2 flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-3 rounded-lg text-sm font-medium active:scale-95 transition-transform">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              Copiar Link de Pagamento
+            </button>
+          </div>
+
+          ${transacao.status === 'pendente' ? `
+          <button onclick="pagamentos_e_links_cancelar('${transacao.id}')" class="w-full text-red-600 text-sm py-2">Cancelar Cobrança</button>
+          ` : ''}
+        </div>
+      `;
+      abrirModal(modalContent, 'Detalhes da Transação');
+    }
+
+    function pagamentos_e_links_enviarWhatsapp(id) {
+      const transacao = pagamentos_e_links_transacoes.find(t => t.id === id);
+      if (!transacao) return;
+      fecharModal();
+      toast(`Link enviado por WhatsApp para ${transacao.paciente}`, 'ok');
+    }
+
+    function pagamentos_e_links_enviarSMS(id) {
+      const transacao = pagamentos_e_links_transacoes.find(t => t.id === id);
+      if (!transacao) return;
+      fecharModal();
+      toast(`Link enviado por SMS para ${transacao.paciente}`, 'ok');
+    }
+
+    function pagamentos_e_links_copiarLink(link) {
+      navigator.clipboard.writeText('https://' + link);
+      toast('Link copiado!', 'ok
+
     <!-- TELAS -->
     </main>
 
