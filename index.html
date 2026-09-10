@@ -2672,6 +2672,585 @@
       </script>
     </section>
 
+    <section data-tela="relatorios-gerenciais" class="hidden">
+  <div class="px-4 py-3 space-y-4 max-w-[430px] mx-auto">
+    <!-- Cabeçalho da tela -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="font-display text-xl font-bold text-marca-900">Relatórios Gerenciais</h1>
+        <p class="text-sm text-gray-500 mt-0.5">Visão consolidada por centro de custo</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="relatorios_gerenciais_exportarPDF()" class="p-2 rounded-xl bg-marca-50 text-marca-800 hover:bg-marca-100 active:scale-95 transition-all" title="Exportar PDF">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </button>
+        <button onclick="relatorios_gerenciais_exportarExcel()" class="p-2 rounded-xl bg-marca-50 text-marca-800 hover:bg-marca-100 active:scale-95 transition-all" title="Exportar Excel">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Seletor de Período e Unidade -->
+    <div class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100">
+      <div class="flex gap-2">
+        <div class="flex-1">
+          <label class="text-xs font-medium text-gray-500 mb-1 block">Período</label>
+          <select id="sel-periodo" onchange="relatorios_gerenciais_atualizarPeriodo()" class="w-full text-sm rounded-xl border-gray-200 bg-marca-50/30 focus:ring-marca-500 focus:border-marca-500 py-2 px-3">
+            <option value="mes-atual">Novembro / 2025</option>
+            <option value="mes-anterior">Outubro / 2025</option>
+            <option value="trimestre">Q4 2025</option>
+            <option value="ano">Ano de 2025</option>
+          </select>
+        </div>
+        <div class="flex-1">
+          <label class="text-xs font-medium text-gray-500 mb-1 block">Centro de Custo</label>
+          <select id="sel-unidade" onchange="relatorios_gerenciais_atualizarUnidade()" class="w-full text-sm rounded-xl border-gray-200 bg-marca-50/30 focus:ring-marca-500 focus:border-marca-500 py-2 px-3">
+            <option value="todos">Todas as Unidades</option>
+            <option value="unidade-1">LabMed - Paulista</option>
+            <option value="unidade-2">LabMed - Morumbi</option>
+            <option value="unidade-3">LabMed - Santo Amaro</option>
+            <option value="unidade-4">LabMed - Osasco</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards de KPIs -->
+    <div class="grid grid-cols-2 gap-3">
+      <div onclick="relatorios_gerenciais_drillDown('faturamento')" class="card cursor-pointer active:scale-95 transition-transform">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-marca-100 flex items-center justify-center">
+            <svg class="w-4 h-4 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="text-xs text-gray-500 font-medium">Faturamento</span>
+        </div>
+        <p class="font-display font-bold text-lg text-marca-900">R$ 487.250,00</p>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="inline-flex items-center text-xs font-medium text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+            <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+            12,4%
+          </span>
+          <span class="text-xs text-gray-400">vs mês ant.</span>
+        </div>
+      </div>
+      <div onclick="relatorios_gerenciais_drillDown('atendimentos')" class="card cursor-pointer active:scale-95 transition-transform">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <span class="text-xs text-gray-500 font-medium">Atendimentos</span>
+        </div>
+        <p class="font-display font-bold text-lg text-marca-900">1.847</p>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="inline-flex items-center text-xs font-medium text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+            <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+            8,2%
+          </span>
+          <span class="text-xs text-gray-400">vs mês ant.</span>
+        </div>
+      </div>
+      <div onclick="relatorios_gerenciais_drillDown('ticket')" class="card cursor-pointer active:scale-95 transition-transform">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <span class="text-xs text-gray-500 font-medium">Ticket Médio</span>
+        </div>
+        <p class="font-display font-bold text-lg text-marca-900">R$ 263,80</p>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="inline-flex items-center text-xs font-medium text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+            <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+            3,8%
+          </span>
+          <span class="text-xs text-gray-400">vs mês ant.</span>
+        </div>
+      </div>
+      <div onclick="relatorios_gerenciais_drillDown('inadimplencia')" class="card cursor-pointer active:scale-95 transition-transform">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </div>
+          <span class="text-xs text-gray-500 font-medium">Inadimplência</span>
+        </div>
+        <p class="font-display font-bold text-lg text-marca-900">4,2%</p>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="inline-flex items-center text-xs font-medium text-red-600 bg-red-50 rounded-full px-1.5 py-0.5">
+            <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            1,1%
+          </span>
+          <span class="text-xs text-gray-400">vs mês ant.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico: Faturamento por Centro de Custo (Barras Mensais) -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="font-display font-semibold text-sm text-marca-900">Faturamento por Centro de Custo</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Comparativo mensal · R$ mil</p>
+        </div>
+        <button onclick="relatorios_gerenciais_drillDown('faturamento-grafico')" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Detalhar →</button>
+      </div>
+      <div class="relative">
+        <svg viewBox="0 0 340 180" class="w-full h-auto">
+          <!-- Grid lines -->
+          <line x1="40" y1="20" x2="40" y2="150" stroke="#E5E7EB" stroke-width="0.5"/>
+          <line x1="40" y1="150" x2="330" y2="150" stroke="#E5E7EB" stroke-width="0.5"/>
+          <line x1="40" y1="120" x2="330" y2="120" stroke="#F3F4F6" stroke-width="0.5"/>
+          <line x1="40" y1="90" x2="330" y2="90" stroke="#F3F4F6" stroke-width="0.5"/>
+          <line x1="40" y1="60" x2="330" y2="60" stroke="#F3F4F6" stroke-width="0.5"/>
+          <!-- Y-axis labels -->
+          <text x="35" y="24" text-anchor="end" font-size="8" fill="#9CA3AF">200</text>
+          <text x="35" y="94" text-anchor="end" font-size="8" fill="#9CA3AF">150</text>
+          <text x="35" y="124" text-anchor="end" font-size="8" fill="#9CA3AF">100</text>
+          <text x="35" y="154" text-anchor="end" font-size="8" fill="#9CA3AF">50</text>
+          <!-- Oct (outubro) -->
+          <rect x="52" y="70" width="12" height="80" rx="2" fill="#22C55E" opacity="0.7"/>
+          <rect x="68" y="50" width="12" height="100" rx="2" fill="#14532D" opacity="0.8"/>
+          <!-- Nov (novembro) -->
+          <rect x="120" y="55" width="12" height="95" rx="2" fill="#22C55E" opacity="0.7"/>
+          <rect x="136" y="42" width="12" height="108" rx="2" fill="#14532D" opacity="0.8"/>
+          <!-- Dez (dezembro - parcial) -->
+          <rect x="188" y="65" width="12" height="85" rx="2" fill="#22C55E" opacity="0.5"/>
+          <rect x="204" y="52" width="12" height="98" rx="2" fill="#14532D" opacity="0.6"/>
+          <!-- Jan -->
+          <rect x="256" y="78" width="12" height="72" rx="2" fill="#22C55E" opacity="0.3"/>
+          <rect x="272" y="65" width="12" height="85" rx="2" fill="#14532D" opacity="0.3"/>
+          <!-- X-axis labels -->
+          <text x="72" y="168" text-anchor="middle" font-size="8" fill="#9CA3AF">Out</text>
+          <text x="140" y="168" text-anchor="middle" font-size="8" fill="#9CA3AF">Nov</text>
+          <text x="208" y="168" text-anchor="middle" font-size="8" fill="#9CA3AF">Dez</text>
+          <text x="276" y="168" text-anchor="middle" font-size="8" fill="#9CA3AF">Jan</text>
+          <!-- Legend -->
+          <rect x="240" y="8" width="8" height="8" rx="1" fill="#22C55E" opacity="0.8"/>
+          <text x="252" y="15" font-size="7" fill="#6B7280">Paulista</text>
+          <rect x="296" y="8" width="8" height="8" rx="1" fill="#14532D" opacity="0.8"/>
+          <text x="308" y="15" font-size="7" fill="#6B7280">Morumbi</text>
+        </svg>
+      </div>
+      <div class="flex gap-4 mt-3 text-xs text-gray-500">
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-marca-500"></span> Paulista: R$ 342.800</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-marca-800"></span> Morumbi: R$ 298.400</span>
+      </div>
+    </div>
+
+    <!-- Taxa de Ocupação + Ticket Médio por Especialidade -->
+    <div class="grid grid-cols-2 gap-3">
+      <!-- Ocupação Donut -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+        <h3 class="font-display font-semibold text-xs text-marca-900 mb-2">Taxa de Ocupação</h3>
+        <div class="relative flex justify-center">
+          <svg viewBox="0 0 100 100" class="w-24 h-24 -rotate-90">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#E5E7EB" stroke-width="10"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#22C55E" stroke-width="10" stroke-dasharray="238.76 190.08" stroke-dashoffset="0" stroke-linecap="round"/>
+          </svg>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="font-display font-bold text-lg text-marca-900">78%</span>
+          </div>
+        </div>
+        <p class="text-center text-xs text-gray-500 mt-1">1.847 / 2.368 vagas</p>
+      </div>
+      <!-- Ticket Médio -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+        <h3 class="font-display font-semibold text-xs text-marca-900 mb-2">Ticket Médio p/ Espec.</h3>
+        <div class="space-y-1.5 mt-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Cardiologia</span>
+            <span class="text-xs font-semibold text-marca-800">R$ 420,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:82%"></div></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Dermatologia</span>
+            <span class="text-xs font-semibold text-marca-800">R$ 310,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:65%"></div></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Pediatria</span>
+            <span class="text-xs font-semibold text-marca-800">R$ 245,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:52%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 10 Profissionais -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="p-4 pb-2 flex items-center justify-between">
+        <div>
+          <h3 class="font-display font-semibold text-sm text-marca-900">Top 10 Profissionais</h3>
+          <p class="text-xs text-gray-400">Por volume de atendimento</p>
+        </div>
+        <button onclick="relatorios_gerenciais_drillDown('profissionais')" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Ver todos →</button>
+      </div>
+      <div id="lista-profissionais" class="divide-y divide-gray-50">
+        <div onclick="relatorios_gerenciais_verProfissional('Dr. Carlos Mendes', 'Cardiologia', 342, 'R$ 143.640,00', '+8,3%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-marca-100 flex items-center justify-center text-marca-800 text-xs font-bold flex-shrink-0">CM</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dr. Carlos Mendes</p>
+            <p class="text-xs text-gray-400">Cardiologia</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">342 atend.</p>
+            <span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>8,3%
+            </span>
+          </div>
+        </div>
+        <div onclick="relatorios_gerenciais_verProfissional('Dra. Ana Beatriz', 'Dermatologia', 298, 'R$ 92.380,00', '+5,1%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 text-xs font-bold flex-shrink-0">AB</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dra. Ana Beatriz</p>
+            <p class="text-xs text-gray-400">Dermatologia</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">298 atend.</p>
+            <span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>5,1%
+            </span>
+          </div>
+        </div>
+        <div onclick="relatorios_gerenciais_verProfissional('Dr. Ricardo Souza', 'Pediatria', 275, 'R$ 67.375,00', '+2,7%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 text-xs font-bold flex-shrink-0">RS</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dr. Ricardo Souza</p>
+            <p class="text-xs text-gray-400">Pediatria</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">275 atend.</p>
+            <span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>2,7%
+            </span>
+          </div>
+        </div>
+        <div onclick="relatorios_gerenciais_verProfissional('Dra. Patrícia Lima', 'Ginecologia', 241, 'R$ 84.350,00', '+6,4%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-800 text-xs font-bold flex-shrink-0">PL</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dra. Patrícia Lima</p>
+            <p class="text-xs text-gray-400">Ginecologia</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">241 atend.</p>
+            <span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>6,4%
+            </span>
+          </div>
+        </div>
+        <div onclick="relatorios_gerenciais_verProfissional('Dr. Fernando Alves', 'Ortopedia', 198, 'R$ 59.400,00', '-1,2%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-teal-100 flex items-center justify-center text-teal-800 text-xs font-bold flex-shrink-0">FA</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dr. Fernando Alves</p>
+            <p class="text-xs text-gray-400">Ortopedia</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">198 atend.</p>
+            <span class="inline-flex items-center text-xs text-red-600 bg-red-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>1,2%
+            </span>
+          </div>
+        </div>
+        <div onclick="relatorios_gerenciais_verProfissional('Dra. Juliana Rocha', 'Psicologia', 176, 'R$ 26.400,00', '+4,5%')" class="flex items-center gap-3 px-4 py-3 active:bg-marca-50/50 transition-colors cursor-pointer">
+          <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-rose-800 text-xs font-bold flex-shrink-0">JR</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 truncate">Dra. Juliana Rocha</p>
+            <p class="text-xs text-gray-400">Psicologia</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-sm font-semibold text-marca-800">176 atend.</p>
+            <span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">
+              <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>4,5%
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inadimplência por Convênio -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="font-display font-semibold text-sm text-marca-900">Inadimplência por Convênio</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Total em atraso: R$ 48.320,00</p>
+        </div>
+        <button onclick="relatorios_gerenciais_drillDown('inadimplencia')" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Detalhar →</button>
+      </div>
+      <div class="space-y-2.5">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-600">Unimed</span>
+            <span class="text-xs font-medium text-red-600">R$ 18.450,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width:38%"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-600">Bradesco Saúde</span>
+            <span class="text-xs font-medium text-red-600">R$ 12.800,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width:26%"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-600">SulAmérica</span>
+            <span class="text-xs font-medium text-red-600">R$ 8.920,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width:18%"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-600">Particular</span>
+            <span class="text-xs font-medium text-red-600">R$ 5.150,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width:10%"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-600">Amil</span>
+            <span class="text-xs font-medium text-red-600">R$ 3.000,00</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width:8%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lucratividade por Centro de Custo -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="font-display font-semibold text-sm text-marca-900">Lucratividade por Centro</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Receita - Custo - Repasse</p>
+        </div>
+        <button onclick="relatorios_gerenciais_drillDown('lucratividade')" class="text-xs text-marca-600 font-medium hover:text-marca-700 transition-colors">Detalhar →</button>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-marca-50/50">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-marca-500"></div>
+            <span class="text-xs font-medium text-gray-700">LabMed - Paulista</span>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-marca-800">R$ 142.380</p>
+            <span class="text-xs text-gray-400">margem 32%</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-marca-50/50">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-marca-700"></div>
+            <span class="text-xs font-medium text-gray-700">LabMed - Morumbi</span>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-marca-800">R$ 98.640</p>
+            <span class="text-xs text-gray-400">margem 28%</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-marca-50/50">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-marca-400"></div>
+            <span class="text-xs font-medium text-gray-700">LabMed - Santo Amaro</span>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-marca-800">R$ 67.200</p>
+            <span class="text-xs text-gray-400">margem 25%</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-marca-50/50">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-marca-300"></div>
+            <span class="text-xs font-medium text-gray-700">LabMed - Osasco</span>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-marca-800">R$ 54.780</p>
+            <span class="text-xs text-gray-400">margem 22%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navegação entre relatórios -->
+    <div class="grid grid-cols-2 gap-3">
+      <button onclick="mostrarTela('financeiro-e-repasses')" class="btn flex items-center justify-center gap-2 py-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Financeiro e Repasses
+      </button>
+      <button onclick="mostrarTela('centro-de-custos')" class="btn flex items-center justify-center gap-2 py-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        Centro de Custos
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function relatorios_gerenciais_atualizarPeriodo() {
+      var sel = document.getElementById('sel-periodo');
+      var labels = {
+        'mes-atual': 'Novembro / 2025',
+        'mes-anterior': 'Outubro / 2025',
+        'trimestre': 'Q4 2025',
+        'ano': 'Ano de 2025'
+      };
+      toast('Período atualizado: ' + labels[sel.value], 'ok');
+      relatorios_gerenciais_recarregarDados();
+    }
+
+    function relatorios_gerenciais_atualizarUnidade() {
+      var sel = document.getElementById('sel-unidade');
+      var nome = sel.options[sel.selectedIndex].text;
+      toast('Unidade filtrada: ' + nome, 'ok');
+      relatorios_gerenciais_recarregarDados();
+    }
+
+    function relatorios_gerenciais_recarregarDados() {
+      var kpis = document.querySelectorAll('[onclick^="relatorios_gerenciais_drillDown"]');
+      kpis.forEach(function(k) {
+        k.style.opacity = '0.6';
+        setTimeout(function() { k.style.opacity = '1'; }, 400);
+      });
+    }
+
+    function relatorios_gerenciais_drillDown(tipo) {
+      var titulos = {
+        'faturamento': 'Detalhamento de Faturamento',
+        'faturamento-grafico': 'Faturamento por Centro de Custo — Detalhamento',
+        'atendimentos': 'Detalhamento de Atendimentos',
+        'ticket': 'Detalhamento de Ticket Médio',
+        'inadimplencia': 'Relatório de Inadimplência por Convênio',
+        'profissionais': 'Ranking Completo de Profissionais',
+        'lucratividade': 'Relatório de Lucratividade por Centro de Custo'
+      };
+      var html = '<div class="p-4 space-y-4">';
+      html += '<p class="text-sm text-gray-500">Período: Novembro / 2025 · Unidade: ' + document.getElementById('sel-unidade').options[document.getElementById('sel-unidade').selectedIndex].text + '</p>';
+      if (tipo === 'faturamento' || tipo === 'faturamento-grafico') {
+        html += '<div class="space-y-3">';
+        html += relatorios_gerenciais_linhaDetalhe('Paulista', 'R$ 342.800,00', '+12,4%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Morumbi', 'R$ 298.400,00', '+8,7%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Santo Amaro', 'R$ 112.350,00', '+5,2%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Osasco', 'R$ 89.700,00', '+3,1%', true);
+        html += '<div class="border-t pt-2 mt-2 flex justify-between text-sm font-semibold text-marca-900"><span>Total</span><span>R$ 843.250,00</span></div>';
+        html += '</div>';
+        html += '<div class="flex gap-2 mt-4"><button onclick="relatorios_gerenciais_exportarPDF(); fecharModal();" class="btn flex-1 text-center text-sm py-2">Exportar PDF</button><button onclick="relatorios_gerenciais_exportarExcel(); fecharModal();" class="btn flex-1 text-center text-sm py-2">Exportar Excel</button></div>';
+      } else if (tipo === 'inadimplencia') {
+        html += '<div class="space-y-3">';
+        html += relatorios_gerenciais_linhaDetalhe('Unimed', 'R$ 18.450,00 (38,2%)', '-2,1%', false);
+        html += relatorios_gerenciais_linhaDetalhe('Bradesco Saúde', 'R$ 12.800,00 (26,5%)', '+1,4%', false);
+        html += relatorios_gerenciais_linhaDetalhe('SulAmérica', 'R$ 8.920,00 (18,4%)', '-0,8%', false);
+        html += relatorios_gerenciais_linhaDetalhe('Particular', 'R$ 5.150,00 (10,6%)', '+3,2%', false);
+        html += relatorios_gerenciais_linhaDetalhe('Amil', 'R$ 3.000,00 (6,2%)', '-1,1%', false);
+        html += '<div class="border-t pt-2 mt-2 flex justify-between text-sm font-semibold text-red-700"><span>Total em atraso</span><span>R$ 48.320,00</span></div>';
+        html += '</div>';
+        html += '<div class="flex gap-2 mt-4"><button onclick="fecharModal(); toast(\'Cobrança automática iniciada\', \'ok\')" class="btn flex-1 text-center text-sm py-2">Cobrar Automaticamente</button><button onclick="relatorios_gerenciais_exportarPDF(); fecharModal();" class="btn flex-1 text-center text-sm py-2">Exportar Relatório</button></div>';
+      } else if (tipo === 'ticket') {
+        html += '<div class="space-y-3">';
+        html += relatorios_gerenciais_linhaDetalhe('Cardiologia', 'R$ 420,00', '+3,2%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Dermatologia', 'R$ 310,00', '+1,8%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Ginecologia', 'R$ 285,00', '+4,5%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Ortopedia', 'R$ 300,00', '-0,5%', false);
+        html += relatorios_gerenciais_linhaDetalhe('Pediatria', 'R$ 245,00', '+2,1%', true);
+        html += '</div>';
+      } else if (tipo === 'atendimentos') {
+        html += '<div class="space-y-3">';
+        html += relatorios_gerenciais_linhaDetalhe('Consultas Clínicas', '1.024 atend.', '+9,1%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Exames Laboratoriais', '487 atend.', '+5,6%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Exames de Imagem', '198 atend.', '+2,3%', true);
+        html += relatorios_gerenciais_linhaDetalhe('Procedimentos', '138 atend.', '-3,4%', false);
+        html += '</div>';
+      } else if (tipo === 'profissionais') {
+        html += '<div class="space-y-3">';
+        for (var i = 0; i < 10; i++) {
+          var nomes = ['Dr. Carlos Mendes','Dra. Ana Beatriz','Dr. Ricardo Souza','Dra. Patrícia Lima','Dr. Fernando Alves','Dra. Juliana Rocha','Dr. Marcos Vieira','Dra. Camila Torres','Dr. André Pinto','Dra. Luciana Fogaça'];
+          var especs = ['Cardiologia','Dermatologia','Pediatria','Ginecologia','Ortopedia','Psicologia','Neurologia','Endocrinologia','Urologia','Nutrição'];
+          var atends = [342,298,275,241,198,176,154,132,118,97];
+          var vals = [143640,92380,67375,84350,59400,26400,61600,39600,59000,19400];
+          var varis = ['+8,3%','+5,1%','+2,7%','+6,4%','-1,2%','+4,5%','+7,2%','+3,8%','+1,5%','+6,0%'];
+          var cores = ['bg-marca-100 text-marca-800','bg-amber-100 text-amber-800','bg-blue-100 text-blue-800','bg-purple-100 text-purple-800','bg-teal-100 text-teal-800','bg-rose-100 text-rose-800','bg-indigo-100 text-indigo-800','bg-orange-100 text-orange-800','bg-cyan-100 text-cyan-800','bg-pink-100 text-pink-800'];
+          var iniciais = nomes[i].split(' ').map(function(w){return w[0];}).join('').substring(0,2);
+          html += '<div class="flex items-center gap-3 p-2 rounded-xl bg-gray-50">';
+          html += '<div class="w-8 h-8 rounded-full ' + cores[i] + ' flex items-center justify-center text-xs font-bold flex-shrink-0">' + iniciais + '</div>';
+          html += '<div class="flex-1"><p class="text-sm font-medium text-gray-800">' + nomes[i] + '</p><p class="text-xs text-gray-400">' + especs[i] + '</p></div>';
+          html += '<div class="text-right"><p class="text-sm font-semibold text-marca-800">' + atends[i] + ' atend.</p>';
+          if (varis[i].startsWith('+')) {
+            html += '<span class="inline-flex items-center text-xs text-green-600 bg-green-50 rounded-full px-1.5 py-0.5">' + varis[i] + '</span>';
+          } else {
+            html += '<span class="inline-flex items-center text-xs text-red-600 bg-red-50 rounded-full px-1.5 py-0.5">' + varis[i] + '</span>';
+          }
+          html += '</div></div>';
+        }
+        html += '</div>';
+      } else if (tipo === 'lucratividade') {
+        html += '<div class="space-y-3">';
+        html += relatorios_gerenciais_linhaLucro('Paulista', 342800, 232704, 144380, '32%');
+        html += relatorios_gerenciais_linhaLucro('Morumbi', 298400, 214848, 98640, '28%');
+        html += relatorios_gerenciais_linhaLucro('Santo Amaro', 112350, 84262, 67200, '25%');
+        html += relatorios_gerenciais_linhaLucro('Osasco', 89700, 69846, 54780, '22%');
+        html += '</div>';
+      }
+      abrirModal(html, titulos[tipo] || 'Detalhamento');
+    }
+
+    function relatorios_gerenciais_linhaDetalhe(nome, valor, variacao, positiva) {
+      var corVar = (positiva ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50');
+      var seta = (positiva ? 'M5 10l7-7m0 0l7 7m-7-7v18' : 'M19 14l-7 7m0 0l-7-7m7 7V3');
+      return '<div class="flex items-center justify-between p-2.5 rounded-xl bg-gray-50">' +
+        '<span class="text-sm text-gray-700">' + nome + '</span>' +
+        '<div class="flex items-center gap-2">' +
+          '<span class="text-sm font-semibold text-marca-900">' + valor + '</span>' +
+          '<span class="inline-flex items-center text-xs font-medium ' + corVar + ' rounded-full px-1.5 py-0.5">' +
+            '<svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="' + seta + '"/></svg>' + variacao + '</span>' +
+        '</div></div>';
+    }
+
+    function relatorios_gerenciais_linhaLucro(nome, receita, custo, lucro, margem) {
+      return '<div class="p-3 rounded-xl bg-gray-50">' +
+        '<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-700">' + nome + '</span><span class="text-xs font-medium text-marca-700 bg-marca-100 rounded-full px-2 py-0.5">Margem ' + margem + '</span></div>' +
+        '<div class="space-y-1">' +
+          '<div class="flex justify-between text-xs text-gray-500"><span>Receita</span><span class="font-medium">R$ ' + receita.toLocaleString('pt-BR') + '</span></div>' +
+          '<div class="flex justify-between text-xs text-gray-500"><span>Custos</span><span class="font-medium">R$ ' + custo.toLocaleString('pt-BR') + '</span></div>' +
+          '<div class="flex justify-between text-xs font-semibold text-marca-800 border-t pt-1"><span>Lucro</span><span>R$ ' + lucro.toLocaleString('pt-BR') + '</span></div>' +
+        '</div>' +
+        '<div class="w-full bg-gray-200 rounded-full h-1.5 mt-2"><div class="bg-marca-500 h-1.5 rounded-full" style="width:' + margem + '"></div></div>' +
+      '</div>';
+    }
+
+    function relatorios_gerenciais_verProfissional(nome, especialidade, atendimentos, faturamento, variacao) {
+      var isPos = variacao.startsWith('+');
+      var corVar = isPos ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50';
+      var seta = isPos ? 'M5 10l7-7m0 0l7 7m-7-7v18' : 'M19 14l-7 7m0 0l7-7m7 7V3';
+      var iniciais = nome.split(' ').slice(1).map(function(w){return w[0];}).join('').substring(0,2);
+      var html = '<div class="p-4 space-y-4">';
+      html += '<div class="flex items-center gap-3">';
+      html += '<div class="w-14 h-14 rounded-full bg-marca-100 flex items-center justify-center text-marca-800 text-lg font-bold flex-shrink-0">' + iniciais + '</div>';
+      html += '<div><p class="font-display font-bold text-lg text-marca-900">' + nome + '</p><p class="text-sm text-gray-500">' + especialidade + '</p></div>';
+      html += '</div>';
+      html += '<div class="grid grid-cols-2 gap-3">';
+      html += '<div class="p-3 rounded-xl bg-marca-50 text-center"><p class="text-xs text-gray-500">Atendimentos</p><p class="font-display font-bold text-lg text-marca-800">' + atendimentos + '</p></div>';
+      html += '<div class="p-3 rounded-xl bg-marca-50 text-center"><p class="text-xs text-gray-500">Faturamento</p><p class="font-display font-bold text-lg text-marca-800">' + faturamento + '</p></div>';
+      html += '</div>';
+      html += '<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50">';
+      html += '<span class="text-sm text-gray-600">Variação vs mês anterior</span>';
+      html += '<span class="inline-flex items-center text-sm font-medium ' + corVar + ' rounded-full px-2 py-1"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="' + seta + '"/></svg>' + variacao + '</span>';
+      html += '</div>';
+      html += '<div class="space-y-2"><p class="text-xs font-medium text-gray-500">Últimos 6 meses</p>';
+      html += '<div class="flex items-end gap-1 h-16">';
+      var bars = [45, 52, 48, 55, 60, 57];
+      var meses = ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'];
+      bars.forEach(function(h, i) {
+        html += '<div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full bg-marca-500 rounded-t" style="height:' + h + '%;max-height:100%"></div><span class="text-xs text-gray-400">' + meses[i] + '</span></div>';
+      });
+      html += '</div></div>';
+      html += '<button onclick="fecharModal(); mostrarTela(\'financeiro-e-repasses\')" class="btn w-full text-center text-sm py-2.5">Ver Comissões e Repasses</button>';
+      html += '</div>';
+      abrirModal(html, nome + ' — Detalhamento');
+    }
+
+    function relatorios_gerenciais_exportarPDF() {
+      toast('Relatório PDF gerado com sucesso! Download iniciado.', 'ok');
+    }
+
+    function relatorios_gerenciais_exportarExcel() {
+      toast('Planilha Excel exportada com sucesso! Download iniciado.', 'ok');
+    }
+  </script>
+</section>
+
     <!-- TELAS -->
     </main>
 
